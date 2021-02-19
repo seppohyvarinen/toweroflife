@@ -41,6 +41,7 @@ public class TowerOfLife extends ApplicationAdapter {
         world = new World(new Vector2(0, -9.8f), true);
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
         body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT, radius);
+        body.setUserData(bodyTexture);
         createGround();
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
         debugRenderer = new Box2DDebugRenderer();
