@@ -30,6 +30,8 @@ public class TowerOfLife extends ApplicationAdapter {
     private Texture bodyTexture;
     private Sound hit;
     private float radius = 1f;
+    private float boxWidth = 1f;
+    private float boxHeight = 2/3f;
 
     Box2DDebugRenderer debugRenderer;
 
@@ -40,7 +42,8 @@ public class TowerOfLife extends ApplicationAdapter {
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         world = new World(new Vector2(0, -9.8f), true);
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
-        body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT, radius);
+        // body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT, radius);
+        body = createBox(WORLD_WIDTH / 2, WORLD_HEIGHT, boxWidth, boxHeight);
         body.setUserData(bodyTexture);
         createGround();
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
@@ -94,7 +97,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
         batch.begin();
-        batch.draw(bodyTexture, body.getPosition().x - radius, body.getPosition().y - radius, radius * 2, radius * 2);
+        batch.draw(bodyTexture, body.getPosition().x - boxWidth, body.getPosition().y - boxHeight, boxWidth * 2, boxHeight * 2);
         batch.end();
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
@@ -105,9 +108,17 @@ public class TowerOfLife extends ApplicationAdapter {
 
     }
 
+    /*
     private Body createBody(float x, float y, float radius) {
         Body playerBody = world.createBody(getDefinitionOfBody(x, y));
         playerBody.createFixture(getFixtureDefinition(radius));
+        return playerBody;
+    }
+    */
+
+    private Body createBox(float x, float y, float boxWidth, float boxHeight) {
+        Body playerBody = world.createBody(getDefinitionOfBody(x, y));
+        playerBody.createFixture(getFixtureDefinition(boxWidth, boxHeight));
         return playerBody;
     }
 
@@ -125,6 +136,29 @@ public class TowerOfLife extends ApplicationAdapter {
         return myBodyDef;
     }
 
+    private FixtureDef getFixtureDefinition(float boxWidth, float boxHeight) {
+        FixtureDef playerFixtureDef = new FixtureDef();
+
+        // Mass per square meter (kg^m2)
+        playerFixtureDef.density = 1;
+
+        // How bouncy object? Very bouncy [0,1]
+        playerFixtureDef.restitution = 0.1f;
+
+        // How slipper object? [0,1]
+        playerFixtureDef.friction = 0.5f;
+
+        // Create circle shape.
+        PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(boxWidth, boxHeight);
+
+        // Add the shape to the fixture
+        playerFixtureDef.shape = pShape;
+
+        return playerFixtureDef;
+    }
+
+    /*
     private FixtureDef getFixtureDefinition(float radius) {
         FixtureDef playerFixtureDef = new FixtureDef();
 
@@ -132,7 +166,7 @@ public class TowerOfLife extends ApplicationAdapter {
         playerFixtureDef.density = 1;
 
         // How bouncy object? Very bouncy [0,1]
-        playerFixtureDef.restitution = 0.3f;
+        playerFixtureDef.restitution = 0.1f;
 
         // How slipper object? [0,1]
         playerFixtureDef.friction = 0.5f;
@@ -146,6 +180,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
         return playerFixtureDef;
     }
+    */
 
     private BodyDef getGroundBodyDef() {
         // Body Definition
