@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class TowerOfLife extends ApplicationAdapter {
@@ -77,11 +78,11 @@ public class TowerOfLife extends ApplicationAdapter {
 		playerFixtureDef.friction = 0.5f;
 
 		// Create circle shape.
-		CircleShape circleshape = new CircleShape();
-		circleshape.setRadius(radius);
+		PolygonShape pShape = new PolygonShape();
+		pShape.setRadius(radius);
 
 		// Add the shape to the fixture
-		playerFixtureDef.shape = circleshape;
+		playerFixtureDef.shape = pShape;
 
 		return playerFixtureDef;
 	}
