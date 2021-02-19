@@ -29,6 +29,7 @@ public class TowerOfLife extends ApplicationAdapter {
 		camera.setToOrtho(false,WORLD_WIDTH,WORLD_HEIGHT);
 		world = new World(new Vector2(0, -9.8f), true);
 		body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0.5f);
+		createGround();
 
 	}
 
@@ -85,5 +86,38 @@ public class TowerOfLife extends ApplicationAdapter {
 		playerFixtureDef.shape = pShape;
 
 		return playerFixtureDef;
+	}
+
+	private BodyDef getGroundBodyDef() {
+		// Body Definition
+		BodyDef myBodyDef = new BodyDef();
+
+		// This body won't move
+		myBodyDef.type = BodyDef.BodyType.StaticBody;
+
+		// Initial position is centered up
+		// This position is the CENTER of the shape!
+		myBodyDef.position.set(WORLD_WIDTH / 2, 0.25f);
+
+		return myBodyDef;
+	}
+
+	private PolygonShape getGroundShape() {
+		// Create shape
+		PolygonShape groundBox = new PolygonShape();
+
+		// Real width and height is 2 X this!
+		groundBox.setAsBox( WORLD_WIDTH/2 , 0.25f);
+
+		return groundBox;
+	}
+
+	public void createGround() {
+		Body groundBody = world.createBody(getGroundBodyDef());
+
+		// Add shape to fixture, 0.0f is density.
+		// Using method createFixture(Shape, density) no need
+		// to create FixtureDef object as on createPlayer!
+		groundBody.createFixture(getGroundShape(), 0.0f);
 	}
 }
