@@ -29,7 +29,7 @@ public class TowerOfLife extends ApplicationAdapter {
     private Body body;
     private Texture bodyTexture;
     private Sound hit;
-    private float radius = 0.5f;
+    private float radius = 1f;
 
     Box2DDebugRenderer debugRenderer;
 
@@ -39,8 +39,8 @@ public class TowerOfLife extends ApplicationAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         world = new World(new Vector2(0, -9.8f), true);
-        bodyTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
-        body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, radius);
+        bodyTexture = new Texture(Gdx.files.internal("box.png"));
+        body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT, radius);
         createGround();
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
         debugRenderer = new Box2DDebugRenderer();
@@ -93,7 +93,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
         batch.begin();
-        //batch.draw(bodyTexture, body.getPosition().x - radius, body.getPosition().y - radius, radius * 2, radius * 2);
+        batch.draw(bodyTexture, body.getPosition().x - radius, body.getPosition().y - radius, radius * 2, radius * 2);
         batch.end();
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
@@ -131,14 +131,14 @@ public class TowerOfLife extends ApplicationAdapter {
         playerFixtureDef.density = 1;
 
         // How bouncy object? Very bouncy [0,1]
-        playerFixtureDef.restitution = 0.6f;
+        playerFixtureDef.restitution = 0.3f;
 
         // How slipper object? [0,1]
         playerFixtureDef.friction = 0.5f;
 
         // Create circle shape.
         PolygonShape pShape = new PolygonShape();
-        pShape.setAsBox(WORLD_WIDTH / 4, 0.25f);
+        pShape.setAsBox(radius, radius);
 
         // Add the shape to the fixture
         playerFixtureDef.shape = pShape;
