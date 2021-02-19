@@ -39,7 +39,7 @@ public class TowerOfLife extends ApplicationAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         world = new World(new Vector2(0, -9.8f), true);
-        bodyTexture = new Texture(Gdx.files.internal("box.png"));
+        bodyTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
         body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, radius);
         createGround();
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
@@ -90,11 +90,12 @@ public class TowerOfLife extends ApplicationAdapter {
 
         debugRenderer.render(world, camera.combined);
 
-        doPhysicsStep(Gdx.graphics.getDeltaTime());
+
 
         batch.begin();
-        batch.draw(bodyTexture, body.getPosition().x - radius, body.getPosition().y - radius, radius * 2, radius * 2);
+        //batch.draw(bodyTexture, body.getPosition().x - radius, body.getPosition().y - radius, radius * 2, radius * 2);
         batch.end();
+		doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
 
     @Override
@@ -137,7 +138,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
         // Create circle shape.
         PolygonShape pShape = new PolygonShape();
-        pShape.setRadius(radius);
+        pShape.setAsBox(WORLD_WIDTH / 4, 0.25f);
 
         // Add the shape to the fixture
         playerFixtureDef.shape = pShape;
