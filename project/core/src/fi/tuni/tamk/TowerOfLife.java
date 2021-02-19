@@ -9,122 +9,115 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class TowerOfLife extends ApplicationAdapter {
-    private static final float WORLD_WIDTH = 9f;
-    private static final float WORLD_HEIGHT = 16f;
-    private float radius = 0.5f;
+	private static final float WORLD_WIDTH = 9f;
+	private static final float WORLD_HEIGHT =16f ;
+	SpriteBatch batch;
+	private OrthographicCamera camera;
+	private World world;
+	private Body body;
 
-    SpriteBatch batch;
+	@Override
+	public void create () {
+		batch = new SpriteBatch();
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false,WORLD_WIDTH,WORLD_HEIGHT);
+		world = new World(new Vector2(0, -9.8f), true);
+		body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0.5f);
+		createGround();
 
-    private World world;
+	}
 
-    private Body body;
-    private Texture bodyTexture;
+	@Override
+	public void render () {
+		batch.begin();
 
-    private OrthographicCamera camera;
-    private Box2DDebugRenderer debugRenderer;
+		batch.end();
+	}
+	
+	@Override
+	public void dispose () {
+		batch.dispose();
 
-    @Override
-    public void create() {
-        batch = new SpriteBatch();
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-        world = new World(new Vector2(0, -9.8f), true);
-        body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0.5f);
+	}
 
-        //bodyTexture = new Texture(Gdx.files.internal(""));
+	private Body createBody(float x, float y, float radius) {
+		Body playerBody = world.createBody(getDefinitionOfBody(x, y));
+		playerBody.createFixture(getFixtureDefinition(radius));
+		return playerBody;
+	}
 
-        debugRenderer = new Box2DDebugRenderer();
-    }
+	private BodyDef getDefinitionOfBody(float x, float y) {
+		// Body Definition
+		BodyDef myBodyDef = new BodyDef();
 
-    @Override
-    public void render() {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		// It's a body that moves
+		myBodyDef.type = BodyDef.BodyType.DynamicBody;
 
-        batch.setProjectionMatrix(camera.combined);
+		// Initial position is centered up
+		// This position is the CENTER of the shape!
+		myBodyDef.position.set(x, y);
 
-        doPhysicsStep(Gdx.graphics.getDeltaTime());
-        debugRenderer.render(world, camera.combined);
+		return myBodyDef;
+	}
 
-        batch.begin();
-        // batch.draw(bodyTexture, body.getPosition().x, body.getPosition().y, radius * 2, radius * 2);
-        batch.end();
-    }
+	private FixtureDef getFixtureDefinition(float radius) {
+		FixtureDef playerFixtureDef = new FixtureDef();
 
-    @Override
-    public void dispose() {
-        batch.dispose();
+		// Mass per square meter (kg^m2)
+		playerFixtureDef.density = 1;
 
-    }
+		// How bouncy object? Very bouncy [0,1]
+		playerFixtureDef.restitution = 0.6f;
 
-    private Body createBody(float x, float y, float radius) {
-        Body playerBody = world.createBody(getDefinitionOfBody(x, y));
-        playerBody.createFixture(getFixtureDefinition(radius));
-        return playerBody;
-    }
+		// How slipper object? [0,1]
+		playerFixtureDef.friction = 0.5f;
 
-    private BodyDef getDefinitionOfBody(float x, float y) {
-        // Body Definition
-        BodyDef myBodyDef = new BodyDef();
+		// Create circle shape.
+		PolygonShape pShape = new PolygonShape();
+		pShape.setRadius(radius);
 
-        // It's a body that moves
-        myBodyDef.type = BodyDef.BodyType.DynamicBody;
+		// Add the shape to the fixture
+		playerFixtureDef.shape = pShape;
 
-        // Initial position is centered up
-        // This position is the CENTER of the shape!
-        myBodyDef.position.set(x, y);
+		return playerFixtureDef;
+	}
 
-        return myBodyDef;
-    }
+	private BodyDef getGroundBodyDef() {
+		// Body Definition
+		BodyDef myBodyDef = new BodyDef();
 
-    private FixtureDef getFixtureDefinition(float radius) {
-        FixtureDef playerFixtureDef = new FixtureDef();
+		// This body won't move
+		myBodyDef.type = BodyDef.BodyType.StaticBody;
 
-        // Mass per square meter (kg^m2)
-        playerFixtureDef.density = 1;
+		// Initial position is centered up
+		// This position is the CENTER of the shape!
+		myBodyDef.position.set(WORLD_WIDTH / 2, 0.25f);
 
-        // How bouncy object? Very bouncy [0,1]
-        playerFixtureDef.restitution = 0.6f;
+		return myBodyDef;
+	}
 
-        // How slipper object? [0,1]
-        playerFixtureDef.friction = 0.5f;
+	private PolygonShape getGroundShape() {
+		// Create shape
+		PolygonShape groundBox = new PolygonShape();
 
-        // Create circle shape.
-        PolygonShape pShape = new PolygonShape();
-        pShape.setRadius(radius);
+		// Real width and height is 2 X this!
+		groundBox.setAsBox( WORLD_WIDTH/2 , 0.25f);
 
-        // Add the shape to the fixture
-        playerFixtureDef.shape = pShape;
+		return groundBox;
+	}
 
-        return playerFixtureDef;
-    }
+	public void createGround() {
+		Body groundBody = world.createBody(getGroundBodyDef());
 
-    private double accumulator = 0;
-    private float TIME_STEP = 1 / 60f;
-
-    private void doPhysicsStep(float deltaTime) {
-
-        float frameTime = deltaTime;
-
-        // If it took ages (over 4 fps, then use 4 fps)
-        // Avoid of "spiral of death"
-        if (deltaTime > 1 / 4f) {
-            frameTime = 1 / 4f;
-        }
-
-        accumulator += frameTime;
-
-        while (accumulator >= TIME_STEP) {
-            // It's fixed time step!
-            world.step(TIME_STEP, 6, 2);
-            accumulator -= TIME_STEP;
-        }
-    }
+		// Add shape to fixture, 0.0f is density.
+		// Using method createFixture(Shape, density) no need
+		// to create FixtureDef object as on createPlayer!
+		groundBody.createFixture(getGroundShape(), 0.0f);
+	}
 }
