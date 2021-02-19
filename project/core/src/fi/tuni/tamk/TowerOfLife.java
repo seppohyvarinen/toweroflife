@@ -2,6 +2,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,8 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -21,6 +27,7 @@ public class TowerOfLife extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private World world;
 	private Body body;
+	private Sound hit;
 
 	@Override
 	public void create () {
@@ -30,6 +37,41 @@ public class TowerOfLife extends ApplicationAdapter {
 		world = new World(new Vector2(0, -9.8f), true);
 		body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT / 2, 0.5f);
 		createGround();
+		hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
+
+		world.setContactListener(new ContactListener() {
+			@Override
+			public void beginContact(Contact contact) {
+				// Game objects collide with each other
+
+				// Let's get user data from both of the objects
+				// We do not know the order:
+				Object userData1 = contact.getFixtureA().getBody().getUserData();
+				Object userData2 = contact.getFixtureB().getBody().getUserData();
+
+				// If we did get user data (ground does not have user data)
+				if((userData1 == null && userData2 != null) || (userData2 == null && userData1 != null)) {
+
+					hit.play();
+
+				}
+			}
+
+			@Override
+			public void endContact(Contact contact) {
+
+			}
+
+			@Override
+			public void preSolve(Contact contact, Manifold oldManifold) {
+
+			}
+
+			@Override
+			public void postSolve(Contact contact, ContactImpulse impulse) {
+
+			}
+		});
 
 	}
 
@@ -120,4 +162,5 @@ public class TowerOfLife extends ApplicationAdapter {
 		// to create FixtureDef object as on createPlayer!
 		groundBody.createFixture(getGroundShape(), 0.0f);
 	}
+
 }
