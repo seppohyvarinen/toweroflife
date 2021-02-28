@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -21,17 +22,19 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class TowerOfLife extends ApplicationAdapter {
-    private static final float WORLD_WIDTH = 9f;
-    private static final float WORLD_HEIGHT = 16f;
+    public static final float WORLD_WIDTH = 9f;
+    public static final float WORLD_HEIGHT = 16f;
     SpriteBatch batch;
     private OrthographicCamera camera;
-    private World world;
-    private Body body;
-    private Texture bodyTexture;
+    public static World world;
+
+    private Box firstBox;
+
     private Sound hit;
     private float radius = 1f;
-    private float boxWidth = 1f;
-    private float boxHeight = 2/3f;
+
+
+    private Texture bodyTexture;
 
     Box2DDebugRenderer debugRenderer;
 
@@ -42,12 +45,25 @@ public class TowerOfLife extends ApplicationAdapter {
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         world = new World(new Vector2(0, -9.8f), true);
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
+
+        // boxit saa parametrina Texturen, josta luodaan uusi boxi, voidaan myöhemmin tehdä Array erilaisista
+        // Textureista = erilaisia boxeja
+        firstBox = new Box(bodyTexture);
         // body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT, radius);
-        body = createBox(WORLD_WIDTH / 2, WORLD_HEIGHT, boxWidth, boxHeight);
-        body.setUserData(bodyTexture);
+
         createGround();
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
         debugRenderer = new Box2DDebugRenderer();
+        Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
+
+
+            @Override
+            public boolean tap(float x, float y, int count, int button) {
+                firstBox.dropIt();
+                return true;
+            }
+
+        }));
 
         world.setContactListener(new ContactListener() {
             @Override
@@ -97,7 +113,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
         batch.begin();
-        batch.draw(bodyTexture, body.getPosition().x - boxWidth, body.getPosition().y - boxHeight, boxWidth * 2, boxHeight * 2);
+        firstBox.draw(batch);
         batch.end();
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
@@ -116,47 +132,7 @@ public class TowerOfLife extends ApplicationAdapter {
     }
     */
 
-    private Body createBox(float x, float y, float boxWidth, float boxHeight) {
-        Body playerBody = world.createBody(getDefinitionOfBody(x, y));
-        playerBody.createFixture(getFixtureDefinition(boxWidth, boxHeight));
-        return playerBody;
-    }
 
-    private BodyDef getDefinitionOfBody(float x, float y) {
-        // Body Definition
-        BodyDef myBodyDef = new BodyDef();
-
-        // It's a body that moves
-        myBodyDef.type = BodyDef.BodyType.DynamicBody;
-
-        // Initial position is centered up
-        // This position is the CENTER of the shape!
-        myBodyDef.position.set(x, y);
-
-        return myBodyDef;
-    }
-
-    private FixtureDef getFixtureDefinition(float boxWidth, float boxHeight) {
-        FixtureDef playerFixtureDef = new FixtureDef();
-
-        // Mass per square meter (kg^m2)
-        playerFixtureDef.density = 1;
-
-        // How bouncy object? Very bouncy [0,1]
-        playerFixtureDef.restitution = 0.1f;
-
-        // How slipper object? [0,1]
-        playerFixtureDef.friction = 0.5f;
-
-        // Create circle shape.
-        PolygonShape pShape = new PolygonShape();
-        pShape.setAsBox(boxWidth, boxHeight);
-
-        // Add the shape to the fixture
-        playerFixtureDef.shape = pShape;
-
-        return playerFixtureDef;
-    }
 
     /*
     private FixtureDef getFixtureDefinition(float radius) {
