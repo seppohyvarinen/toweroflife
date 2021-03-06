@@ -48,7 +48,7 @@ public class TowerOfLife extends ApplicationAdapter {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-        world = new World(new Vector2(0, -20f), true);
+        world = new World(new Vector2(0, -9.8f), true);
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
 
         // boxit saa parametrina Texturen, josta luodaan uusi boxi, voidaan myöhemmin tehdä Array erilaisista
