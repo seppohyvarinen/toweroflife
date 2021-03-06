@@ -3,6 +3,7 @@ package fi.tuni.tamk;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public class Box {
@@ -24,7 +25,7 @@ public class Box {
         if (!drop) {
             b.draw(bodyTexture, TowerOfLife.WORLD_WIDTH / 2 - boxWidth, TowerOfLife.WORLD_HEIGHT - boxHeight, boxWidth * 2, boxHeight * 2);
         }  else {
-            b.draw(bodyTexture, body.getPosition().x - boxWidth, body.getPosition().y - boxHeight, boxWidth * 2, boxHeight * 2);
+            b.draw(bodyTexture, body.getPosition().x - boxWidth, body.getPosition().y -boxHeight, boxWidth * 2, boxHeight * 2);
         }
     }
 

@@ -27,14 +27,16 @@ public class Util {
         return myBodyDef;
     }
 
+
+
     public static FixtureDef getFixtureDefinition(float boxWidth, float boxHeight) {
         FixtureDef playerFixtureDef = new FixtureDef();
 
         // Mass per square meter (kg^m2)
-        playerFixtureDef.density = 1;
+        playerFixtureDef.density = 1000;
 
         // How bouncy object? Very bouncy [0,1]
-        playerFixtureDef.restitution = 0.1f;
+        playerFixtureDef.restitution = 0.0f;
 
         // How slipper object? [0,1]
         playerFixtureDef.friction = 0.5f;

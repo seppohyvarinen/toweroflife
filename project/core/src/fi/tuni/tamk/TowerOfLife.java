@@ -21,6 +21,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.ArrayList;
+
 public class TowerOfLife extends ApplicationAdapter {
     public static final float WORLD_WIDTH = 9f;
     public static final float WORLD_HEIGHT = 16f;
@@ -29,6 +31,9 @@ public class TowerOfLife extends ApplicationAdapter {
     public static World world;
 
     private Box firstBox;
+
+    ArrayList<Box> boxes;
+    int boxCounter = 0;
 
     private Sound hit;
     private float radius = 1f;
@@ -43,12 +48,14 @@ public class TowerOfLife extends ApplicationAdapter {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-        world = new World(new Vector2(0, -9.8f), true);
+        world = new World(new Vector2(0, -20f), true);
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
 
         // boxit saa parametrina Texturen, josta luodaan uusi boxi, voidaan myöhemmin tehdä Array erilaisista
         // Textureista = erilaisia boxeja
         firstBox = new Box(bodyTexture);
+        boxes = new ArrayList<>();
+        boxes.add(firstBox);
         // body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT, radius);
 
         createGround();
@@ -59,7 +66,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
             @Override
             public boolean tap(float x, float y, int count, int button) {
-                firstBox.dropIt();
+                drop();
                 return true;
             }
 
@@ -77,10 +84,16 @@ public class TowerOfLife extends ApplicationAdapter {
 
                 // If we did get user data (ground does not have user data)
                 if ((userData1 == null && userData2 != null) || (userData2 == null && userData1 != null)) {
-
                     hit.play();
-
+                    Box b = new Box(bodyTexture);
+                    boxes.add(b);
                 }
+                if ((userData1 != null && userData2 != null) || (userData2 != null && userData1 != null)) {
+                    hit.play();
+                    Box b = new Box(bodyTexture);
+                    boxes.add(b);
+                }
+
             }
 
             @Override
@@ -113,7 +126,9 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
         batch.begin();
-        firstBox.draw(batch);
+        for (Box box: boxes) {
+            box.draw(batch);
+        }
         batch.end();
 		doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
@@ -124,39 +139,10 @@ public class TowerOfLife extends ApplicationAdapter {
 
     }
 
-    /*
-    private Body createBody(float x, float y, float radius) {
-        Body playerBody = world.createBody(getDefinitionOfBody(x, y));
-        playerBody.createFixture(getFixtureDefinition(radius));
-        return playerBody;
+    public void drop() {
+        boxes.get(boxCounter).dropIt();
+        boxCounter++;
     }
-    */
-
-
-
-    /*
-    private FixtureDef getFixtureDefinition(float radius) {
-        FixtureDef playerFixtureDef = new FixtureDef();
-
-        // Mass per square meter (kg^m2)
-        playerFixtureDef.density = 1;
-
-        // How bouncy object? Very bouncy [0,1]
-        playerFixtureDef.restitution = 0.1f;
-
-        // How slipper object? [0,1]
-        playerFixtureDef.friction = 0.5f;
-
-        // Create circle shape.
-        PolygonShape pShape = new PolygonShape();
-        pShape.setAsBox(radius, radius);
-
-        // Add the shape to the fixture
-        playerFixtureDef.shape = pShape;
-
-        return playerFixtureDef;
-    }
-    */
 
     private BodyDef getGroundBodyDef() {
         // Body Definition
