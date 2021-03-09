@@ -35,5 +35,9 @@ public class Box {
         body.setUserData(bodyTexture);
     }
 
+    public boolean getDropState() {
+        return this.drop;
+    }
+
 
 }

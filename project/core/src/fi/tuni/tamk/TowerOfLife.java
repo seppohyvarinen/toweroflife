@@ -38,6 +38,7 @@ public class TowerOfLife extends ApplicationAdapter {
     private Sound hit;
     private float radius = 1f;
     boolean canSpawn = false;
+    boolean canDrop = true;
     int spawnCounter = 0;
 
 
@@ -68,7 +69,12 @@ public class TowerOfLife extends ApplicationAdapter {
 
             @Override
             public boolean tap(float x, float y, int count, int button) {
-                drop();
+                // canDropilla estetään se, ettei voi tiputtaa, ennen kuin uusi boxi on luotu (ettei drop() metodissa tule OutOfBoundsExceptionia)
+                if (canDrop) {
+                    drop();
+                    canDrop = false;
+                }
+
                 return true;
             }
 
@@ -130,6 +136,7 @@ public class TowerOfLife extends ApplicationAdapter {
         if (spawnCounter > 15) {
             Box b = new Box(bodyTexture);
             boxes.add(b);
+            canDrop = true;
             canSpawn = false;
             spawnCounter = 0;
         }
@@ -154,8 +161,13 @@ public class TowerOfLife extends ApplicationAdapter {
     }
 
     public void drop() {
-        boxes.get(boxCounter).dropIt();
-        boxCounter++;
+
+
+        if (!boxes.get(boxCounter).getDropState()) {
+            boxes.get(boxCounter).dropIt();
+            boxCounter++;
+        }
+
     }
 
     private BodyDef getGroundBodyDef() {
