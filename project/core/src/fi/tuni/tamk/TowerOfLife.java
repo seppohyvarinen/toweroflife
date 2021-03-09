@@ -37,6 +37,8 @@ public class TowerOfLife extends ApplicationAdapter {
 
     private Sound hit;
     private float radius = 1f;
+    boolean canSpawn = false;
+    int spawnCounter = 0;
 
 
     private Texture bodyTexture;
@@ -85,13 +87,13 @@ public class TowerOfLife extends ApplicationAdapter {
                 // If we did get user data (ground does not have user data)
                 if ((userData1 == null && userData2 != null) || (userData2 == null && userData1 != null)) {
                     hit.play();
-                    Box b = new Box(bodyTexture);
-                    boxes.add(b);
+                    spawnCounter = 0;
+                    canSpawn = true;
                 }
                 if ((userData1 != null && userData2 != null) || (userData2 != null && userData1 != null)) {
                     hit.play();
-                    Box b = new Box(bodyTexture);
-                    boxes.add(b);
+                    spawnCounter = 0;
+                    canSpawn = true;
                 }
 
             }
@@ -122,7 +124,19 @@ public class TowerOfLife extends ApplicationAdapter {
         batch.setProjectionMatrix(camera.combined);
 
         debugRenderer.render(world, camera.combined);
+        if (canSpawn) {
+            spawnCounter++;
+        }
+        if (spawnCounter > 15) {
+            Box b = new Box(bodyTexture);
+            boxes.add(b);
+            canSpawn = false;
+            spawnCounter = 0;
+        }
 
+        if (!canSpawn) {
+            Gdx.app.log("yes", "itsfalse");
+        }
 
 
         batch.begin();
