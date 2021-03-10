@@ -31,7 +31,7 @@ public class Box {
 
     public void dropIt() {
         drop = true;
-        body = Util.createBox(TowerOfLife.realX, TowerOfLife.realY, boxWidth, boxHeight);
+        body = Util.createBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
         body.setUserData(bodyTexture);
     }
 

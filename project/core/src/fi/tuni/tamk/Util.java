@@ -38,8 +38,8 @@ public class Util {
         else
             x -= speedX * Gdx.graphics.getDeltaTime();
 
-        if (x > TowerOfLife.WORLD_WIDTH - 3 - Box.boxWidth / 2) {
-            x = TowerOfLife.WORLD_WIDTH - 3 - Box.boxWidth / 2;
+        if (x > TowerOfLife.WORLD_WIDTH - (3 + Box.boxWidth / 2)) {
+            x = TowerOfLife.WORLD_WIDTH - (3 + Box.boxWidth / 2);
             toRight = false;
             toUp = false;
         }
