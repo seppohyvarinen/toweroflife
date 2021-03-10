@@ -1,11 +1,14 @@
 package fi.tuni.tamk;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class Util {
+    private static float speedX = 2f;
+    private static float speedY = 1f;
 
     public static Body createBox(float x, float y, float boxWidth, float boxHeight) {
         Body playerBody = TowerOfLife.world.createBody(getDefinitionOfBody(x, y));
@@ -28,6 +31,42 @@ public class Util {
     }
 
 
+    public static void swing(float x, float y, boolean toRight, boolean toUp) {
+
+        if (toRight)
+            x += speedX * Gdx.graphics.getDeltaTime();
+        else
+            x -= speedX * Gdx.graphics.getDeltaTime();
+
+        if (x > TowerOfLife.WORLD_WIDTH - 3 - Box.boxWidth / 2) {
+            x = TowerOfLife.WORLD_WIDTH - 3 - Box.boxWidth / 2;
+            toRight = false;
+            toUp = false;
+        }
+        if (x < 3 - Box.boxWidth / 2) {
+            x = 3 - Box.boxWidth / 2;
+            toRight = true;
+            toUp = false;
+        }
+
+        if (toUp)
+            y += speedY * Gdx.graphics.getDeltaTime();
+        else
+            y -= speedY * Gdx.graphics.getDeltaTime();
+
+        if (toRight && (x > TowerOfLife.WORLD_WIDTH / 2 - Box.boxWidth / 2))
+            toUp = true;
+        if (!toRight && (x < TowerOfLife.WORLD_WIDTH / 2 - Box.boxWidth / 2))
+            toUp = true;
+
+        if (y < TowerOfLife.WORLD_HEIGHT - 2)
+            y = TowerOfLife.WORLD_HEIGHT - 2;
+
+        TowerOfLife.realX = x;
+        TowerOfLife.realY = y;
+        TowerOfLife.toRight = toRight;
+        TowerOfLife.toUp = toUp;
+    }
 
     public static FixtureDef getFixtureDefinition(float boxWidth, float boxHeight) {
         FixtureDef playerFixtureDef = new FixtureDef();

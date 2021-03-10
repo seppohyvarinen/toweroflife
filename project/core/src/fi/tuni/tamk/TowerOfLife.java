@@ -26,6 +26,10 @@ import java.util.ArrayList;
 public class TowerOfLife extends ApplicationAdapter {
     public static final float WORLD_WIDTH = 9f;
     public static final float WORLD_HEIGHT = 16f;
+    public static float realX = WORLD_WIDTH / 2;
+    public static float realY = WORLD_HEIGHT - 2;
+    public static boolean toRight = true;
+    public static boolean toUp = true;
     SpriteBatch batch;
     private OrthographicCamera camera;
     public static World world;
@@ -147,11 +151,12 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
         batch.begin();
-        for (Box box: boxes) {
+        Util.swing(realX,realY,toRight,toUp);
+        for (Box box : boxes) {
             box.draw(batch);
         }
         batch.end();
-		doPhysicsStep(Gdx.graphics.getDeltaTime());
+        doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
 
     @Override
