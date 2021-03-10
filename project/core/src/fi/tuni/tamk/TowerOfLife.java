@@ -99,11 +99,20 @@ public class TowerOfLife extends ApplicationAdapter {
                     hit.play();
                     spawnCounter = 0;
                     canSpawn = true;
+                    if (userData1 == bodyTexture) {
+                        contact.getFixtureA().getBody().setUserData(null);
+                    }  else
+                        contact.getFixtureB().getBody().setUserData(null);
                 }
                 if ((userData1 != null && userData2 != null) || (userData2 != null && userData1 != null)) {
                     hit.play();
                     spawnCounter = 0;
                     canSpawn = true;
+                    contact.getFixtureA().getBody().setUserData(null);
+                    contact.getFixtureB().getBody().setUserData(null);
+                }
+                if ((userData1 == null && userData2 == null) || (userData2 == null && userData1 == null)) {
+                    hit.play();
                 }
 
             }
