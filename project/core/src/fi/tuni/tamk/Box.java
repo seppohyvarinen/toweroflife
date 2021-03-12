@@ -8,15 +8,19 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class Box {
 
-    private Body body;
+    Body body;
     private Texture bodyTexture;
     public static float boxWidth = 1f;
     public static float boxHeight = 2/3f;
+    String userData;
+    boolean hasBody = false;
 
     private boolean drop = false;
 
-    public Box(Texture t) {
+    public Box(Texture t, String d) {
         bodyTexture = t;
+        userData = d;
+
 
     }
 
@@ -32,7 +36,12 @@ public class Box {
     public void dropIt() {
         drop = true;
         body = Util.createBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
-        body.setUserData(bodyTexture);
+        body.setUserData(userData);
+        hasBody = true;
+    }
+
+    public Body getBody() {
+        return body;
     }
 
     public boolean getDropState() {

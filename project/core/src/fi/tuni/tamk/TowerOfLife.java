@@ -35,6 +35,9 @@ public class TowerOfLife extends ApplicationAdapter {
     public static World world;
 
     private Box firstBox;
+    String itsABox = "box";
+    String itsFirst = "first";
+    String itsGround = "ground";
 
     ArrayList<Box> boxes;
     int boxCounter = 0;
@@ -43,6 +46,8 @@ public class TowerOfLife extends ApplicationAdapter {
     private float radius = 1f;
     boolean canSpawn = false;
     boolean canDrop = true;
+    boolean destroyIsOn = false;
+    int destroyIndex = 0;
     int spawnCounter = 0;
 
 
@@ -60,7 +65,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
         // boxit saa parametrina Texturen, josta luodaan uusi boxi, voidaan myöhemmin tehdä Array erilaisista
         // Textureista = erilaisia boxeja
-        firstBox = new Box(bodyTexture);
+        firstBox = new Box(bodyTexture, itsFirst);
         boxes = new ArrayList<>();
         boxes.add(firstBox);
         // body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT, radius);
@@ -95,22 +100,39 @@ public class TowerOfLife extends ApplicationAdapter {
                 Object userData2 = contact.getFixtureB().getBody().getUserData();
 
                 // If we did get user data (ground does not have user data)
-                if ((userData1 == null && userData2 != null) || (userData2 == null && userData1 != null)) {
-                    hit.play();
-                    spawnCounter = 0;
-                    canSpawn = true;
-                    if (userData1 == bodyTexture) {
-                        contact.getFixtureA().getBody().setUserData(null);
-                    }  else
-                        contact.getFixtureB().getBody().setUserData(null);
-                }
-                if ((userData1 != null && userData2 != null) || (userData2 != null && userData1 != null)) {
+                if ((userData1 == null && userData2 == itsFirst) ||(userData1 == itsFirst && userData2 == null) ) {
                     hit.play();
                     spawnCounter = 0;
                     canSpawn = true;
                     contact.getFixtureA().getBody().setUserData(null);
                     contact.getFixtureB().getBody().setUserData(null);
+
                 }
+                if ((userData1 == null && userData2 == itsABox) || (userData2 == null && userData1 == itsABox)) {
+                    hit.play();
+
+                    spawnCounter = 0;
+                    canSpawn = true;
+                    if (userData1 == itsABox) {
+                        contact.getFixtureA().getBody().setUserData(null);
+                    }  else
+                        contact.getFixtureB().getBody().setUserData(null);
+                }
+                if ((userData1 == itsABox && userData2 == itsABox)) {
+                    hit.play();
+                    spawnCounter = 0;
+                    canSpawn = true;
+
+                }
+                if ((userData1 == itsFirst && userData2 == itsABox) || (userData1 == itsABox && userData2 == itsFirst)) {
+                    hit.play();
+                    spawnCounter = 0;
+                    canSpawn = true;
+                    contact.getFixtureA().getBody().setUserData(null);
+                    contact.getFixtureB().getBody().setUserData(null);
+
+                }
+
                 if ((userData1 == null && userData2 == null) || (userData2 == null && userData1 == null)) {
                     hit.play();
                 }
@@ -147,7 +169,7 @@ public class TowerOfLife extends ApplicationAdapter {
             spawnCounter++;
         }
         if (spawnCounter > 15) {
-            Box b = new Box(bodyTexture);
+            Box b = new Box(bodyTexture, itsABox);
             boxes.add(b);
             canDrop = true;
             canSpawn = false;
@@ -161,6 +183,33 @@ public class TowerOfLife extends ApplicationAdapter {
 
         batch.begin();
         Util.swing(realX,realY,toRight,toUp);
+
+
+
+        for (int i = 0; i < boxes.size(); i++) {
+            if (boxes.get(i).hasBody) {
+                if (!(boxes.get(i).userData.equals("first")) && boxes.get(i).body.getPosition().y <  1.6f) {
+                    destroyIsOn = true;
+                    world.destroyBody(boxes.get(i).body);
+
+                    if (!canDrop) {
+                        spawnCounter = 0;
+                        canSpawn = true;
+                    }
+
+
+                    destroyIndex = i;
+                }
+            }
+
+        }
+
+        if (destroyIsOn) {
+            boxes.remove(destroyIndex);
+            boxCounter--;
+            destroyIsOn = false;
+        }
+
         for (Box box : boxes) {
             box.draw(batch);
         }
