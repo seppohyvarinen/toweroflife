@@ -40,7 +40,10 @@ public class TowerOfLife extends ApplicationAdapter {
     private Box firstBox;
     String itsABox = "box";
     String itsFirst = "first";
-    String itsGround = "ground";
+    String firstStack = "firstStack";
+    String ground = "ground";
+    String stacked = "stacked";
+    String destroy = "destroy";
 
     ArrayList<Box> boxes;
     int boxCounter = 0;
@@ -105,40 +108,65 @@ public class TowerOfLife extends ApplicationAdapter {
                 Object userData2 = contact.getFixtureB().getBody().getUserData();
 
                 // If we did get user data (ground does not have user data)
-                if ((userData1 == null && userData2 == itsFirst) ||(userData1 == itsFirst && userData2 == null) ) {
+                if ((userData1 == itsFirst && userData2 == ground) ||(userData1 == ground && userData2 == itsFirst) ) {
                     hit.play();
                     spawnCounter = 0;
                     canSpawn = true;
-                    contact.getFixtureA().getBody().setUserData(null);
-                    contact.getFixtureB().getBody().setUserData(null);
+                    if (userData1 == itsFirst) {
+                        contact.getFixtureA().getBody().setUserData(firstStack);
+                    }  else
+                        contact.getFixtureB().getBody().setUserData(firstStack);
+                    Gdx.app.log("hello", "done");
+
 
                 }
-                if ((userData1 == null && userData2 == itsABox) || (userData2 == null && userData1 == itsABox)) {
+                if ((userData1 == firstStack && userData2 == itsABox) ||(userData1 == itsABox && userData2 == firstStack) ) {
                     hit.play();
-
                     spawnCounter = 0;
                     canSpawn = true;
                     if (userData1 == itsABox) {
-                        contact.getFixtureA().getBody().setUserData(null);
+                        contact.getFixtureA().getBody().setUserData(stacked);
                     }  else
-                        contact.getFixtureB().getBody().setUserData(null);
+                        contact.getFixtureB().getBody().setUserData(stacked);
                 }
-                if ((userData1 == itsABox && userData2 == itsABox)) {
+                if ((userData1 == stacked && userData2 == itsABox) ||(userData1 == itsABox && userData2 == stacked) ) {
                     hit.play();
                     spawnCounter = 0;
                     canSpawn = true;
-
+                    if (userData1 == itsABox) {
+                        contact.getFixtureA().getBody().setUserData(stacked);
+                    }  else
+                        contact.getFixtureB().getBody().setUserData(stacked);
                 }
-                if ((userData1 == itsFirst && userData2 == itsABox) || (userData1 == itsABox && userData2 == itsFirst)) {
+                if ((userData1 == stacked && userData2 == ground) ||(userData1 == ground && userData2 == stacked) ) {
+                    hit.play();
+
+                    if (userData1 == stacked) {
+                        contact.getFixtureA().getBody().setUserData(destroy);
+                    }  else
+                        contact.getFixtureB().getBody().setUserData(destroy);
+                }
+                if ((userData1 == ground && userData2 == itsABox) ||(userData1 == itsABox && userData2 == ground) ) {
                     hit.play();
                     spawnCounter = 0;
                     canSpawn = true;
-                    contact.getFixtureA().getBody().setUserData(null);
-                    contact.getFixtureB().getBody().setUserData(null);
+                    if (userData1 == itsABox) {
+                        contact.getFixtureA().getBody().setUserData(destroy);
+                        Gdx.app.log("hello", "done");
+
+                    }  else
+                        contact.getFixtureB().getBody().setUserData(destroy);
+                    Gdx.app.log("hello", "done");
 
                 }
 
-                if ((userData1 == null && userData2 == null) || (userData2 == null && userData1 == null)) {
+                if ((userData1 == stacked && userData2 == stacked) || (userData2 == stacked && userData1 == stacked)) {
+                    hit.play();
+                }
+                if ((userData1 == stacked && userData2 == firstStack) || (userData2 == stacked && userData1 == firstStack)) {
+                    hit.play();
+                }
+                if ((userData1 == ground && userData2 == firstStack) || (userData2 == ground && userData1 == firstStack)) {
                     hit.play();
                 }
 
@@ -170,7 +198,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
         batch.setProjectionMatrix(camera.combined);
 
-        debugRenderer.render(world, camera.combined);
+        //debugRenderer.render(world, camera.combined);
         if (canSpawn) {
             spawnCounter++;
         }
@@ -182,20 +210,22 @@ public class TowerOfLife extends ApplicationAdapter {
             spawnCounter = 0;
         }
 
-        if (!canSpawn) {
-            Gdx.app.log("yes", "itsfalse");
-        }
+
 
         moveCamera(boxCounter);
 
         batch.begin();
+        batch.draw(backdrop,0f,0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
 
-        batch.draw(backdrop,0,0, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
+
         Util.swing(realX,realY,toRight,toUp);
+
+
 
         for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).hasBody) {
-                if (!(boxes.get(i).userData.equals("first")) && boxes.get(i).body.getPosition().y <  1.6f) {
+                if ((boxes.get(i).body.getUserData().equals(destroy))) {
+                    Gdx.app.log("hello", "yes here we are");
                     destroyIsOn = true;
                     world.destroyBody(boxes.get(i).body);
 
@@ -266,6 +296,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
     public void createGround() {
         Body groundBody = world.createBody(getGroundBodyDef());
+        groundBody.setUserData(ground);
 
         // Add shape to fixture, 0.0f is density.
         // Using method createFixture(Shape, density) no need
