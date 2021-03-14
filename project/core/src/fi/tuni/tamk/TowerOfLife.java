@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,7 @@ public class TowerOfLife extends ApplicationAdapter {
     public static boolean toRight = true;
     public static boolean toUp = true;
     SpriteBatch batch;
+    SpriteBatch hudbatch;
     private OrthographicCamera camera;
     public static World world;
 
@@ -52,6 +55,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
     private Texture bodyTexture;
+    private Texture backdrop;
 
     Box2DDebugRenderer debugRenderer;
 
@@ -62,6 +66,7 @@ public class TowerOfLife extends ApplicationAdapter {
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         world = new World(new Vector2(0, -9.8f), true);
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
+        backdrop = new Texture(Gdx.files.internal("backdrop_small.png"));
 
         // boxit saa parametrina Texturen, josta luodaan uusi boxi, voidaan myöhemmin tehdä Array erilaisista
         // Textureista = erilaisia boxeja
@@ -157,6 +162,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
     }
 
+
     @Override
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -180,11 +186,12 @@ public class TowerOfLife extends ApplicationAdapter {
             Gdx.app.log("yes", "itsfalse");
         }
 
+        moveCamera(boxCounter);
 
         batch.begin();
+
+        batch.draw(backdrop,0,0, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
         Util.swing(realX,realY,toRight,toUp);
-
-
 
         for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).hasBody) {
@@ -286,6 +293,14 @@ public class TowerOfLife extends ApplicationAdapter {
             world.step(TIME_STEP, 6, 2);
             accumulator -= TIME_STEP;
         }
+    }
+
+    //siirtää kameraa ylös laatikon korkeuden verran, kun laatikoiden määrä on yli 4.
+    private void moveCamera(int boxCounter) {
+        if (boxCounter > 4) {
+            camera.position.y = boxCounter * 4/3f + 2;
+        }
+        camera.update();
     }
 
 }
