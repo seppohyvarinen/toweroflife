@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -24,6 +25,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TowerOfLife extends ApplicationAdapter {
     public static final float WORLD_WIDTH = 9f;
@@ -46,6 +48,8 @@ public class TowerOfLife extends ApplicationAdapter {
     String destroy = "destroy";
 
     ArrayList<Box> boxes;
+    Iterator<Box> itr;
+    ArrayList<Integer> removeTheseIndexes;
     int boxCounter = 0;
 
     private Sound hit;
@@ -53,6 +57,7 @@ public class TowerOfLife extends ApplicationAdapter {
     boolean canSpawn = false;
     boolean canDrop = true;
     boolean destroyIsOn = false;
+    boolean okayToLoop = true;
     int destroyIndex = 0;
     int spawnCounter = 0;
 
@@ -75,7 +80,11 @@ public class TowerOfLife extends ApplicationAdapter {
         // Textureista = erilaisia boxeja
         firstBox = new Box(bodyTexture, itsFirst);
         boxes = new ArrayList<>();
+        itr = boxes.iterator();
+
         boxes.add(firstBox);
+        removeTheseIndexes = new ArrayList<>();
+
         // body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT, radius);
 
         createGround();
@@ -221,31 +230,35 @@ public class TowerOfLife extends ApplicationAdapter {
         Util.swing(realX,realY,toRight,toUp);
 
 
+        if (okayToLoop) {
+            for (int i = 0; i < boxes.size(); i++) {
+                if (boxes.get(i).hasBody) {
+                    if ((boxes.get(i).body.getUserData().equals(destroy))) {
+                        Gdx.app.log("hello", "yes here we are");
+                        destroyIsOn = true;
 
-        for (int i = 0; i < boxes.size(); i++) {
-            if (boxes.get(i).hasBody) {
-                if ((boxes.get(i).body.getUserData().equals(destroy))) {
-                    Gdx.app.log("hello", "yes here we are");
-                    destroyIsOn = true;
-                    world.destroyBody(boxes.get(i).body);
-
-                    if (!canDrop) {
-                        spawnCounter = 0;
-                        canSpawn = true;
+                        if (!canDrop) {
+                            spawnCounter = 0;
+                            canSpawn = true;
+                        }
+                        destroyIndex = i;
+                        okayToLoop = false;
                     }
-
-
-                    destroyIndex = i;
                 }
             }
-
         }
+
 
         if (destroyIsOn) {
+            world.destroyBody(boxes.get(destroyIndex).body);
+
             boxes.remove(destroyIndex);
-            boxCounter--;
+            boxCounter --;
             destroyIsOn = false;
+            okayToLoop = true;
         }
+
+
 
         for (Box box : boxes) {
             box.draw(batch);
