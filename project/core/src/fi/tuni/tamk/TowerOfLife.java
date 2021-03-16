@@ -59,6 +59,7 @@ public class TowerOfLife extends ApplicationAdapter {
     boolean canDrop = true;
     boolean destroyIsOn = false;
     boolean okayToLoop = true;
+    boolean positiveBoxes = true;
     int destroyIndex = 0;
     int spawnCounter = 0;
     int getThis;
@@ -244,8 +245,19 @@ public class TowerOfLife extends ApplicationAdapter {
             spawnCounter++;
         }
         if (spawnCounter > 15) {
-            Box b = new Box(bodyTexture, itsABox);
-            boxes.add(b);
+            if (boxCounter%5 == 0) {
+                positiveBoxes = false;
+                getThis = MathUtils.random(0, negative.size() - 1);
+                Box b = new Box(negative.get(getThis), itsABox);
+                boxes.add(b);
+            }  else {
+                positiveBoxes = true;
+                getThis = MathUtils.random(0, positive.size() - 1);
+                Box b = new Box(positive.get(getThis), itsABox);
+                boxes.add(b);
+
+            }
+
             canDrop = true;
             canSpawn = false;
             spawnCounter = 0;
