@@ -32,12 +32,12 @@ public class TowerOfLife extends ApplicationAdapter {
     public static final float WORLD_WIDTH = 9f;
     public static final float WORLD_HEIGHT = 16f;
     public static float realX = WORLD_WIDTH / 2;
-    public static float realY = WORLD_HEIGHT - 2;
+    public static float realY = WORLD_HEIGHT - 2 - Box.boxHeight;
     public static boolean toRight = true;
     public static boolean toUp = true;
     SpriteBatch batch;
     SpriteBatch hudbatch;
-    private OrthographicCamera camera;
+    public static OrthographicCamera camera;
     public static World world;
 
     private Box firstBox;

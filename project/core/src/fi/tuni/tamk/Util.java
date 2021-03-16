@@ -33,18 +33,24 @@ public class Util {
 
     public static void swing(float x, float y, boolean toRight, boolean toUp) {
 
+        float maxY = TowerOfLife.camera.position.y + TowerOfLife.WORLD_HEIGHT / 2 - 1 - Box.boxHeight;
+        float minY = TowerOfLife.camera.position.y + TowerOfLife.WORLD_HEIGHT / 2 - 2 - Box.boxHeight;
+
+        float maxX = TowerOfLife.WORLD_WIDTH - (3 + Box.boxWidth / 2);
+        float minX = 2 - Box.boxWidth / 2;
+
         if (toRight)
             x += speedX * Gdx.graphics.getDeltaTime();
         else
             x -= speedX * Gdx.graphics.getDeltaTime();
 
-        if (x > TowerOfLife.WORLD_WIDTH - (3 + Box.boxWidth / 2)) {
-            x = TowerOfLife.WORLD_WIDTH - (3 + Box.boxWidth / 2);
+        if (x > maxX) {
+            x = maxX;
             toRight = false;
             toUp = false;
         }
-        if (x < 3 - Box.boxWidth / 2) {
-            x = 3 - Box.boxWidth / 2;
+        if (x < minX) {
+            x = minX;
             toRight = true;
             toUp = false;
         }
@@ -54,13 +60,20 @@ public class Util {
         else
             y -= speedY * Gdx.graphics.getDeltaTime();
 
-        if (toRight && (x > TowerOfLife.WORLD_WIDTH / 2 - Box.boxWidth / 2))
+        if (toRight && (x > TowerOfLife.WORLD_WIDTH / 2 - Box.boxWidth))
             toUp = true;
-        if (!toRight && (x < TowerOfLife.WORLD_WIDTH / 2 - Box.boxWidth / 2))
+        if (!toRight && (x < TowerOfLife.WORLD_WIDTH / 2 - Box.boxWidth))
             toUp = true;
 
-        if (y < TowerOfLife.WORLD_HEIGHT - 2)
-            y = TowerOfLife.WORLD_HEIGHT - 2;
+        if (y > maxY) {
+            y = maxY;
+            System.out.println("MAX Y");
+        }
+
+        if (y < minY) {
+            y = minY;
+            System.out.println("MIN Y");
+        }
 
         TowerOfLife.realX = x;
         TowerOfLife.realY = y;
