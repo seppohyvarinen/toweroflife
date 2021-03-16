@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -60,9 +61,20 @@ public class TowerOfLife extends ApplicationAdapter {
     boolean okayToLoop = true;
     int destroyIndex = 0;
     int spawnCounter = 0;
+    int getThis;
 
 
     private Texture bodyTexture;
+    private Texture anger;
+    private Texture awe;
+    private Texture fear;
+    private Texture hate;
+    private Texture joy;
+    private Texture love;
+    private Texture sorrow;
+
+    ArrayList<Texture> positive;
+    ArrayList<Texture> negative;
     private Texture backdrop;
 
     Box2DDebugRenderer debugRenderer;
@@ -73,12 +85,32 @@ public class TowerOfLife extends ApplicationAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         world = new World(new Vector2(0, -9.8f), true);
+
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
         backdrop = new Texture(Gdx.files.internal("backdrop_small.png"));
+        anger = new Texture(Gdx.files.internal("em_anger.png"));
+        awe = new Texture(Gdx.files.internal("em_awe.png"));
+        fear = new Texture(Gdx.files.internal("em_fear.png"));
+        hate = new Texture(Gdx.files.internal("em_hate.png"));
+        joy = new Texture(Gdx.files.internal("em_joy.png"));
+        love = new Texture(Gdx.files.internal("em_love.png"));
+        sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
+
+        positive = new ArrayList<>();
+        negative = new ArrayList<>();
+
+        negative.add(anger);
+        negative.add(fear);
+        negative.add(hate);
+        negative.add(sorrow);
+        positive.add(awe);
+        positive.add(joy);
+        positive.add(love);
 
         // boxit saa parametrina Texturen, josta luodaan uusi boxi, voidaan myöhemmin tehdä Array erilaisista
         // Textureista = erilaisia boxeja
-        firstBox = new Box(bodyTexture, itsFirst);
+        getThis = MathUtils.random(0, positive.size() - 1);
+        firstBox = new Box(positive.get(getThis), itsFirst);
         boxes = new ArrayList<>();
         itr = boxes.iterator();
 
