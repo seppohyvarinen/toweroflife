@@ -67,12 +67,10 @@ public class Util {
 
         if (y > maxY) {
             y = maxY;
-            System.out.println("MAX Y");
         }
 
         if (y < minY) {
             y = minY;
-            System.out.println("MIN Y");
         }
 
         TowerOfLife.realX = x;

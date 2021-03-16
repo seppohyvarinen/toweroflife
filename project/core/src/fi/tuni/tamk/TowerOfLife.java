@@ -3,12 +3,15 @@ package fi.tuni.tamk;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -53,6 +56,13 @@ public class TowerOfLife extends ApplicationAdapter {
     ArrayList<Integer> removeTheseIndexes;
     int boxCounter = 0;
 
+
+    //Score näyttölle
+    private FreeTypeFontGenerator fontGenerator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+    BitmapFont font;
+
+
     private Sound hit;
     private float radius = 1f;
     boolean canSpawn = false;
@@ -86,6 +96,16 @@ public class TowerOfLife extends ApplicationAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         world = new World(new Vector2(0, -9.8f), true);
+
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Typori-Regular.ttf"));
+        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        fontParameter.size = 5;
+        // fontParameter.borderWidth = 1;
+        //fontParameter.borderColor = Color.BLACK;
+        fontParameter.color = Color.WHITE;
+
+        font = fontGenerator.generateFont(fontParameter);
+
 
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
         backdrop = new Texture(Gdx.files.internal("backdrop_small.png"));
@@ -150,7 +170,7 @@ public class TowerOfLife extends ApplicationAdapter {
                 Object userData2 = contact.getFixtureB().getBody().getUserData();
 
                 // If we did get user data (ground does not have user data)
-                if ((userData1 == itsFirst && userData2 == ground) ||(userData1 == ground && userData2 == itsFirst) ) {
+                if ((userData1 == itsFirst && userData2 == ground) || (userData1 == ground && userData2 == itsFirst)) {
                     hit.play();
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -158,13 +178,13 @@ public class TowerOfLife extends ApplicationAdapter {
                     }
                     if (userData1 == itsFirst) {
                         contact.getFixtureA().getBody().setUserData(firstStack);
-                    }  else
+                    } else
                         contact.getFixtureB().getBody().setUserData(firstStack);
                     Gdx.app.log("hello", "done");
 
 
                 }
-                if ((userData1 == firstStack && userData2 == itsABox) ||(userData1 == itsABox && userData2 == firstStack) ) {
+                if ((userData1 == firstStack && userData2 == itsABox) || (userData1 == itsABox && userData2 == firstStack)) {
                     hit.play();
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -172,10 +192,10 @@ public class TowerOfLife extends ApplicationAdapter {
                     }
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
-                    }  else
+                    } else
                         contact.getFixtureB().getBody().setUserData(stacked);
                 }
-                if ((userData1 == stacked && userData2 == itsABox) ||(userData1 == itsABox && userData2 == stacked) ) {
+                if ((userData1 == stacked && userData2 == itsABox) || (userData1 == itsABox && userData2 == stacked)) {
                     hit.play();
 
                     if (!canDrop) {
@@ -184,18 +204,18 @@ public class TowerOfLife extends ApplicationAdapter {
                     }
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
-                    }  else
+                    } else
                         contact.getFixtureB().getBody().setUserData(stacked);
                 }
-                if ((userData1 == stacked && userData2 == ground) ||(userData1 == ground && userData2 == stacked) ) {
+                if ((userData1 == stacked && userData2 == ground) || (userData1 == ground && userData2 == stacked)) {
                     hit.play();
 
                     if (userData1 == stacked) {
                         contact.getFixtureA().getBody().setUserData(destroy);
-                    }  else
+                    } else
                         contact.getFixtureB().getBody().setUserData(destroy);
                 }
-                if ((userData1 == ground && userData2 == itsABox) ||(userData1 == itsABox && userData2 == ground) ) {
+                if ((userData1 == ground && userData2 == itsABox) || (userData1 == itsABox && userData2 == ground)) {
                     hit.play();
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -205,7 +225,7 @@ public class TowerOfLife extends ApplicationAdapter {
                         contact.getFixtureA().getBody().setUserData(destroy);
                         Gdx.app.log("hello", "done");
 
-                    }  else
+                    } else
                         contact.getFixtureB().getBody().setUserData(destroy);
                     Gdx.app.log("hello", "done");
 
@@ -254,12 +274,12 @@ public class TowerOfLife extends ApplicationAdapter {
             spawnCounter++;
         }
         if (spawnCounter > 15) {
-            if (boxCounter%5 == 0) {
+            if (boxCounter % 5 == 0) {
                 positiveBoxes = false;
                 getThis = MathUtils.random(0, negative.size() - 1);
                 Box b = new Box(negative.get(getThis), itsABox);
                 boxes.add(b);
-            }  else {
+            } else {
                 positiveBoxes = true;
                 getThis = MathUtils.random(0, positive.size() - 1);
                 Box b = new Box(positive.get(getThis), itsABox);
@@ -273,14 +293,13 @@ public class TowerOfLife extends ApplicationAdapter {
         }
 
 
-
         moveCamera(boxCounter);
 
         batch.begin();
-        batch.draw(backdrop,0f,0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
+        batch.draw(backdrop, 0f, 0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
 
 
-        Util.swing(realX,realY,toRight,toUp);
+        Util.swing(realX, realY, toRight, toUp);
 
 
         if (okayToLoop) {
@@ -306,16 +325,17 @@ public class TowerOfLife extends ApplicationAdapter {
             world.destroyBody(boxes.get(destroyIndex).body);
 
             boxes.remove(destroyIndex);
-            boxCounter --;
+            boxCounter--;
             destroyIsOn = false;
             okayToLoop = true;
         }
 
 
-
         for (Box box : boxes) {
             box.draw(batch);
         }
+
+        font.draw(batch, "Score: " + boxCounter, 0, WORLD_HEIGHT - 1);
         batch.end();
         doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
@@ -395,7 +415,7 @@ public class TowerOfLife extends ApplicationAdapter {
     //siirtää kameraa ylös laatikon korkeuden verran, kun laatikoiden määrä on yli 4.
     private void moveCamera(int boxCounter) {
         if (boxCounter > 4) {
-            camera.position.y = boxCounter * 4/3f + 2;
+            camera.position.y = boxCounter * 4 / 3f + 2;
         }
         camera.update();
     }
