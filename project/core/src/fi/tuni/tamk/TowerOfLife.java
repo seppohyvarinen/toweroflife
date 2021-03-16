@@ -152,8 +152,10 @@ public class TowerOfLife extends ApplicationAdapter {
                 // If we did get user data (ground does not have user data)
                 if ((userData1 == itsFirst && userData2 == ground) ||(userData1 == ground && userData2 == itsFirst) ) {
                     hit.play();
-                    spawnCounter = 0;
-                    canSpawn = true;
+                    if (!canDrop) {
+                        spawnCounter = 0;
+                        canSpawn = true;
+                    }
                     if (userData1 == itsFirst) {
                         contact.getFixtureA().getBody().setUserData(firstStack);
                     }  else
@@ -164,8 +166,10 @@ public class TowerOfLife extends ApplicationAdapter {
                 }
                 if ((userData1 == firstStack && userData2 == itsABox) ||(userData1 == itsABox && userData2 == firstStack) ) {
                     hit.play();
-                    spawnCounter = 0;
-                    canSpawn = true;
+                    if (!canDrop) {
+                        spawnCounter = 0;
+                        canSpawn = true;
+                    }
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     }  else
@@ -173,8 +177,11 @@ public class TowerOfLife extends ApplicationAdapter {
                 }
                 if ((userData1 == stacked && userData2 == itsABox) ||(userData1 == itsABox && userData2 == stacked) ) {
                     hit.play();
-                    spawnCounter = 0;
-                    canSpawn = true;
+
+                    if (!canDrop) {
+                        spawnCounter = 0;
+                        canSpawn = true;
+                    }
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     }  else
@@ -190,8 +197,10 @@ public class TowerOfLife extends ApplicationAdapter {
                 }
                 if ((userData1 == ground && userData2 == itsABox) ||(userData1 == itsABox && userData2 == ground) ) {
                     hit.play();
-                    spawnCounter = 0;
-                    canSpawn = true;
+                    if (!canDrop) {
+                        spawnCounter = 0;
+                        canSpawn = true;
+                    }
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(destroy);
                         Gdx.app.log("hello", "done");
