@@ -41,6 +41,7 @@ public class TowerOfLife extends ApplicationAdapter {
     SpriteBatch batch;
     SpriteBatch hudbatch;
     public static OrthographicCamera camera;
+    public static OrthographicCamera hudcamera;
     public static World world;
 
     private Box firstBox;
@@ -94,15 +95,18 @@ public class TowerOfLife extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
+        hudbatch = new SpriteBatch();
         camera = new OrthographicCamera();
+        hudcamera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+        hudcamera.setToOrtho(false, WORLD_WIDTH * 100f, WORLD_HEIGHT * 100f);
         world = new World(new Vector2(0, -9.8f), true);
 
-        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Typori-Regular.ttf"));
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        fontParameter.size = 5;
-        // fontParameter.borderWidth = 1;
-        //fontParameter.borderColor = Color.BLACK;
+        fontParameter.size = 72;
+        fontParameter.borderWidth = 1.5f;
+        fontParameter.borderColor = Color.LIGHT_GRAY;
         fontParameter.color = Color.WHITE;
 
         font = fontGenerator.generateFont(fontParameter);
@@ -276,6 +280,7 @@ public class TowerOfLife extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(camera.combined);
+        hudbatch.setProjectionMatrix(hudcamera.combined);
         Gdx.app.log("hello", "boxes:" + boxCounter);
 
 
@@ -355,11 +360,12 @@ public class TowerOfLife extends ApplicationAdapter {
                 }
             }
         }*/
+            batch.end();
 
-            font.draw(batch, "Score: " + boxCounter, 0, WORLD_HEIGHT - 1);
+            hudbatch.begin();
+            font.draw(hudbatch, "Score: " + boxCounter, 10, WORLD_HEIGHT * 100 - 10);
+            hudbatch.end();
         }
-
-        batch.end();
         doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
 

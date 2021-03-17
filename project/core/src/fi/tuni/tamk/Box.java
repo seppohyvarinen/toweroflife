@@ -10,7 +10,7 @@ public class Box {
 
     Body body;
     private Texture bodyTexture;
-    public static float boxWidth = 1f;
+    public static float boxWidth = 4/3f;
     public static float boxHeight = 2/3f;
     public static String userData;
     boolean hasBody = false;
