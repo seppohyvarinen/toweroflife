@@ -70,6 +70,7 @@ public class TowerOfLife extends ApplicationAdapter {
     boolean destroyIsOn = false;
     boolean okayToLoop = true;
     boolean positiveBoxes = true;
+    boolean mainGame = true;
     int destroyIndex = 0;
     int spawnCounter = 0;
     int getThis;
@@ -149,7 +150,7 @@ public class TowerOfLife extends ApplicationAdapter {
             @Override
             public boolean tap(float x, float y, int count, int button) {
                 // canDropilla estetään se, ettei voi tiputtaa, ennen kuin uusi boxi on luotu (ettei drop() metodissa tule OutOfBoundsExceptionia)
-                if (canDrop) {
+                if (canDrop && mainGame) {
                     drop();
                     canDrop = false;
                 }
@@ -279,6 +280,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
         //debugRenderer.render(world, camera.combined);
+
         if (canSpawn) {
             spawnCounter++;
         }
@@ -305,45 +307,47 @@ public class TowerOfLife extends ApplicationAdapter {
         moveCamera(boxCounter);
 
         batch.begin();
-        batch.draw(backdrop, 0f, 0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
+
+        if (mainGame) {
+            batch.draw(backdrop, 0f, 0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
 
 
-        Util.swing(realX, realY, toRight, toUp);
+            Util.swing(realX, realY, toRight, toUp);
 
 
-        if (okayToLoop) {
-            for (int i = 0; i < boxes.size(); i++) {
-                if (boxes.get(i).hasBody) {
-                    if ((boxes.get(i).body.getUserData().equals(destroy))) {
-                        Gdx.app.log("hello", "yes here we are");
-                        destroyIsOn = true;
+            if (okayToLoop) {
+                for (int i = 0; i < boxes.size(); i++) {
+                    if (boxes.get(i).hasBody) {
+                        if ((boxes.get(i).body.getUserData().equals(destroy))) {
+                            Gdx.app.log("hello", "yes here we are");
+                            destroyIsOn = true;
 
-                        if (!canDrop) {
-                            spawnCounter = 0;
-                            canSpawn = true;
+                            if (!canDrop) {
+                                spawnCounter = 0;
+                                canSpawn = true;
+                            }
+                            destroyIndex = i;
+                            okayToLoop = false;
                         }
-                        destroyIndex = i;
-                        okayToLoop = false;
                     }
                 }
             }
-        }
 
 
-        if (destroyIsOn) {
-            world.destroyBody(boxes.get(destroyIndex).body);
+            if (destroyIsOn) {
+                world.destroyBody(boxes.get(destroyIndex).body);
 
-            boxes.remove(destroyIndex);
-            destroyIsOn = false;
-            okayToLoop = true;
-        }
+                boxes.remove(destroyIndex);
+                destroyIsOn = false;
+                okayToLoop = true;
+            }
 
 
-        for (Box box : boxes) {
-            box.draw(batch);
-        }
+            for (Box box : boxes) {
+                box.draw(batch);
+            }
 
-        //Palikoiden freezaus
+            //Palikoiden freezaus
       /*  for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).hasBody) {
                 if (boxes.get(i).body.getPosition().y <= camera.position.y-WORLD_HEIGHT/2) {
@@ -352,7 +356,9 @@ public class TowerOfLife extends ApplicationAdapter {
             }
         }*/
 
-        font.draw(batch, "Score: " + boxCounter, 0, WORLD_HEIGHT - 1);
+            font.draw(batch, "Score: " + boxCounter, 0, WORLD_HEIGHT - 1);
+        }
+
         batch.end();
         doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
