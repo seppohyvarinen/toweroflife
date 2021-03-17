@@ -12,7 +12,7 @@ public class Box {
     private Texture bodyTexture;
     public static float boxWidth = 1f;
     public static float boxHeight = 2/3f;
-    String userData;
+    public static String userData;
     boolean hasBody = false;
 
     private boolean drop = false;

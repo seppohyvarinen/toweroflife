@@ -176,11 +176,13 @@ public class TowerOfLife extends ApplicationAdapter {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
+
                     if (userData1 == itsFirst) {
                         contact.getFixtureA().getBody().setUserData(firstStack);
                     } else
                         contact.getFixtureB().getBody().setUserData(firstStack);
                     Gdx.app.log("hello", "done");
+                    boxCounter++;
 
 
                 }
@@ -190,10 +192,12 @@ public class TowerOfLife extends ApplicationAdapter {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
+
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
+                    boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == itsABox) || (userData1 == itsABox && userData2 == stacked)) {
                     hit.play();
@@ -202,10 +206,12 @@ public class TowerOfLife extends ApplicationAdapter {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
+
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
+                    boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == ground) || (userData1 == ground && userData2 == stacked)) {
                     hit.play();
@@ -214,6 +220,7 @@ public class TowerOfLife extends ApplicationAdapter {
                         contact.getFixtureA().getBody().setUserData(destroy);
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
+                    boxCounter--;
                 }
                 if ((userData1 == ground && userData2 == itsABox) || (userData1 == itsABox && userData2 == ground)) {
                     hit.play();
@@ -227,7 +234,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
-                    Gdx.app.log("hello", "done");
+
 
                 }
 
@@ -268,6 +275,8 @@ public class TowerOfLife extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(camera.combined);
+        Gdx.app.log("hello", "boxes:" + boxCounter);
+
 
         //debugRenderer.render(world, camera.combined);
         if (canSpawn) {
@@ -325,7 +334,6 @@ public class TowerOfLife extends ApplicationAdapter {
             world.destroyBody(boxes.get(destroyIndex).body);
 
             boxes.remove(destroyIndex);
-            boxCounter--;
             destroyIsOn = false;
             okayToLoop = true;
         }
@@ -351,7 +359,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
         if (!boxes.get(boxCounter).getDropState()) {
             boxes.get(boxCounter).dropIt();
-            boxCounter++;
+
         }
 
     }
