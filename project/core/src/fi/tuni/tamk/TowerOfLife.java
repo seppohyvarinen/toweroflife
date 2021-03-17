@@ -344,13 +344,13 @@ public class TowerOfLife extends ApplicationAdapter {
         }
 
         //Palikoiden freezaus
-        for (int i = 0; i < boxes.size(); i++) {
+      /*  for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).hasBody) {
                 if (boxes.get(i).body.getPosition().y <= camera.position.y-WORLD_HEIGHT/2) {
                     boxes.get(i).body.setType(BodyDef.BodyType.StaticBody);
                 }
             }
-        }
+        }*/
 
         font.draw(batch, "Score: " + boxCounter, 0, WORLD_HEIGHT - 1);
         batch.end();
