@@ -343,6 +343,15 @@ public class TowerOfLife extends ApplicationAdapter {
             box.draw(batch);
         }
 
+        //Palikoiden freezaus
+        for (int i = 0; i < boxes.size(); i++) {
+            if (boxes.get(i).hasBody) {
+                if (boxes.get(i).body.getPosition().y <= camera.position.y-WORLD_HEIGHT/2) {
+                    boxes.get(i).body.setType(BodyDef.BodyType.StaticBody);
+                }
+            }
+        }
+
         font.draw(batch, "Score: " + boxCounter, 0, WORLD_HEIGHT - 1);
         batch.end();
         doPhysicsStep(Gdx.graphics.getDeltaTime());
