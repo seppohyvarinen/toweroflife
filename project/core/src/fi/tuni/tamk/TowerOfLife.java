@@ -412,8 +412,11 @@ public class TowerOfLife extends ApplicationAdapter {
                 gameOver = true;
 
             hudbatch.begin();
-            font.draw(hudbatch, "Score: " + boxCounter, 10, WORLD_HEIGHT * 100 - 10);
-            font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
+            if (mainGame) {
+                font.draw(hudbatch, "Score: " + boxCounter, 10, WORLD_HEIGHT * 100 - 10);
+                font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
+            }
+
 
             if (gameOver) {
                 font.draw(hudbatch, "GAME OVER!", 200, WORLD_HEIGHT * 100 - 100);
