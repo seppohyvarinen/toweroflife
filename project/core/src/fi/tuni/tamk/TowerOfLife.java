@@ -51,6 +51,7 @@ public class TowerOfLife extends ApplicationAdapter {
     String ground = "ground";
     String stacked = "stacked";
     String destroy = "destroy";
+    String negativeBox = "negativebox";
 
     ArrayList<Box> boxes;
     Iterator<Box> itr;
@@ -68,6 +69,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
     private Sound hit;
+    private Sound mode;
     private float radius = 1f;
     boolean canSpawn = false;
     boolean canDrop = true;
@@ -75,8 +77,10 @@ public class TowerOfLife extends ApplicationAdapter {
     boolean okayToLoop = true;
     boolean positiveBoxes = true;
     boolean mainGame = true;
+    boolean minigameStart = false;
     int destroyIndex = 0;
     int spawnCounter = 0;
+    int miniGameCounter = 0;
     int getThis;
 
 
@@ -150,6 +154,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
         createGround();
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
+        mode = Gdx.audio.newSound(Gdx.files.internal("mode.mp3"));
         debugRenderer = new Box2DDebugRenderer();
         Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
 
@@ -157,12 +162,20 @@ public class TowerOfLife extends ApplicationAdapter {
             @Override
             public boolean tap(float x, float y, int count, int button) {
                 // canDropilla estetään se, ettei voi tiputtaa, ennen kuin uusi boxi on luotu (ettei drop() metodissa tule OutOfBoundsExceptionia)
-                if (!gameOver) {
-                    if (canDrop && mainGame) {
-                        drop();
-                        canDrop = false;
+                if (mainGame) {
+                    if (!gameOver) {
+                        if (canDrop && mainGame) {
+                            drop();
+                            canDrop = false;
+                        }
                     }
+                }  else {
+                    miniGameCounter = 0;
+                    minigameStart = false;
+                    mainGame = true;
                 }
+
+
                 return true;
             }
 
@@ -206,6 +219,7 @@ public class TowerOfLife extends ApplicationAdapter {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
+
                     boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == itsABox) || (userData1 == itsABox && userData2 == stacked)) {
@@ -217,6 +231,22 @@ public class TowerOfLife extends ApplicationAdapter {
                     }
 
                     if (userData1 == itsABox) {
+                        contact.getFixtureA().getBody().setUserData(stacked);
+                    } else
+                        contact.getFixtureB().getBody().setUserData(stacked);
+                    boxCounter++;
+                }
+
+                if ((userData1 == stacked && userData2 == negativeBox) || (userData1 == negativeBox && userData2 == stacked)) {
+                    mode.play();
+
+                    if (!canDrop) {
+                        spawnCounter = 0;
+                        canSpawn = true;
+                    }
+                    minigameStart = true;
+
+                    if (userData1 == negativeBox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
@@ -294,11 +324,17 @@ public class TowerOfLife extends ApplicationAdapter {
         if (canSpawn) {
             spawnCounter++;
         }
-        if (spawnCounter > 15) {
+        if (minigameStart) {
+            miniGameCounter++;
+        }
+        if (miniGameCounter > 50) {
+            mainGame = false;
+        }
+        if (spawnCounter > 60) {
             if (boxCounter % 5 == 0) {
                 positiveBoxes = false;
                 getThis = MathUtils.random(0, negative.size() - 1);
-                Box b = new Box(negative.get(getThis), itsABox);
+                Box b = new Box(negative.get(getThis), negativeBox);
                 boxes.add(b);
             } else {
                 positiveBoxes = true;
@@ -320,6 +356,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
         if (mainGame) {
             batch.draw(backdrop, 0f, 0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
+        }
 
             if (!gameOver) {
 
@@ -353,10 +390,12 @@ public class TowerOfLife extends ApplicationAdapter {
                     okayToLoop = true;
                 }
             }
-
-            for (Box box : boxes) {
-                box.draw(batch);
+            if (mainGame) {
+                for (Box box : boxes) {
+                    box.draw(batch);
+                }
             }
+
 
             //Palikoiden freezaus
       /*  for (int i = 0; i < boxes.size(); i++) {
@@ -366,6 +405,7 @@ public class TowerOfLife extends ApplicationAdapter {
                 }
             }
         }*/
+
             batch.end();
 
             if (lives <= 0)
@@ -379,7 +419,7 @@ public class TowerOfLife extends ApplicationAdapter {
                 font.draw(hudbatch, "GAME OVER!", 200, WORLD_HEIGHT * 100 - 100);
             }
             hudbatch.end();
-        }
+
         doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
 
