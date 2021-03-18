@@ -348,6 +348,9 @@ public class TowerOfLife extends ApplicationAdapter {
 
                 if (destroyIsOn) {
                     world.destroyBody(boxes.get(destroyIndex).body);
+            if (destroyIsOn) {
+                world.destroyBody(boxes.get(destroyIndex).body);
+                boxCounter--;
 
                     boxes.remove(destroyIndex);
                     destroyIsOn = false;
