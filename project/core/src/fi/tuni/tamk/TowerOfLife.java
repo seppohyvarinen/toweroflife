@@ -327,7 +327,7 @@ public class TowerOfLife extends ApplicationAdapter {
         if (minigameStart) {
             miniGameCounter++;
         }
-        if (miniGameCounter > 50) {
+        if (miniGameCounter > 50  && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
             mainGame = false;
         }
         if (spawnCounter > 60) {
