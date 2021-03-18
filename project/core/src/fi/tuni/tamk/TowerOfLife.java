@@ -423,7 +423,10 @@ public class TowerOfLife extends ApplicationAdapter {
             }
             hudbatch.end();
 
-        doPhysicsStep(Gdx.graphics.getDeltaTime());
+            if (mainGame) {
+                doPhysicsStep(Gdx.graphics.getDeltaTime());
+
+            }
     }
 
     @Override
