@@ -225,7 +225,6 @@ public class TowerOfLife extends ApplicationAdapter {
                         contact.getFixtureA().getBody().setUserData(destroy);
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
-                    boxCounter--;
                 }
                 if ((userData1 == ground && userData2 == itsABox) || (userData1 == itsABox && userData2 == ground)) {
                     hit.play();
@@ -341,6 +340,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
             if (destroyIsOn) {
                 world.destroyBody(boxes.get(destroyIndex).body);
+                boxCounter--;
 
                 boxes.remove(destroyIndex);
                 destroyIsOn = false;
