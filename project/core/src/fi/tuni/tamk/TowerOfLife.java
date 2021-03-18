@@ -57,9 +57,6 @@ public class TowerOfLife extends ApplicationAdapter {
     ArrayList<Integer> removeTheseIndexes;
     int boxCounter = 0;
 
-    int lives = 3;
-
-    boolean gameOver = false;
 
     //Score näyttölle
     private FreeTypeFontGenerator fontGenerator;
@@ -146,21 +143,22 @@ public class TowerOfLife extends ApplicationAdapter {
         boxes.add(firstBox);
         removeTheseIndexes = new ArrayList<>();
 
+        // body = createBody(WORLD_WIDTH / 2, WORLD_HEIGHT, radius);
+
         createGround();
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
         debugRenderer = new Box2DDebugRenderer();
         Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
 
+
             @Override
             public boolean tap(float x, float y, int count, int button) {
-                // canDropilla estetään se, ettei voi tiputtaa,
-                // ennen kuin uusi boxi on luotu (ettei drop() metodissa tule OutOfBoundsExceptionia)
-                if (!gameOver) {
-                    if (canDrop && mainGame) {
-                        drop();
-                        canDrop = false;
-                    }
+                // canDropilla estetään se, ettei voi tiputtaa, ennen kuin uusi boxi on luotu (ettei drop() metodissa tule OutOfBoundsExceptionia)
+                if (canDrop && mainGame) {
+                    drop();
+                    canDrop = false;
                 }
+
                 return true;
             }
 
@@ -228,7 +226,6 @@ public class TowerOfLife extends ApplicationAdapter {
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
                     boxCounter--;
-                    lives--;
                 }
                 if ((userData1 == ground && userData2 == itsABox) || (userData1 == itsABox && userData2 == ground)) {
                     hit.play();
@@ -289,74 +286,67 @@ public class TowerOfLife extends ApplicationAdapter {
 
         //debugRenderer.render(world, camera.combined);
 
-        if (!gameOver) {
-
-
-            if (canSpawn) {
-                spawnCounter++;
-            }
-            if (spawnCounter > 15) {
-                if (boxCounter % 5 == 0) {
-                    positiveBoxes = false;
-                    getThis = MathUtils.random(0, negative.size() - 1);
-                    Box b = new Box(negative.get(getThis), itsABox);
-                    boxes.add(b);
-                } else {
-                    positiveBoxes = true;
-                    getThis = MathUtils.random(0, positive.size() - 1);
-                    Box b = new Box(positive.get(getThis), itsABox);
-                    boxes.add(b);
-
-                }
-
-                canDrop = true;
-                canSpawn = false;
-                spawnCounter = 0;
-            }
-
-
-            moveCamera(boxCounter);
+        if (canSpawn) {
+            spawnCounter++;
         }
+        if (spawnCounter > 15) {
+            if (boxCounter % 5 == 0) {
+                positiveBoxes = false;
+                getThis = MathUtils.random(0, negative.size() - 1);
+                Box b = new Box(negative.get(getThis), itsABox);
+                boxes.add(b);
+            } else {
+                positiveBoxes = true;
+                getThis = MathUtils.random(0, positive.size() - 1);
+                Box b = new Box(positive.get(getThis), itsABox);
+                boxes.add(b);
+
+            }
+
+            canDrop = true;
+            canSpawn = false;
+            spawnCounter = 0;
+        }
+
+
+        moveCamera(boxCounter);
 
         batch.begin();
 
         if (mainGame) {
             batch.draw(backdrop, 0f, 0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
 
-            if (!gameOver) {
 
-                Util.swing(realX, realY, toRight, toUp);
+            Util.swing(realX, realY, toRight, toUp);
 
-                if (okayToLoop) {
-                    for (int i = 0; i < boxes.size(); i++) {
-                        if (boxes.get(i).hasBody) {
-                            if ((boxes.get(i).body.getUserData().equals(destroy))) {
-                                Gdx.app.log("hello", "yes here we are");
-                                destroyIsOn = true;
 
-                                if (!canDrop) {
-                                    spawnCounter = 0;
-                                    canSpawn = true;
-                                }
-                                destroyIndex = i;
-                                okayToLoop = false;
+            if (okayToLoop) {
+                for (int i = 0; i < boxes.size(); i++) {
+                    if (boxes.get(i).hasBody) {
+                        if ((boxes.get(i).body.getUserData().equals(destroy))) {
+                            Gdx.app.log("hello", "yes here we are");
+                            destroyIsOn = true;
+
+                            if (!canDrop) {
+                                spawnCounter = 0;
+                                canSpawn = true;
                             }
+                            destroyIndex = i;
+                            okayToLoop = false;
                         }
                     }
                 }
+            }
 
 
-                if (destroyIsOn) {
-                    world.destroyBody(boxes.get(destroyIndex).body);
             if (destroyIsOn) {
                 world.destroyBody(boxes.get(destroyIndex).body);
-                boxCounter--;
 
-                    boxes.remove(destroyIndex);
-                    destroyIsOn = false;
-                    okayToLoop = true;
-                }
+                boxes.remove(destroyIndex);
+                destroyIsOn = false;
+                okayToLoop = true;
             }
+
 
             for (Box box : boxes) {
                 box.draw(batch);
@@ -370,20 +360,10 @@ public class TowerOfLife extends ApplicationAdapter {
                 }
             }
         }*/
-
             batch.end();
-
-            if (lives <= 0)
-                gameOver = true;
 
             hudbatch.begin();
             font.draw(hudbatch, "Score: " + boxCounter, 10, WORLD_HEIGHT * 100 - 10);
-            font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
-
-            if (gameOver) {
-                font.draw(hudbatch, "GAME OVER!", 200, WORLD_HEIGHT * 100 - 100);
-            }
-
             hudbatch.end();
         }
         doPhysicsStep(Gdx.graphics.getDeltaTime());
