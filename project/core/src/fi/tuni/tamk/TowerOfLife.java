@@ -169,7 +169,7 @@ public class TowerOfLife extends ApplicationAdapter {
                             canDrop = false;
                         }
                     }
-                }  else {
+                } else {
                     miniGameCounter = 0;
                     minigameStart = false;
                     mainGame = true;
@@ -327,7 +327,7 @@ public class TowerOfLife extends ApplicationAdapter {
         if (minigameStart) {
             miniGameCounter++;
         }
-        if (miniGameCounter > 50  && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
+        if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
             mainGame = false;
         }
         if (spawnCounter > 60) {
@@ -358,75 +358,78 @@ public class TowerOfLife extends ApplicationAdapter {
             batch.draw(backdrop, 0f, 0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
         }
 
-            if (!gameOver) {
+        if (!gameOver) {
 
-                Util.swing(realX, realY, toRight, toUp);
+            Util.swing(realX, realY, toRight, toUp);
 
 
-                if (okayToLoop) {
-                    for (int i = 0; i < boxes.size(); i++) {
-                        if (boxes.get(i).hasBody) {
-                            if ((boxes.get(i).body.getUserData().equals(destroy))) {
-                                Gdx.app.log("hello", "yes here we are");
-                                destroyIsOn = true;
+            if (okayToLoop) {
+                for (int i = 0; i < boxes.size(); i++) {
+                    if (boxes.get(i).hasBody) {
+                        if ((boxes.get(i).body.getUserData().equals(destroy))) {
+                            Gdx.app.log("hello", "yes here we are");
+                            destroyIsOn = true;
 
-                                if (!canDrop) {
-                                    spawnCounter = 0;
-                                    canSpawn = true;
-                                }
-                                destroyIndex = i;
-                                okayToLoop = false;
+                            if (!canDrop) {
+                                spawnCounter = 0;
+                                canSpawn = true;
                             }
+                            destroyIndex = i;
+                            okayToLoop = false;
                         }
                     }
                 }
-
-
-                if (destroyIsOn) {
-                    world.destroyBody(boxes.get(destroyIndex).body);
-
-                    boxes.remove(destroyIndex);
-                    destroyIsOn = false;
-                    okayToLoop = true;
-                }
-            }
-            if (mainGame) {
-                for (Box box : boxes) {
-                    box.draw(batch);
-                }
             }
 
 
-            //Palikoiden freezaus
-      /*  for (int i = 0; i < boxes.size(); i++) {
+            if (destroyIsOn) {
+                world.destroyBody(boxes.get(destroyIndex).body);
+
+                boxes.remove(destroyIndex);
+                destroyIsOn = false;
+                okayToLoop = true;
+            }
+        }
+        if (mainGame) {
+            for (Box box : boxes) {
+                box.draw(batch);
+            }
+        }
+
+
+        //Palikoiden freezaus
+       /* for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).hasBody) {
-                if (boxes.get(i).body.getPosition().y <= camera.position.y-WORLD_HEIGHT/2) {
+                if ((boxes.get(i).body.getPosition().y < camera.position.y - WORLD_HEIGHT / 2) && (i != boxes.size() - 1 || i != boxes.size() - 2)) {
                     boxes.get(i).body.setType(BodyDef.BodyType.StaticBody);
                 }
+
+                if (boxes.get(i).body.getPosition().y >= camera.position.y - WORLD_HEIGHT / 2)
+                    boxes.get(i).body.setType(BodyDef.BodyType.DynamicBody);
             }
         }*/
 
-            batch.end();
+        batch.end();
 
-            if (lives <= 0)
-                gameOver = true;
+        if (lives <= 0)
+            gameOver = true;
 
-            hudbatch.begin();
-            if (mainGame) {
-                font.draw(hudbatch, "Score: " + boxCounter, 10, WORLD_HEIGHT * 100 - 10);
-                font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
-            }
+        hudbatch.begin();
+        if (mainGame) {
+            font.draw(hudbatch, "Score: " + boxCounter, 10, WORLD_HEIGHT * 100 - 10);
+            font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
+        }
 
 
-            if (gameOver) {
-                font.draw(hudbatch, "GAME OVER!", 200, WORLD_HEIGHT * 100 - 100);
-            }
-            hudbatch.end();
+        if (gameOver) {
+            font.draw(hudbatch, "GAME OVER!", 200, WORLD_HEIGHT * 100 - 100);
+        }
+        hudbatch.end();
 
-            if (mainGame) {
-                doPhysicsStep(Gdx.graphics.getDeltaTime());
+        if (mainGame) {
+            doPhysicsStep(Gdx.graphics.getDeltaTime());
 
-            }
+        }
     }
 
     @Override
