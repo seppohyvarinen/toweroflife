@@ -398,9 +398,9 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
         //Palikoiden freezaus
-       /* for (int i = 0; i < boxes.size(); i++) {
+     /*   for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).hasBody) {
-                if ((boxes.get(i).body.getPosition().y < camera.position.y - WORLD_HEIGHT / 2) && (i != boxes.size() - 1 || i != boxes.size() - 2)) {
+                if ((boxes.get(i).body.getPosition().y < camera.position.y - WORLD_HEIGHT / 2) && (i != boxes.size() - 1 && i != boxes.size() - 2)) {
                     boxes.get(i).body.setType(BodyDef.BodyType.StaticBody);
                 }
 
