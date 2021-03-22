@@ -83,6 +83,8 @@ public class TowerOfLife extends ApplicationAdapter {
     int miniGameCounter = 0;
     int getThis;
 
+    MiniGame m;
+
 
     private Texture bodyTexture;
     private Texture anger;
@@ -155,6 +157,9 @@ public class TowerOfLife extends ApplicationAdapter {
         createGround();
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
         mode = Gdx.audio.newSound(Gdx.files.internal("mode.mp3"));
+
+        m = new MiniGame("e");
+
         debugRenderer = new Box2DDebugRenderer();
         Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
 
@@ -239,6 +244,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
                 if ((userData1 == stacked && userData2 == negativeBox) || (userData1 == negativeBox && userData2 == stacked)) {
                     mode.play();
+                    m = new MiniGame("e");
 
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -356,6 +362,8 @@ public class TowerOfLife extends ApplicationAdapter {
 
         if (mainGame) {
             batch.draw(backdrop, 0f, 0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
+        }  else {
+            m.draw(batch);
         }
 
         if (!gameOver) {

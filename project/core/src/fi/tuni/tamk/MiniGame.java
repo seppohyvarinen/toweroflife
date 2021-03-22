@@ -22,6 +22,10 @@ public class MiniGame {
     ArrayList<String> fearProblems;
     ArrayList<String> fearWrongAnswers;
     ArrayList<String> fearRightAnswers;
+    Texture problemBox;
+
+    public static float problemWidth = 5f;
+    public static float problemHeight = 2.2f;
 
     boolean hate = false;
     boolean sorrow = false;
@@ -37,6 +41,7 @@ public class MiniGame {
         fontParameter.borderColor = Color.LIGHT_GRAY;
         fontParameter.color = Color.WHITE;
         font = fontGenerator.generateFont(fontParameter);
+        font.getData().setScale(0.02f, 0.02f);
 
         sorrowProblems = new ArrayList<>();
         sorrowWrongAnswers = new ArrayList<>();
@@ -48,9 +53,21 @@ public class MiniGame {
         fearWrongAnswers = new ArrayList<>();
         fearRightAnswers = new ArrayList<>();
 
+        sorrowProblems.add("Some sorrow related problem");
+        sorrowWrongAnswers.add("wrong answer");
+        sorrowRightAnswers.add("right answer");
+
+        hateProblems.add("Some sorrow related problem");
+        hateWrongAnswers.add("wrong answer");
+        hateRightAnswers.add("right answer");
+        problemBox = new Texture(Gdx.files.internal("problem_box.png"));
+
+
     }
 
     public void draw(SpriteBatch b) {
+        b.draw(problemBox, TowerOfLife.camera.position.x - 2.3f, TowerOfLife.camera.position.y + 4f, problemWidth, problemHeight);
+        font.draw(b, "Some problem", TowerOfLife.camera.position.x - 2.3f, TowerOfLife.camera.position.y + 4f);
 
     }
 }
