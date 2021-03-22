@@ -430,7 +430,7 @@ public class TowerOfLife extends ApplicationAdapter {
             m.draw(hudbatch);
         }
         if (MiniGame.youAreGoddamnRight)
-            Gdx.app.log("", "YOU ARE GODDAMN RIGHT!");
+            Gdx.app.log("minigame", "YOU ARE GODDAMN RIGHT!");
 
 
         if (gameOver) {
