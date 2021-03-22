@@ -24,13 +24,14 @@ public class MiniGame {
     ArrayList<String> fearRightAnswers;
     Texture problemBox;
 
-    public static float problemWidth = 5f;
-    public static float problemHeight = 2.2f;
+    public static float problemWidth = 900f;
+    public static float problemHeight = 200f;
+
+    public boolean youAreGoddamnRight;
 
     boolean hate = false;
     boolean sorrow = false;
     boolean fear = false;
-
 
 
     public MiniGame(String e) {
@@ -41,7 +42,7 @@ public class MiniGame {
         fontParameter.borderColor = Color.LIGHT_GRAY;
         fontParameter.color = Color.WHITE;
         font = fontGenerator.generateFont(fontParameter);
-        font.getData().setScale(0.02f, 0.02f);
+        // font.getData().setScale(0.02f, 0.02f);
 
         sorrowProblems = new ArrayList<>();
         sorrowWrongAnswers = new ArrayList<>();
@@ -66,8 +67,10 @@ public class MiniGame {
     }
 
     public void draw(SpriteBatch b) {
-        b.draw(problemBox, TowerOfLife.camera.position.x - 2.3f, TowerOfLife.camera.position.y + 4f, problemWidth, problemHeight);
-        font.draw(b, "Some problem", TowerOfLife.camera.position.x - 2.3f, TowerOfLife.camera.position.y + 4f);
-
+        b.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 200, problemWidth, problemHeight);
+        font.draw(b, "Some problem", 250, TowerOfLife.WORLD_HEIGHT * 100 - 100);
+        font.draw(b, "Answer1" , 10, TowerOfLife.WORLD_HEIGHT * 100 - 300);
+        font.draw(b, "Answer2" , 550, TowerOfLife.WORLD_HEIGHT * 100 - 300);
+        font.draw(b, "Answer3" , 300, TowerOfLife.WORLD_HEIGHT * 100 - 500);
     }
 }

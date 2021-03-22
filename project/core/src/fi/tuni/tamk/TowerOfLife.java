@@ -362,9 +362,9 @@ public class TowerOfLife extends ApplicationAdapter {
 
         if (mainGame) {
             batch.draw(backdrop, 0f, 0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
-        }  else {
+        } /*else {
             m.draw(batch);
-        }
+        }*/
 
         if (!gameOver) {
 
@@ -426,6 +426,8 @@ public class TowerOfLife extends ApplicationAdapter {
         if (mainGame) {
             font.draw(hudbatch, "Score: " + boxCounter, 10, WORLD_HEIGHT * 100 - 10);
             font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
+        } else {
+            m.draw(hudbatch);
         }
 
 
