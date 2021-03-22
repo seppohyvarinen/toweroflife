@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 public class Box {
 
     Body body;
-    private Texture bodyTexture;
+    Texture bodyTexture;
     public static float boxWidth = 4/3f;
     public static float boxHeight = 2/3f;
     public static String userData;
