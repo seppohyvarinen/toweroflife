@@ -75,17 +75,17 @@ public class MiniGame {
         sorrowWrongAnswers.add("wrong answer");
         sorrowRightAnswers.add("right answer");
 
-        hateProblems.add("problem1");
-        hateProblems.add("problem2");
-        hateProblems.add("problem3");
-        hateProblemOne.add("problem 1 wrong");
-        hateProblemOne.add("problem 1 wrong2");
+        hateProblems.add("hateproblem1");
+        hateProblems.add("hateproblem2");
+        hateProblems.add("hateproblem3");
+        hateProblemOne.add("hateproblem 1 wrong");
+        hateProblemOne.add("hateproblem 1 wrong2");
         hateProblemOne.add("correct!");
-        hateProblemTwo.add("problem 2 wrong");
-        hateProblemTwo.add("problem 2 wrong2");
+        hateProblemTwo.add("hateproblem 2 wrong");
+        hateProblemTwo.add("hateproblem 2 wrong2");
         hateProblemTwo.add("correct!");
-        hateProblemThree.add("problem 3 wrong");
-        hateProblemThree.add("problem 3 wrong2");
+        hateProblemThree.add("hateproblem 3 wrong");
+        hateProblemThree.add("hateproblem 3 wrong2");
         hateProblemThree.add("correct!");
 
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
