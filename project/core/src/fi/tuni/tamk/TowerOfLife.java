@@ -366,7 +366,7 @@ public class TowerOfLife extends ApplicationAdapter {
             if (okayToLoop) {
                 for (int i = 0; i < boxes.size(); i++) {
                     if (boxes.get(i).hasBody) {
-                        if ((boxes.get(i).body.getUserData().equals(destroy))) {
+                        if ((boxes.get(i).body.getUserData().equals(destroy)) || boxes.get(i).body.getPosition().x < 0) {
                             Gdx.app.log("hello", "yes here we are");
                             destroyIsOn = true;
 
