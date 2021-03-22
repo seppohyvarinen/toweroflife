@@ -85,6 +85,7 @@ public class TowerOfLife extends ApplicationAdapter {
     int spawnCounter = 0;
     int miniGameCounter = 0;
     int getThis;
+    float cameraY = WORLD_HEIGHT/2f;
 
     MiniGame m;
 
@@ -560,8 +561,14 @@ public class TowerOfLife extends ApplicationAdapter {
 
     //siirtää kameraa ylös laatikon korkeuden verran, kun laatikoiden määrä on yli 4.
     private void moveCamera(int boxCounter) {
+        float camSpeed = 0.05f;
         if (boxCounter > 4) {
-            camera.position.y = boxCounter * 4 / 3f + 2;
+            cameraY = boxCounter * 4 / 3f + 2;
+        }
+        if (camera.position.y > cameraY + 0.1f) {
+            camera.position.y -= camSpeed;
+        } else if (camera.position.y <= cameraY) {
+            camera.position.y += camSpeed;
         }
         camera.update();
     }
