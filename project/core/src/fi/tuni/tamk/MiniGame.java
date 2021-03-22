@@ -23,6 +23,7 @@ public class MiniGame {
     ArrayList<String> fearWrongAnswers;
     ArrayList<String> fearRightAnswers;
     Texture problemBox;
+    Texture answerBox;
 
     public static float problemWidth = 900f;
     public static float problemHeight = 200f;
@@ -62,6 +63,7 @@ public class MiniGame {
         hateWrongAnswers.add("wrong answer");
         hateRightAnswers.add("right answer");
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
+        answerBox = new Texture(Gdx.files.internal("answer_box.png"));
 
 
     }
@@ -69,8 +71,14 @@ public class MiniGame {
     public void draw(SpriteBatch b) {
         b.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 200, problemWidth, problemHeight);
         font.draw(b, "Some problem", 250, TowerOfLife.WORLD_HEIGHT * 100 - 100);
+
+        b.draw(answerBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 400, 400, 150);
         font.draw(b, "Answer1" , 10, TowerOfLife.WORLD_HEIGHT * 100 - 300);
+
+        b.draw(answerBox, 500, TowerOfLife.WORLD_HEIGHT * 100 - 400, 400, 150);
         font.draw(b, "Answer2" , 550, TowerOfLife.WORLD_HEIGHT * 100 - 300);
+
+        b.draw(answerBox, 250, TowerOfLife.WORLD_HEIGHT * 100 - 600, 400, 150);
         font.draw(b, "Answer3" , 300, TowerOfLife.WORLD_HEIGHT * 100 - 500);
     }
 }
