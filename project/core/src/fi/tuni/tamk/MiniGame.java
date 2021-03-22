@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.ArrayList;
 
@@ -28,7 +32,7 @@ public class MiniGame {
     public static float problemWidth = 900f;
     public static float problemHeight = 200f;
 
-    public boolean youAreGoddamnRight;
+    public static boolean youAreGoddamnRight;
 
     boolean hate = false;
     boolean sorrow = false;
@@ -64,8 +68,6 @@ public class MiniGame {
         hateRightAnswers.add("right answer");
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
         answerBox = new Texture(Gdx.files.internal("answer_box.png"));
-
-
     }
 
     public void draw(SpriteBatch b) {
@@ -80,5 +82,21 @@ public class MiniGame {
 
         b.draw(answerBox, 250, TowerOfLife.WORLD_HEIGHT * 100 - 600, 400, 150);
         font.draw(b, "Answer3" , 300, TowerOfLife.WORLD_HEIGHT * 100 - 500);
+
+        isAnswerRight();
+        Gdx.app.log("minigame", "here");
+    }
+
+    public void isAnswerRight() {
+        final Image answerImage = new Image(answerBox);
+        answerImage.addListener(new ClickListener(){
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                Gdx.app.log("minigame", "WEAREHERE");
+                youAreGoddamnRight = true;
+                return true;
+            }
+        });
     }
 }
+

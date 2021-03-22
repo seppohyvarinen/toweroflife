@@ -322,7 +322,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
         batch.setProjectionMatrix(camera.combined);
         hudbatch.setProjectionMatrix(hudcamera.combined);
-        Gdx.app.log("hello", "boxes:" + boxCounter);
+     //   Gdx.app.log("hello", "boxes:" + boxCounter);
 
 
         //debugRenderer.render(world, camera.combined);
@@ -429,6 +429,8 @@ public class TowerOfLife extends ApplicationAdapter {
         } else {
             m.draw(hudbatch);
         }
+        if (MiniGame.youAreGoddamnRight)
+            Gdx.app.log("", "YOU ARE GODDAMN RIGHT!");
 
 
         if (gameOver) {
