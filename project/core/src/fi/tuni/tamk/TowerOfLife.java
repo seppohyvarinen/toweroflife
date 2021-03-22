@@ -52,6 +52,9 @@ public class TowerOfLife extends ApplicationAdapter {
     String stacked = "stacked";
     String destroy = "destroy";
     String negativeBox = "negativebox";
+    String sorrowBox = "sorrowBox";
+    String hateBox = "hateBox";
+    String fearBox = "fearBox";
 
     ArrayList<Box> boxes;
     Iterator<Box> itr;
@@ -242,9 +245,9 @@ public class TowerOfLife extends ApplicationAdapter {
                     boxCounter++;
                 }
 
-                if ((userData1 == stacked && userData2 == negativeBox) || (userData1 == negativeBox && userData2 == stacked)) {
+                if ((userData1 == stacked && userData2 == sorrowBox) || (userData1 == sorrowBox && userData2 == stacked)) {
                     mode.play();
-                    m = new MiniGame("e");
+                    m = new MiniGame(sorrowBox);
 
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -252,7 +255,39 @@ public class TowerOfLife extends ApplicationAdapter {
                     }
                     minigameStart = true;
 
-                    if (userData1 == negativeBox) {
+                    if (userData1 == sorrowBox) {
+                        contact.getFixtureA().getBody().setUserData(stacked);
+                    } else
+                        contact.getFixtureB().getBody().setUserData(stacked);
+                    boxCounter++;
+                }
+                if ((userData1 == stacked && userData2 == hateBox) || (userData1 == hateBox && userData2 == stacked)) {
+                    mode.play();
+                    m = new MiniGame(hateBox);
+
+                    if (!canDrop) {
+                        spawnCounter = 0;
+                        canSpawn = true;
+                    }
+                    minigameStart = true;
+
+                    if (userData1 == hateBox) {
+                        contact.getFixtureA().getBody().setUserData(stacked);
+                    } else
+                        contact.getFixtureB().getBody().setUserData(stacked);
+                    boxCounter++;
+                }
+                if ((userData1 == stacked && userData2 == fearBox) || (userData1 == fearBox && userData2 == stacked)) {
+                    mode.play();
+                    m = new MiniGame(fearBox);
+
+                    if (!canDrop) {
+                        spawnCounter = 0;
+                        canSpawn = true;
+                    }
+                    minigameStart = true;
+
+                    if (userData1 == fearBox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
@@ -341,6 +376,13 @@ public class TowerOfLife extends ApplicationAdapter {
                 positiveBoxes = false;
                 getThis = MathUtils.random(0, negative.size() - 1);
                 Box b = new Box(negative.get(getThis), negativeBox);
+                if (b.bodyTexture == sorrow) {
+                    b.userData = sorrowBox;
+                }  else if (b.bodyTexture == fear) {
+                    b.userData = fearBox;
+                }  else {
+                    b.userData = hateBox;
+                }
                 boxes.add(b);
             } else {
                 positiveBoxes = true;
