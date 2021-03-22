@@ -1,6 +1,7 @@
 package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,11 +29,12 @@ public class MiniGame {
     ArrayList<String> fearRightAnswers;
     Texture problemBox;
     Texture answerBox;
+    Image answerImage;
 
     public static float problemWidth = 900f;
     public static float problemHeight = 200f;
 
-    public static boolean youAreGoddamnRight;
+    public static boolean youAreGoddamnRight = false;
 
     boolean hate = false;
     boolean sorrow = false;
@@ -68,6 +70,7 @@ public class MiniGame {
         hateRightAnswers.add("right answer");
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
         answerBox = new Texture(Gdx.files.internal("answer_box.png"));
+        answerImage = new Image(answerBox);
     }
 
     public void draw(SpriteBatch b) {
@@ -75,6 +78,7 @@ public class MiniGame {
         font.draw(b, "Some problem", 250, TowerOfLife.WORLD_HEIGHT * 100 - 100);
 
         b.draw(answerBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 400, 400, 150);
+        answerImage.setBounds(0, TowerOfLife.WORLD_HEIGHT * 100 - 400, 400, 150);
         font.draw(b, "Answer1" , 10, TowerOfLife.WORLD_HEIGHT * 100 - 300);
 
         b.draw(answerBox, 500, TowerOfLife.WORLD_HEIGHT * 100 - 400, 400, 150);
@@ -84,11 +88,11 @@ public class MiniGame {
         font.draw(b, "Answer3" , 300, TowerOfLife.WORLD_HEIGHT * 100 - 500);
 
         isAnswerRight();
-        Gdx.app.log("minigame", "here");
     }
 
+
+
     public void isAnswerRight() {
-        final Image answerImage = new Image(answerBox);
         answerImage.addListener(new ClickListener(){
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
