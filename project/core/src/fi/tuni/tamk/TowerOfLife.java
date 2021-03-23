@@ -1,7 +1,6 @@
 package fi.tuni.tamk;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -32,7 +31,7 @@ import com.badlogic.gdx.utils.Align;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class TowerOfLife extends Game {
+public class TowerOfLife extends ApplicationAdapter {
     public static final float WORLD_WIDTH = 9f;
     public static final float WORLD_HEIGHT = 16f;
     public static float realX = WORLD_WIDTH / 2;
