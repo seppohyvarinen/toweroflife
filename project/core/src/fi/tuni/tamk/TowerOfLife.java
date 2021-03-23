@@ -79,11 +79,11 @@ public class TowerOfLife extends ApplicationAdapter {
     boolean destroyIsOn = false;
     boolean okayToLoop = true;
     boolean positiveBoxes = true;
-    boolean mainGame = true;
-    boolean minigameStart = false;
+    static boolean mainGame = true;
+    static boolean minigameStart = false;
     int destroyIndex = 0;
     int spawnCounter = 0;
-    int miniGameCounter = 0;
+    static int miniGameCounter = 0;
     int getThis;
     float cameraY = WORLD_HEIGHT/2f;
 
@@ -178,10 +178,6 @@ public class TowerOfLife extends ApplicationAdapter {
                             canDrop = false;
                         }
                     }
-                } else {
-                    miniGameCounter = 0;
-                    minigameStart = false;
-                    mainGame = true;
                 }
 
 

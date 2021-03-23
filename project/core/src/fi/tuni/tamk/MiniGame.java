@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -299,7 +300,27 @@ public class MiniGame {
         font.draw(b, ans3 , 300, TowerOfLife.WORLD_HEIGHT * 100 - 500);
 
         isAnswerRight();
+        choose();
     }
+
+    public void choose() {
+        if (Gdx.input.isTouched()) {
+            Gdx.app.log("x", "" + Gdx.input.getX());
+            Vector3 touchPoint = new Vector3();
+
+            if (Gdx.input.getX() < 200) {
+
+                TowerOfLife.miniGameCounter = 0;
+                TowerOfLife.minigameStart = false;
+                TowerOfLife.mainGame = true;
+
+
+            }
+
+        }
+    }
+
+
 
 
 
