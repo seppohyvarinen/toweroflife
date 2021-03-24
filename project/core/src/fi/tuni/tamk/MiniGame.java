@@ -118,7 +118,6 @@ public class MiniGame {
         sorrowProblemThree.add("correct!");
 
 
-
         hateProblems.add("hateproblem1");
         hateProblems.add("hateproblem2");
         hateProblems.add("hateproblem3");
@@ -141,9 +140,9 @@ public class MiniGame {
 
         if (e.equals("sorrowBox")) {
             problemList.addAll(sorrowProblems);
-        }  else if (e.equals("hateBox")) {
+        } else if (e.equals("hateBox")) {
             problemList.addAll(hateProblems);
-        }  else {
+        } else {
             problemList.addAll(fearProblems);
         }
 
@@ -160,12 +159,12 @@ public class MiniGame {
                 }
                 int helper2 = aIndex;
                 ans2 = sorrowProblemOne.get(aIndex);
-                while (helper == aIndex || helper2 ==aIndex) {
+                while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = sorrowProblemOne.get(aIndex);
 
-            }  else if (pIndex == 1) {
+            } else if (pIndex == 1) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = sorrowProblemTwo.get(aIndex);
@@ -174,11 +173,11 @@ public class MiniGame {
                 }
                 int helper2 = aIndex;
                 ans2 = sorrowProblemTwo.get(aIndex);
-                while (helper == aIndex || helper2 ==aIndex) {
+                while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = sorrowProblemTwo.get(aIndex);
-            }  else {
+            } else {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = sorrowProblemThree.get(aIndex);
@@ -187,12 +186,12 @@ public class MiniGame {
                 }
                 int helper2 = aIndex;
                 ans2 = sorrowProblemThree.get(aIndex);
-                while (helper == aIndex || helper2 ==aIndex) {
+                while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = sorrowProblemThree.get(aIndex);
             }
-        }  else if (e.equals("fearBox")) {
+        } else if (e.equals("fearBox")) {
             if (pIndex == 0) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
@@ -202,12 +201,12 @@ public class MiniGame {
                 }
                 int helper2 = aIndex;
                 ans2 = fearProblemOne.get(aIndex);
-                while (helper == aIndex || helper2 ==aIndex) {
+                while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = fearProblemOne.get(aIndex);
 
-            }  else if (pIndex == 1) {
+            } else if (pIndex == 1) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = fearProblemTwo.get(aIndex);
@@ -216,11 +215,11 @@ public class MiniGame {
                 }
                 int helper2 = aIndex;
                 ans2 = fearProblemTwo.get(aIndex);
-                while (helper == aIndex || helper2 ==aIndex) {
+                while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = fearProblemTwo.get(aIndex);
-            }  else {
+            } else {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = fearProblemThree.get(aIndex);
@@ -229,12 +228,12 @@ public class MiniGame {
                 }
                 int helper2 = aIndex;
                 ans2 = fearProblemThree.get(aIndex);
-                while (helper == aIndex || helper2 ==aIndex) {
+                while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = fearProblemThree.get(aIndex);
             }
-        }  else {
+        } else {
             if (pIndex == 0) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
@@ -244,12 +243,12 @@ public class MiniGame {
                 }
                 int helper2 = aIndex;
                 ans2 = hateProblemOne.get(aIndex);
-                while (helper == aIndex || helper2 ==aIndex) {
+                while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = hateProblemOne.get(aIndex);
 
-            }  else if (pIndex == 1) {
+            } else if (pIndex == 1) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = hateProblemTwo.get(aIndex);
@@ -258,11 +257,11 @@ public class MiniGame {
                 }
                 int helper2 = aIndex;
                 ans2 = hateProblemTwo.get(aIndex);
-                while (helper == aIndex || helper2 ==aIndex) {
+                while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = hateProblemTwo.get(aIndex);
-            }  else {
+            } else {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = hateProblemThree.get(aIndex);
@@ -271,33 +270,26 @@ public class MiniGame {
                 }
                 int helper2 = aIndex;
                 ans2 = hateProblemThree.get(aIndex);
-                while (helper == aIndex || helper2 ==aIndex) {
+                while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = hateProblemThree.get(aIndex);
             }
         }
-
-
-
-
-
-
     }
 
     public void draw(SpriteBatch b) {
         b.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 200, problemWidth, problemHeight);
         font.draw(b, problem, 250, TowerOfLife.WORLD_HEIGHT * 100 - 100);
 
-        b.draw(answerBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 400, 400, 150);
-        answerImage.setBounds(0, TowerOfLife.WORLD_HEIGHT * 100 - 400, 400, 150);
-        font.draw(b, ans1 , 10, TowerOfLife.WORLD_HEIGHT * 100 - 300);
+        b.draw(answerBox, 0, 200, 400, 150);
+        font.draw(b, ans1, 10, 300);
 
-        b.draw(answerBox, 500, TowerOfLife.WORLD_HEIGHT * 100 - 400, 400, 150);
-        font.draw(b, ans2 , 550, TowerOfLife.WORLD_HEIGHT * 100 - 300);
+        b.draw(answerBox, 500, 200, 400, 150);
+        font.draw(b, ans2, 550, 300);
 
-        b.draw(answerBox, 250, TowerOfLife.WORLD_HEIGHT * 100 - 600, 400, 150);
-        font.draw(b, ans3 , 300, TowerOfLife.WORLD_HEIGHT * 100 - 500);
+        b.draw(answerBox, 250, 400, 400, 150);
+        font.draw(b, ans3, 300, 500);
 
         isAnswerRight();
         choose();
@@ -321,13 +313,9 @@ public class MiniGame {
     }
 
 
-
-
-
     public void isAnswerRight() {
-        answerImage.addListener(new ClickListener(){
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-            {
+        answerImage.addListener(new ClickListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("minigame", "WEAREHERE");
                 youAreGoddamnRight = true;
                 return true;
