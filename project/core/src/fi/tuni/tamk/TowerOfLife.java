@@ -302,6 +302,7 @@ public class TowerOfLife extends ApplicationAdapter {
                 }
                 if ((userData1 == ground && userData2 == itsABox) || (userData1 == itsABox && userData2 == ground)) {
                     hit.play();
+                    lives--;
                     if (!canDrop) {
                         spawnCounter = 0;
                         canSpawn = true;
@@ -354,7 +355,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
         batch.setProjectionMatrix(camera.combined);
         hudbatch.setProjectionMatrix(hudcamera.combined);
-     //   Gdx.app.log("hello", "boxes:" + boxCounter);
+        //   Gdx.app.log("hello", "boxes:" + boxCounter);
 
 
         //debugRenderer.render(world, camera.combined);
@@ -450,7 +451,6 @@ public class TowerOfLife extends ApplicationAdapter {
                 if ((boxes.get(i).body.getPosition().y < camera.position.y - WORLD_HEIGHT / 2) && (i != boxes.size() - 1 && i != boxes.size() - 2)) {
                     boxes.get(i).body.setType(BodyDef.BodyType.StaticBody);
                 }
-
                 if (boxes.get(i).body.getPosition().y >= camera.position.y - WORLD_HEIGHT / 2)
                     boxes.get(i).body.setType(BodyDef.BodyType.DynamicBody);
             }

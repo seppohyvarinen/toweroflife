@@ -298,15 +298,23 @@ public class MiniGame {
     public void choose() {
         if (Gdx.input.isTouched()) {
             Gdx.app.log("x", "" + Gdx.input.getX());
+            Gdx.app.log("y", "" + Gdx.input.getY());
             Vector3 touchPoint = new Vector3();
 
-            if (Gdx.input.getX() < 200) {
+            if ((Gdx.input.getX() > 0 && Gdx.input.getX() < 240) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
 
                 TowerOfLife.miniGameCounter = 0;
                 TowerOfLife.minigameStart = false;
                 TowerOfLife.mainGame = true;
 
-
+            }  else if ((Gdx.input.getX() > 150 && Gdx.input.getX() < 390) && (Gdx.input.getY() > 630 && Gdx.input.getY() < 720)) {
+                TowerOfLife.miniGameCounter = 0;
+                TowerOfLife.minigameStart = false;
+                TowerOfLife.mainGame = true;
+            }  else if ((Gdx.input.getX() > 300 && Gdx.input.getX() < 500) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
+                TowerOfLife.miniGameCounter = 0;
+                TowerOfLife.minigameStart = false;
+                TowerOfLife.mainGame = true;
             }
 
         }
