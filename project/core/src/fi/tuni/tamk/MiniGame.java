@@ -2,6 +2,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 public class MiniGame {
     private FreeTypeFontGenerator fontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+    Sound correct;
+    Sound incorrect;
     BitmapFont font;
     ArrayList<String> sorrowProblems;
     ArrayList<String> sorrowProblemOne;
@@ -55,6 +58,10 @@ public class MiniGame {
     String ans3;
     int pIndex;
     int aIndex;
+    int correctXUpperlimit;
+    int correctXLowerlimit;
+    int correctYUpperlimit;
+    int correctYLowerlimit;
 
 
     public MiniGame(String e) {
@@ -66,6 +73,8 @@ public class MiniGame {
         fontParameter.color = Color.WHITE;
         font = fontGenerator.generateFont(fontParameter);
         font.getData().setScale(0.5f, 0.5f);
+        correct = Gdx.audio.newSound(Gdx.files.internal("correct.mp3"));
+        incorrect = Gdx.audio.newSound(Gdx.files.internal("wrong.mp3"));
 
         sorrowProblems = new ArrayList<>();
         sorrowProblemOne = new ArrayList<>();
@@ -154,126 +163,288 @@ public class MiniGame {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = sorrowProblemOne.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 0;
+                    correctXUpperlimit = 240;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 int helper2 = aIndex;
                 ans2 = sorrowProblemOne.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 300;
+                    correctXUpperlimit = 500;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = sorrowProblemOne.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 150;
+                    correctXUpperlimit = 390;
+                    correctYUpperlimit = 720;
+                    correctYLowerlimit = 630;
+                }
 
             } else if (pIndex == 1) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = sorrowProblemTwo.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 0;
+                    correctXUpperlimit = 240;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 int helper2 = aIndex;
                 ans2 = sorrowProblemTwo.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 300;
+                    correctXUpperlimit = 500;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = sorrowProblemTwo.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 150;
+                    correctXUpperlimit = 390;
+                    correctYUpperlimit = 720;
+                    correctYLowerlimit = 630;
+                }
             } else {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = sorrowProblemThree.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 0;
+                    correctXUpperlimit = 240;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 int helper2 = aIndex;
                 ans2 = sorrowProblemThree.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 300;
+                    correctXUpperlimit = 500;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = sorrowProblemThree.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 150;
+                    correctXUpperlimit = 390;
+                    correctYUpperlimit = 720;
+                    correctYLowerlimit = 630;
+                }
             }
         } else if (e.equals("fearBox")) {
             if (pIndex == 0) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = fearProblemOne.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 0;
+                    correctXUpperlimit = 240;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 int helper2 = aIndex;
                 ans2 = fearProblemOne.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 300;
+                    correctXUpperlimit = 500;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = fearProblemOne.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 150;
+                    correctXUpperlimit = 390;
+                    correctYUpperlimit = 720;
+                    correctYLowerlimit = 630;
+                }
 
             } else if (pIndex == 1) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = fearProblemTwo.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 0;
+                    correctXUpperlimit = 240;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 int helper2 = aIndex;
                 ans2 = fearProblemTwo.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 300;
+                    correctXUpperlimit = 500;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = fearProblemTwo.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 150;
+                    correctXUpperlimit = 390;
+                    correctYUpperlimit = 720;
+                    correctYLowerlimit = 630;
+                }
             } else {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = fearProblemThree.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 0;
+                    correctXUpperlimit = 240;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 int helper2 = aIndex;
                 ans2 = fearProblemThree.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 300;
+                    correctXUpperlimit = 500;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = fearProblemThree.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 150;
+                    correctXUpperlimit = 390;
+                    correctYUpperlimit = 720;
+                    correctYLowerlimit = 630;
+                }
             }
         } else {
             if (pIndex == 0) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = hateProblemOne.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 0;
+                    correctXUpperlimit = 240;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 int helper2 = aIndex;
                 ans2 = hateProblemOne.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 300;
+                    correctXUpperlimit = 500;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = hateProblemOne.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 150;
+                    correctXUpperlimit = 390;
+                    correctYUpperlimit = 720;
+                    correctYLowerlimit = 630;
+                }
 
             } else if (pIndex == 1) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = hateProblemTwo.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 0;
+                    correctXUpperlimit = 240;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 int helper2 = aIndex;
                 ans2 = hateProblemTwo.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 300;
+                    correctXUpperlimit = 500;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = hateProblemTwo.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 150;
+                    correctXUpperlimit = 390;
+                    correctYUpperlimit = 720;
+                    correctYLowerlimit = 630;
+                }
             } else {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
                 ans1 = hateProblemThree.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 0;
+                    correctXUpperlimit = 240;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 int helper2 = aIndex;
                 ans2 = hateProblemThree.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 300;
+                    correctXUpperlimit = 500;
+                    correctYUpperlimit = 840;
+                    correctYLowerlimit = 750;
+                }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
                 }
                 ans3 = hateProblemThree.get(aIndex);
+                if (aIndex == 2) {
+                    correctXLowerlimit = 150;
+                    correctXUpperlimit = 390;
+                    correctYUpperlimit = 720;
+                    correctYLowerlimit = 630;
+                }
             }
         }
     }
@@ -291,7 +462,7 @@ public class MiniGame {
         b.draw(answerBox, 250, 400, 400, 150);
         font.draw(b, ans3, 300, 500);
 
-        isAnswerRight();
+
         choose();
     }
 
@@ -301,17 +472,22 @@ public class MiniGame {
             Gdx.app.log("y", "" + Gdx.input.getY());
             Vector3 touchPoint = new Vector3();
 
+
+            //answer 1
             if ((Gdx.input.getX() > 0 && Gdx.input.getX() < 240) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
 
+                isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
                 TowerOfLife.miniGameCounter = 0;
                 TowerOfLife.minigameStart = false;
                 TowerOfLife.mainGame = true;
 
             }  else if ((Gdx.input.getX() > 150 && Gdx.input.getX() < 390) && (Gdx.input.getY() > 630 && Gdx.input.getY() < 720)) {
+                isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
                 TowerOfLife.miniGameCounter = 0;
                 TowerOfLife.minigameStart = false;
                 TowerOfLife.mainGame = true;
-            }  else if ((Gdx.input.getX() > 300 && Gdx.input.getX() < 500) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
+            }/*answer2*/  else if ((Gdx.input.getX() > 300 && Gdx.input.getX() < 500) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
+                isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
                 TowerOfLife.miniGameCounter = 0;
                 TowerOfLife.minigameStart = false;
                 TowerOfLife.mainGame = true;
@@ -321,14 +497,12 @@ public class MiniGame {
     }
 
 
-    public void isAnswerRight() {
-        answerImage.addListener(new ClickListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("minigame", "WEAREHERE");
-                youAreGoddamnRight = true;
-                return true;
-            }
-        });
+    public void isAnswerRight(int x, int y) {
+        if ((x < correctXUpperlimit && x > correctXLowerlimit) && (y < correctYUpperlimit && y > correctYLowerlimit)) {
+            correct.play();
+        }  else {
+            incorrect.play();
+        }
     }
 }
 
