@@ -84,6 +84,8 @@ public class TowerOfLife extends ApplicationAdapter {
     int destroyIndex = 0;
     int spawnCounter = 0;
     static int miniGameCounter = 0;
+    static int answerCounter = 0;
+    static boolean answerIsGiven = false;
     int getThis;
     float cameraY = WORLD_HEIGHT/2f;
 
@@ -366,6 +368,17 @@ public class TowerOfLife extends ApplicationAdapter {
         if (minigameStart) {
             miniGameCounter++;
         }
+
+        if (answerIsGiven) {
+            answerCounter++;
+            if (TowerOfLife.answerCounter > 60) {
+                TowerOfLife.miniGameCounter = 0;
+                TowerOfLife.minigameStart = false;
+                TowerOfLife.mainGame = true;
+                TowerOfLife.answerIsGiven = false;
+                TowerOfLife.answerCounter = 0;
+            }
+        }
         if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
             mainGame = false;
         }
@@ -443,6 +456,8 @@ public class TowerOfLife extends ApplicationAdapter {
                 box.draw(batch);
             }
         }
+
+
 
 
         //Palikoiden freezaus

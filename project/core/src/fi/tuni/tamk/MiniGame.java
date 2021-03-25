@@ -62,6 +62,7 @@ public class MiniGame {
     int correctXLowerlimit;
     int correctYUpperlimit;
     int correctYLowerlimit;
+    boolean soundIsPlayed = false;
 
 
     public MiniGame(String e) {
@@ -477,20 +478,21 @@ public class MiniGame {
             if ((Gdx.input.getX() > 0 && Gdx.input.getX() < 240) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
 
                 isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
-                TowerOfLife.miniGameCounter = 0;
-                TowerOfLife.minigameStart = false;
-                TowerOfLife.mainGame = true;
+                TowerOfLife.answerIsGiven = true;
+
+
 
             }  else if ((Gdx.input.getX() > 150 && Gdx.input.getX() < 390) && (Gdx.input.getY() > 630 && Gdx.input.getY() < 720)) {
                 isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
-                TowerOfLife.miniGameCounter = 0;
-                TowerOfLife.minigameStart = false;
-                TowerOfLife.mainGame = true;
+                TowerOfLife.answerIsGiven = true;
+
+
+
             }/*answer2*/  else if ((Gdx.input.getX() > 300 && Gdx.input.getX() < 500) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
                 isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
-                TowerOfLife.miniGameCounter = 0;
-                TowerOfLife.minigameStart = false;
-                TowerOfLife.mainGame = true;
+                TowerOfLife.answerIsGiven = true;
+
+
             }
 
         }
@@ -499,9 +501,18 @@ public class MiniGame {
 
     public void isAnswerRight(int x, int y) {
         if ((x < correctXUpperlimit && x > correctXLowerlimit) && (y < correctYUpperlimit && y > correctYLowerlimit)) {
-            correct.play();
+            if (!soundIsPlayed) {
+                correct.play();
+                soundIsPlayed = true;
+            }
+
         }  else {
-            incorrect.play();
+            if (!soundIsPlayed) {
+                incorrect.play();
+                soundIsPlayed = true;
+            }
+
+
         }
     }
 }
