@@ -2,6 +2,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -31,7 +32,7 @@ import com.badlogic.gdx.utils.Align;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class TowerOfLife extends ApplicationAdapter {
+public class TowerOfLife implements Screen {
     public static final float WORLD_WIDTH = 9f;
     public static final float WORLD_HEIGHT = 16f;
     public static float realX = WORLD_WIDTH / 2;
@@ -56,6 +57,8 @@ public class TowerOfLife extends ApplicationAdapter {
     String hateBox = "hateBox";
     String fearBox = "fearBox";
 
+    String tempData = "";
+
     ArrayList<Box> boxes;
     Iterator<Box> itr;
     ArrayList<Integer> removeTheseIndexes;
@@ -79,6 +82,7 @@ public class TowerOfLife extends ApplicationAdapter {
     boolean destroyIsOn = false;
     boolean okayToLoop = true;
     boolean positiveBoxes = true;
+    boolean miniGametime = false;
     static boolean mainGame = true;
     static boolean minigameStart = false;
     int destroyIndex = 0;
@@ -90,7 +94,7 @@ public class TowerOfLife extends ApplicationAdapter {
     float cameraY = WORLD_HEIGHT/2f;
 
     MiniGame m;
-
+    Main host;
 
     private Texture bodyTexture;
     private Texture anger;
@@ -107,9 +111,10 @@ public class TowerOfLife extends ApplicationAdapter {
 
     Box2DDebugRenderer debugRenderer;
 
-    @Override
-    public void create() {
-        batch = new SpriteBatch();
+
+    public TowerOfLife(Main host) {
+        this.host = host;
+        batch = host.batch;
         hudbatch = new SpriteBatch();
         camera = new OrthographicCamera();
         hudcamera = new OrthographicCamera();
@@ -164,7 +169,7 @@ public class TowerOfLife extends ApplicationAdapter {
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
         mode = Gdx.audio.newSound(Gdx.files.internal("mode.mp3"));
 
-        m = new MiniGame("e");
+        m = new MiniGame("e", host, this);
 
         debugRenderer = new Box2DDebugRenderer();
         Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
@@ -246,8 +251,8 @@ public class TowerOfLife extends ApplicationAdapter {
 
                 if ((userData1 == stacked && userData2 == sorrowBox) || (userData1 == sorrowBox && userData2 == stacked)) {
                     mode.play();
-                    m = new MiniGame(sorrowBox);
-
+                    tempData = sorrowBox;
+                    miniGametime = true;
                     if (!canDrop) {
                         spawnCounter = 0;
                         canSpawn = true;
@@ -262,7 +267,7 @@ public class TowerOfLife extends ApplicationAdapter {
                 }
                 if ((userData1 == stacked && userData2 == hateBox) || (userData1 == hateBox && userData2 == stacked)) {
                     mode.play();
-                    m = new MiniGame(hateBox);
+                    tempData = hateBox;
 
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -278,7 +283,7 @@ public class TowerOfLife extends ApplicationAdapter {
                 }
                 if ((userData1 == stacked && userData2 == fearBox) || (userData1 == fearBox && userData2 == stacked)) {
                     mode.play();
-                    m = new MiniGame(fearBox);
+                    tempData = fearBox;
 
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -351,7 +356,7 @@ public class TowerOfLife extends ApplicationAdapter {
 
 
     @Override
-    public void render() {
+    public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -369,18 +374,10 @@ public class TowerOfLife extends ApplicationAdapter {
             miniGameCounter++;
         }
 
-        if (answerIsGiven) {
-            answerCounter++;
-            if (TowerOfLife.answerCounter > 60) {
-                TowerOfLife.miniGameCounter = 0;
-                TowerOfLife.minigameStart = false;
-                TowerOfLife.mainGame = true;
-                TowerOfLife.answerIsGiven = false;
-                TowerOfLife.answerCounter = 0;
-            }
-        }
+
         if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
-            mainGame = false;
+            m = new MiniGame(tempData, host, this);
+            host.setScreen(m);
         }
         if (spawnCounter > 60) {
             if (boxCounter % 5 == 0) {
@@ -480,8 +477,6 @@ public class TowerOfLife extends ApplicationAdapter {
         if (mainGame) {
             font.draw(hudbatch, "Score: " + boxCounter, 10, WORLD_HEIGHT * 100 - 10);
             font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
-        } else {
-            m.draw(hudbatch);
         }
         if (MiniGame.youAreGoddamnRight)
             Gdx.app.log("minigame", "YOU ARE GODDAMN RIGHT!");
@@ -496,6 +491,32 @@ public class TowerOfLife extends ApplicationAdapter {
             doPhysicsStep(Gdx.graphics.getDeltaTime());
 
         }
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     @Override

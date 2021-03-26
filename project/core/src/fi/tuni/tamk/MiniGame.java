@@ -2,6 +2,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,12 +19,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
-public class MiniGame {
+public class MiniGame implements Screen {
     private FreeTypeFontGenerator fontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
     Sound correct;
     Sound incorrect;
     BitmapFont font;
+    boolean answerIsGiven = false;
     ArrayList<String> sorrowProblems;
     ArrayList<String> sorrowProblemOne;
     ArrayList<String> sorrowProblemTwo;
@@ -63,9 +65,16 @@ public class MiniGame {
     int correctYUpperlimit;
     int correctYLowerlimit;
     boolean soundIsPlayed = false;
+    SpriteBatch batch;
+    Main host;
+    TowerOfLife theGame;
+    boolean hide = false;
+    int answerCounter = 0;
 
 
-    public MiniGame(String e) {
+    public MiniGame(String e, Main host, TowerOfLife game) {
+        batch = game.hudbatch;
+        this.host = host;
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         fontParameter.size = 72;
@@ -448,23 +457,40 @@ public class MiniGame {
                 }
             }
         }
+
     }
 
-    public void draw(SpriteBatch b) {
-        b.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 200, problemWidth, problemHeight);
-        font.draw(b, problem, 250, TowerOfLife.WORLD_HEIGHT * 100 - 100);
+    public void render(float delta) {
 
-        b.draw(answerBox, 0, 200, 400, 150);
-        font.draw(b, ans1, 10, 300);
+        batch.begin();
+        if (!hide) {
+            batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 200, problemWidth, problemHeight);
+            font.draw(batch, problem, 250, TowerOfLife.WORLD_HEIGHT * 100 - 100);
 
-        b.draw(answerBox, 500, 200, 400, 150);
-        font.draw(b, ans2, 550, 300);
+            batch.draw(answerBox, 0, 200, 400, 150);
+            font.draw(batch, ans1, 10, 300);
 
-        b.draw(answerBox, 250, 400, 400, 150);
-        font.draw(b, ans3, 300, 500);
+            batch.draw(answerBox, 500, 200, 400, 150);
+            font.draw(batch, ans2, 550, 300);
 
+            batch.draw(answerBox, 250, 400, 400, 150);
+            font.draw(batch, ans3, 300, 500);
+            if (answerIsGiven) {
+                answerCounter++;
+                if (answerCounter > 60) {
+                    theGame.miniGameCounter = 0;
+                    theGame.minigameStart = false;
+                    theGame.mainGame = true;
+                    answerIsGiven = false;
+                    answerCounter = 0;
+                    host.setScreen(theGame);
+                }
+            }
 
-        choose();
+            choose();
+        }
+
+        batch.end();
     }
 
     public void choose() {
@@ -478,19 +504,28 @@ public class MiniGame {
             if ((Gdx.input.getX() > 0 && Gdx.input.getX() < 240) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
 
                 isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
-                TowerOfLife.answerIsGiven = true;
+
+                hide = true;
+                answerIsGiven = true;
+
 
 
 
             }  else if ((Gdx.input.getX() > 150 && Gdx.input.getX() < 390) && (Gdx.input.getY() > 630 && Gdx.input.getY() < 720)) {
                 isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
-                TowerOfLife.answerIsGiven = true;
+
+
+                hide = true;
+                answerIsGiven = true;
 
 
 
             }/*answer2*/  else if ((Gdx.input.getX() > 300 && Gdx.input.getX() < 500) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
                 isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
-                TowerOfLife.answerIsGiven = true;
+
+                hide = true;
+                answerIsGiven = true;
+
 
 
             }
@@ -514,6 +549,41 @@ public class MiniGame {
 
 
         }
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        correct.dispose();
+        incorrect.dispose();
+        font.dispose();
+        batch.dispose();
     }
 }
 
