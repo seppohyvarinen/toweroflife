@@ -93,7 +93,6 @@ public class TowerOfLife implements Screen {
     int getThis;
     float cameraY = WORLD_HEIGHT/2f;
 
-    MiniGame m;
     Main host;
 
     private Texture bodyTexture;
@@ -169,7 +168,6 @@ public class TowerOfLife implements Screen {
         hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
         mode = Gdx.audio.newSound(Gdx.files.internal("mode.mp3"));
 
-        m = new MiniGame("e", host, this);
 
         debugRenderer = new Box2DDebugRenderer();
         Gdx.input.setInputProcessor(new GestureDetector(new GestureDetector.GestureAdapter() {
@@ -376,7 +374,7 @@ public class TowerOfLife implements Screen {
 
 
         if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
-            m = new MiniGame(tempData, host, this);
+            MiniGame m = new MiniGame(tempData, host);
             host.setScreen(m);
         }
         if (spawnCounter > 60) {

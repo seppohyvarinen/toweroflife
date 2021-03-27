@@ -72,8 +72,8 @@ public class MiniGame implements Screen {
     int answerCounter = 0;
 
 
-    public MiniGame(String e, Main host, TowerOfLife game) {
-        batch = game.hudbatch;
+    public MiniGame(String e, Main host) {
+        batch = host.theGame.hudbatch;
         this.host = host;
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -478,12 +478,10 @@ public class MiniGame implements Screen {
             if (answerIsGiven) {
                 answerCounter++;
                 if (answerCounter > 60) {
-                    theGame.miniGameCounter = 0;
-                    theGame.minigameStart = false;
-                    theGame.mainGame = true;
-                    answerIsGiven = false;
-                    answerCounter = 0;
-                    host.setScreen(theGame);
+                    Gdx.app.log("what", "fuck");
+                    host.theGame.minigameStart = false;
+                    host.theGame.miniGameCounter = 0;
+                    host.changeNow = true;
                 }
             }
 
@@ -505,7 +503,6 @@ public class MiniGame implements Screen {
 
                 isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
 
-                hide = true;
                 answerIsGiven = true;
 
 
@@ -515,7 +512,6 @@ public class MiniGame implements Screen {
                 isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
 
 
-                hide = true;
                 answerIsGiven = true;
 
 
@@ -523,7 +519,6 @@ public class MiniGame implements Screen {
             }/*answer2*/  else if ((Gdx.input.getX() > 300 && Gdx.input.getX() < 500) && (Gdx.input.getY() > 750 && Gdx.input.getY() < 840)) {
                 isAnswerRight(Gdx.input.getX(), Gdx.input.getY());
 
-                hide = true;
                 answerIsGiven = true;
 
 

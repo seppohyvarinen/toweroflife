@@ -20,6 +20,7 @@ import java.util.Locale;
 public class Main extends Game {
     SpriteBatch batch;
     TowerOfLife theGame;
+    boolean changeNow = false;
 
     @Override
     public void create () {
@@ -31,6 +32,11 @@ public class Main extends Game {
 
     @Override
     public void render () {
+
+        if (changeNow) {
+            setScreen(theGame);
+            changeNow = false;
+        }
         super.render();  // Level1:sen tai Level2:sen render
     }
 
