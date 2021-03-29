@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,6 +26,8 @@ public class MiniGame implements Screen {
     Sound correct;
     Sound incorrect;
     BitmapFont font;
+    Texture nice;
+    boolean itsCorrect = false;
     boolean answerIsGiven = false;
     ArrayList<String> sorrowProblems;
     ArrayList<String> sorrowProblemOne;
@@ -75,6 +78,7 @@ public class MiniGame implements Screen {
     public MiniGame(String e, Main host) {
         batch = host.theGame.hudbatch;
         this.host = host;
+        nice = new Texture(Gdx.files.internal("nice.png"));
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         fontParameter.size = 72;
@@ -464,6 +468,8 @@ public class MiniGame implements Screen {
 
         batch.begin();
         if (!hide) {
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 200, problemWidth, problemHeight);
             font.draw(batch, problem, 250, TowerOfLife.WORLD_HEIGHT * 100 - 100);
 
@@ -477,8 +483,14 @@ public class MiniGame implements Screen {
             font.draw(batch, ans3, 300, 500);
             if (answerIsGiven) {
                 answerCounter++;
+                if (itsCorrect) {
+                    batch.draw(nice, 280, 800, 400, 150);
+                    batch.draw(nice, 100, 1000, 300, 120);
+                    batch.draw(nice, 550, 1000, 300, 120);
+                    batch.draw(nice, 150, 600, 300, 120);
+                    batch.draw(nice, 500, 600, 300, 120);
+                }
                 if (answerCounter > 60) {
-                    Gdx.app.log("what", "fuck");
                     host.theGame.minigameStart = false;
                     host.theGame.miniGameCounter = 0;
                     host.changeNow = true;
@@ -533,6 +545,8 @@ public class MiniGame implements Screen {
         if ((x < correctXUpperlimit && x > correctXLowerlimit) && (y < correctYUpperlimit && y > correctYLowerlimit)) {
             if (!soundIsPlayed) {
                 correct.play();
+                itsCorrect = true;
+                host.theGame.score += 2;
                 soundIsPlayed = true;
             }
 

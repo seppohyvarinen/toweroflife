@@ -63,6 +63,7 @@ public class TowerOfLife implements Screen {
     Iterator<Box> itr;
     ArrayList<Integer> removeTheseIndexes;
     int boxCounter = 0;
+    int score = 0;
 
     int lives = 3;
 
@@ -208,6 +209,7 @@ public class TowerOfLife implements Screen {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
+                    score++;
 
                     if (userData1 == itsFirst) {
                         contact.getFixtureA().getBody().setUserData(firstStack);
@@ -224,6 +226,7 @@ public class TowerOfLife implements Screen {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
+                    score++;
 
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
@@ -239,6 +242,7 @@ public class TowerOfLife implements Screen {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
+                    score++;
 
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
@@ -304,6 +308,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureB().getBody().setUserData(destroy);
                     boxCounter--;
                     lives--;
+                    score--;
                 }
                 if ((userData1 == ground && userData2 == itsABox) || (userData1 == itsABox && userData2 == ground)) {
                     hit.play();
@@ -473,7 +478,7 @@ public class TowerOfLife implements Screen {
 
         hudbatch.begin();
         if (mainGame) {
-            font.draw(hudbatch, "Score: " + boxCounter, 10, WORLD_HEIGHT * 100 - 10);
+            font.draw(hudbatch, "Score: " + score, 10, WORLD_HEIGHT * 100 - 10);
             font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
         }
         if (MiniGame.youAreGoddamnRight)
