@@ -547,6 +547,7 @@ public class MiniGame implements Screen {
                 correct.play();
                 itsCorrect = true;
                 host.theGame.score += 2;
+                host.theGame.gongrats = true;
                 soundIsPlayed = true;
             }
 

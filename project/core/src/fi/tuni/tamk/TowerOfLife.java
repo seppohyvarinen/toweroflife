@@ -66,6 +66,7 @@ public class TowerOfLife implements Screen {
     int score = 0;
 
     int lives = 3;
+    int gongratsTimer = 0;
 
     boolean gameOver = false;
 
@@ -84,6 +85,7 @@ public class TowerOfLife implements Screen {
     boolean okayToLoop = true;
     boolean positiveBoxes = true;
     boolean miniGametime = false;
+    boolean gongrats = false;
     static boolean mainGame = true;
     static boolean minigameStart = false;
     int destroyIndex = 0;
@@ -95,6 +97,8 @@ public class TowerOfLife implements Screen {
     float cameraY = WORLD_HEIGHT/2f;
 
     Main host;
+
+    Texture scoreAdd;
 
     private Texture bodyTexture;
     private Texture anger;
@@ -141,6 +145,7 @@ public class TowerOfLife implements Screen {
         joy = new Texture(Gdx.files.internal("em_joy.png"));
         love = new Texture(Gdx.files.internal("em_love.png"));
         sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
+        scoreAdd = new Texture(Gdx.files.internal("scoreadd.png"));
 
         positive = new ArrayList<>();
         negative = new ArrayList<>();
@@ -481,8 +486,15 @@ public class TowerOfLife implements Screen {
             font.draw(hudbatch, "Score: " + score, 10, WORLD_HEIGHT * 100 - 10);
             font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
         }
-        if (MiniGame.youAreGoddamnRight)
-            Gdx.app.log("minigame", "YOU ARE GODDAMN RIGHT!");
+        if (gongrats) {
+            gongratsTimer++;
+            if (gongratsTimer < 80) {
+                hudbatch.draw(scoreAdd, 20, WORLD_HEIGHT * 100 - 500, 300, 200);
+            }  else {
+                gongrats = false;
+                gongratsTimer = 0;
+            }
+        }
 
 
         if (gameOver) {
