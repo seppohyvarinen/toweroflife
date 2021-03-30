@@ -22,6 +22,7 @@ public class Main extends Game {
     TowerOfLife theGame;
     MainMenu mainMenu;
     boolean changeNow = false;
+    boolean createGame = false;
 
     @Override
     public void create() {
@@ -40,6 +41,10 @@ public class Main extends Game {
             setScreen(theGame);
             changeNow = false;
         }
+       if (createGame) {
+           theGame = new TowerOfLife(this);
+           createGame = false;
+       }
         super.render();  // Level1:sen tai Level2:sen render
     }
 

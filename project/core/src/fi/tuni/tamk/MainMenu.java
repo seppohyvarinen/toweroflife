@@ -37,7 +37,7 @@ public class MainMenu implements Screen {
     public MainMenu(final Main host) {
 
         this.host = host;
-        batch = host.theGame.hudbatch;
+        batch = new SpriteBatch();
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -55,14 +55,18 @@ public class MainMenu implements Screen {
         play.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-               isPressed = true;
+
 
             }
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //  host.setScreen(host.theGame);
-                //host.changeNow = true;
+
+                if (!isPressed) {
+                    isPressed = true;
+                    host.createGame = true;
+                }
+
                 return true;
             }
         });
@@ -80,11 +84,11 @@ public class MainMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();
+
+        stage.draw();
         if (isPressed) {
             host.changeNow = true;
-
         }
-        stage.draw();
     }
 
     @Override
