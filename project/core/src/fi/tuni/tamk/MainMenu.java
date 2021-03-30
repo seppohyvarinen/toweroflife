@@ -14,9 +14,12 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -25,40 +28,57 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class MainMenu implements Screen {
     Main host;
     SpriteBatch batch;
-    ImageButton start;
-    TextButton settings;
     private Stage stage;
-    Ski
+    float width = 200;
+    float height = 100;
 
-    public MainMenu(Main host) {
+
+    public MainMenu(final Main host) {
 
         this.host = host;
         batch = host.theGame.hudbatch;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+
+        Skin mySkin = new Skin(Gdx.files.internal("skin/vhs-ui.json"));
+
+        Button settings = new TextButton("Settings", mySkin, "default");
+        settings.setSize(width, height);
+        settings.setPosition(170, 300);
+        stage.addActor(settings);
+
+        Button play = new TextButton("Play", mySkin, "default");
+        play.setSize(width, height);
+        play.setPosition(170, 500);
+        play.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                host.setScreen(host.theGame);
+                host.changeNow = true;
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                //  host.setScreen(host.theGame);
+                //host.changeNow = true;
+                return true;
+            }
+        });
+        stage.addActor(play);
     }
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();
         stage.draw();
-
-        if (Gdx.input.isTouched()){
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            host.setScreen(host.theGame);
-        }
     }
 
     @Override
@@ -83,6 +103,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 }

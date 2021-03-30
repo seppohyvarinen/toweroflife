@@ -24,19 +24,19 @@ public class Main extends Game {
     boolean changeNow = false;
 
     @Override
-    public void create () {
+    public void create() {
         batch = new SpriteBatch();
         theGame = new TowerOfLife(this);
         mainMenu = new MainMenu(this);
-       // setScreen(theGame);
         setScreen(mainMenu);
+
     }
 
 
     @Override
-    public void render () {
+    public void render() {
 
-        if (changeNow) {
+       if (changeNow) {
             setScreen(theGame);
             changeNow = false;
         }
