@@ -34,7 +34,7 @@ public class MainMenu implements Screen {
         this.host = host;
         batch = host.theGame.hudbatch;
         stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor();
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
