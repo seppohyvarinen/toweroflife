@@ -191,7 +191,6 @@ public class TowerOfLife implements Screen {
                     }
                 }
 
-
                 return true;
             }
 

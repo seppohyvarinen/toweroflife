@@ -31,6 +31,7 @@ public class MainMenu implements Screen {
     private Stage stage;
     float width = 200;
     float height = 100;
+    boolean isPressed = false;
 
 
     public MainMenu(final Main host) {
@@ -50,11 +51,12 @@ public class MainMenu implements Screen {
         Button play = new TextButton("Play", mySkin, "default");
         play.setSize(width, height);
         play.setPosition(170, 500);
+
         play.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                host.setScreen(host.theGame);
-                host.changeNow = true;
+               isPressed = true;
+
             }
 
             @Override
@@ -69,7 +71,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
+        // Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -78,6 +80,10 @@ public class MainMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();
+        if (isPressed) {
+            host.changeNow = true;
+
+        }
         stage.draw();
     }
 
