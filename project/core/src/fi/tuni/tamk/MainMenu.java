@@ -28,6 +28,7 @@ public class MainMenu implements Screen {
     ImageButton start;
     TextButton settings;
     private Stage stage;
+    Ski
 
     public MainMenu(Main host) {
 
