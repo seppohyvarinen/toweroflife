@@ -20,13 +20,16 @@ import java.util.Locale;
 public class Main extends Game {
     SpriteBatch batch;
     TowerOfLife theGame;
+    MainMenu mainMenu;
     boolean changeNow = false;
 
     @Override
     public void create () {
         batch = new SpriteBatch();
         theGame = new TowerOfLife(this);
-        setScreen(theGame);
+        mainMenu = new MainMenu(this);
+       // setScreen(theGame);
+        setScreen(mainMenu);
     }
 
 
