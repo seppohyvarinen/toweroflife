@@ -28,6 +28,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -44,6 +46,9 @@ public class TowerOfLife implements Screen {
     public static OrthographicCamera camera;
     public static OrthographicCamera hudcamera;
     public static World world;
+
+    Viewport viewport;
+    Viewport hudViewport;
 
     private Box firstBox;
     String itsABox = "box";
@@ -123,6 +128,10 @@ public class TowerOfLife implements Screen {
         hudbatch = new SpriteBatch();
         camera = new OrthographicCamera();
         hudcamera = new OrthographicCamera();
+        viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+        viewport.apply();
+        hudViewport = new FitViewport(WORLD_WIDTH * 100, WORLD_HEIGHT * 100, hudcamera);
+        hudViewport.apply();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         hudcamera.setToOrtho(false, WORLD_WIDTH * 100f, WORLD_HEIGHT * 100f);
         world = new World(new Vector2(0, -9.8f), true);
@@ -516,7 +525,8 @@ public class TowerOfLife implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width,height);
+        hudViewport.update(width,height);
     }
 
     @Override

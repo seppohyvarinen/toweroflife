@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 
@@ -38,19 +39,19 @@ public class MainMenu implements Screen {
 
         this.host = host;
         batch = new SpriteBatch();
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
 
         Skin mySkin = new Skin(Gdx.files.internal("skin/vhs-ui.json"));
 
         Button settings = new TextButton("Settings", mySkin, "default");
         settings.setSize(width, height);
-        settings.setPosition(170, 300);
+        settings.setPosition(350, 650);
         stage.addActor(settings);
 
         Button play = new TextButton("Play", mySkin, "default");
         play.setSize(width, height);
-        play.setPosition(170, 500);
+        play.setPosition(350, 850);
 
         play.addListener(new InputListener() {
             @Override
@@ -84,7 +85,7 @@ public class MainMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act();
-
+        stage.getViewport().apply();
         stage.draw();
         if (isPressed) {
             host.changeNow = true;
@@ -93,7 +94,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
