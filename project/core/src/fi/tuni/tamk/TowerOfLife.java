@@ -73,6 +73,7 @@ public class TowerOfLife implements Screen {
     //Score näyttölle
     private FreeTypeFontGenerator fontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+
     BitmapFont font;
 
 
