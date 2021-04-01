@@ -1,5 +1,6 @@
 package fi.tuni.tamk;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import java.util.Locale;
 
 public class SettingsMenu implements Screen {
 
@@ -30,7 +33,7 @@ public class SettingsMenu implements Screen {
 
         Skin mySkin = new Skin(Gdx.files.internal("skin/vhs-ui.json"));
 
-        Button back = new TextButton("Back", mySkin, "default");
+        Button back = new TextButton(host.getLevelText("back"), mySkin, "default");
         back.setSize(width, height);
         back.setPosition(350, 650);
         back.addListener(new InputListener() {
@@ -46,7 +49,7 @@ public class SettingsMenu implements Screen {
         });
         stage.addActor(back);
 
-        Button language = new TextButton("Language", mySkin, "default");
+        Button language = new TextButton(host.getLevelText("language"), mySkin, "default");
         language.setSize(width, height);
         language.setPosition(350, 850);
         language.addListener(new InputListener() {
@@ -56,8 +59,10 @@ public class SettingsMenu implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (!isPressed) {
-                    isPressed = true;
+                if (host.locale.equals(Locale.getDefault())){
+                    host.locale = new Locale("fi_FI");
+                } else {
+                  host.locale = Locale.getDefault();
                 }
                 return true;
             }
@@ -107,4 +112,6 @@ public class SettingsMenu implements Screen {
     public void dispose() {
         stage.dispose();
     }
+
+
 }

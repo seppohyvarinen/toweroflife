@@ -100,7 +100,7 @@ public class TowerOfLife implements Screen {
     static int answerCounter = 0;
     static boolean answerIsGiven = false;
     int getThis;
-    float cameraY = WORLD_HEIGHT/2f;
+    float cameraY = WORLD_HEIGHT / 2f;
 
     Main host;
 
@@ -403,9 +403,9 @@ public class TowerOfLife implements Screen {
                 Box b = new Box(negative.get(getThis), negativeBox);
                 if (b.bodyTexture == sorrow) {
                     b.userData = sorrowBox;
-                }  else if (b.bodyTexture == fear) {
+                } else if (b.bodyTexture == fear) {
                     b.userData = fearBox;
-                }  else {
+                } else {
                     b.userData = hateBox;
                 }
                 boxes.add(b);
@@ -472,8 +472,6 @@ public class TowerOfLife implements Screen {
         }
 
 
-
-
         //Palikoiden freezaus
      /*   for (int i = 0; i < boxes.size(); i++) {
             if (boxes.get(i).hasBody) {
@@ -492,14 +490,14 @@ public class TowerOfLife implements Screen {
 
         hudbatch.begin();
         if (mainGame) {
-            font.draw(hudbatch, "Score: " + score, 10, WORLD_HEIGHT * 100 - 10);
-            font.draw(hudbatch, "Lives: " + lives, WORLD_WIDTH * 100f - 250, WORLD_HEIGHT * 100 - 10);
+            font.draw(hudbatch, host.getLevelText("score") + " " + score, 10, WORLD_HEIGHT * 100 - 10);
+            font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 100f - 300, WORLD_HEIGHT * 100 - 10);
         }
         if (gongrats) {
             gongratsTimer++;
             if (gongratsTimer < 80) {
                 hudbatch.draw(scoreAdd, 20, WORLD_HEIGHT * 100 - 500, 300, 200);
-            }  else {
+            } else {
                 gongrats = false;
                 gongratsTimer = 0;
             }
@@ -525,8 +523,8 @@ public class TowerOfLife implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width,height);
-        hudViewport.update(width,height);
+        viewport.update(width, height);
+        hudViewport.update(width, height);
     }
 
     @Override

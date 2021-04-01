@@ -45,7 +45,7 @@ public class MainMenu implements Screen {
 
         Skin mySkin = new Skin(Gdx.files.internal("skin/vhs-ui.json"));
 
-        Button settings = new TextButton("Settings", mySkin, "default");
+        Button settings = new TextButton(host.getLevelText("settings"), mySkin, "default");
         settings.setSize(width, height);
         settings.setPosition(350, 650);
         settings.addListener(new InputListener() {
@@ -61,7 +61,7 @@ public class MainMenu implements Screen {
         });
         stage.addActor(settings);
 
-        Button play = new TextButton("Play", mySkin, "default");
+        Button play = new TextButton(host.getLevelText("play"), mySkin, "default");
         play.setSize(width, height);
         play.setPosition(350, 850);
 

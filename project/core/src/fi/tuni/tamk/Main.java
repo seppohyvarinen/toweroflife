@@ -24,6 +24,8 @@ public class Main extends Game {
     SettingsMenu settingsMenu;
     boolean changeNow = false;
     boolean createGame = false;
+    public Locale locale = Locale.getDefault();
+
 
     @Override
     public void create() {
@@ -54,5 +56,12 @@ public class Main extends Game {
     @Override
     public void dispose() {
         batch.dispose();
+    }
+
+    public String getLevelText(String key) {
+
+        I18NBundle myBundle =
+                I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
+        return myBundle.get(key);
     }
 }
