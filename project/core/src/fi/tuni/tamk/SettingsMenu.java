@@ -1,33 +1,19 @@
 package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+public class SettingsMenu implements Screen {
 
-public class MainMenu implements Screen {
     Main host;
     SpriteBatch batch;
     private Stage stage;
@@ -36,22 +22,21 @@ public class MainMenu implements Screen {
     boolean isPressed = false;
 
 
-    public MainMenu(final Main host) {
+    public SettingsMenu(final Main host) {
         this.host = host;
-        batch = new SpriteBatch();
+        //batch = new SpriteBatch();
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
 
-
         Skin mySkin = new Skin(Gdx.files.internal("skin/vhs-ui.json"));
 
-        Button settings = new TextButton("Settings", mySkin, "default");
-        settings.setSize(width, height);
-        settings.setPosition(350, 650);
-        settings.addListener(new InputListener() {
+        Button back = new TextButton("Back", mySkin, "default");
+        back.setSize(width, height);
+        back.setPosition(350, 650);
+        back.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                host.setScreen(new SettingsMenu(host));
+                host.setScreen(new MainMenu(host));
             }
 
             @Override
@@ -59,33 +44,30 @@ public class MainMenu implements Screen {
                 return true;
             }
         });
-        stage.addActor(settings);
+        stage.addActor(back);
 
-        Button play = new TextButton("Play", mySkin, "default");
-        play.setSize(width, height);
-        play.setPosition(350, 850);
-
-        play.addListener(new InputListener() {
+        Button language = new TextButton("Language", mySkin, "default");
+        language.setSize(width, height);
+        language.setPosition(350, 850);
+        language.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
             }
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                /*if (!isPressed) {
+                if (!isPressed) {
                     isPressed = true;
-                    host.createGame = true;
-                }*/
-                host.setScreen(new TowerOfLife(host));
+                }
                 return true;
             }
         });
-        stage.addActor(play);
+        stage.addActor(language);
     }
 
     @Override
     public void show() {
-        // Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override
@@ -96,9 +78,9 @@ public class MainMenu implements Screen {
         stage.act();
         stage.getViewport().apply();
         stage.draw();
-        if (isPressed) {
+        /*if (isPressed) {
             host.changeNow = true;
-        }
+        }*/
     }
 
     @Override

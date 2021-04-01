@@ -21,6 +21,7 @@ public class Main extends Game {
     SpriteBatch batch;
     TowerOfLife theGame;
     MainMenu mainMenu;
+    SettingsMenu settingsMenu;
     boolean changeNow = false;
     boolean createGame = false;
 
@@ -29,6 +30,8 @@ public class Main extends Game {
         batch = new SpriteBatch();
         theGame = new TowerOfLife(this);
         mainMenu = new MainMenu(this);
+        //settingsMenu = new SettingsMenu(this);
+
         setScreen(mainMenu);
 
     }
@@ -37,14 +40,14 @@ public class Main extends Game {
     @Override
     public void render() {
 
-       if (changeNow) {
+       /*if (changeNow) {
             setScreen(theGame);
             changeNow = false;
         }
        if (createGame) {
            theGame = new TowerOfLife(this);
            createGame = false;
-       }
+       }*/
         super.render();  // Level1:sen tai Level2:sen render
     }
 
