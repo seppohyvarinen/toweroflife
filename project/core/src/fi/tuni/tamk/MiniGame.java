@@ -17,6 +17,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -76,6 +78,7 @@ public class MiniGame implements Screen {
     boolean hide = false;
     int answerCounter = 0;
 
+    Viewport viewport;
 
     public MiniGame(String e, Main host) {
         batch = host.theGame.hudbatch;
@@ -91,6 +94,9 @@ public class MiniGame implements Screen {
         font.getData().setScale(0.5f, 0.5f);
         correct = Gdx.audio.newSound(Gdx.files.internal("correct.mp3"));
         incorrect = Gdx.audio.newSound(Gdx.files.internal("wrong.mp3"));
+
+        viewport = new FitViewport(TowerOfLife.WORLD_WIDTH, TowerOfLife.WORLD_HEIGHT, TowerOfLife.camera);
+        viewport.apply();
 
         sorrowProblems = new ArrayList<>();
         sorrowProblemOne = new ArrayList<>();
@@ -583,7 +589,7 @@ public class MiniGame implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width,height);
     }
 
     @Override
