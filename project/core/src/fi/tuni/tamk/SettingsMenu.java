@@ -20,8 +20,8 @@ public class SettingsMenu implements Screen {
     Main host;
     SpriteBatch batch;
     private Stage stage;
-    float width = 200;
-    float height = 100;
+    float width = 400;
+    float height = 150;
     boolean isPressed = false;
 
 
@@ -31,11 +31,11 @@ public class SettingsMenu implements Screen {
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
 
-        Skin mySkin = new Skin(Gdx.files.internal("skin/vhs-ui.json"));
+        Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
         Button back = new TextButton(host.getLevelText("back"), mySkin, "default");
         back.setSize(width, height);
-        back.setPosition(350, 650);
+        back.setPosition(Gdx.graphics.getWidth()/2, 650);
         back.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -51,7 +51,7 @@ public class SettingsMenu implements Screen {
 
         Button language = new TextButton(host.getLevelText("language"), mySkin, "default");
         language.setSize(width, height);
-        language.setPosition(350, 850);
+        language.setPosition(Gdx.graphics.getWidth()/2, 850);
         language.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {

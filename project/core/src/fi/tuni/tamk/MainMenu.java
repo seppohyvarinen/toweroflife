@@ -31,8 +31,8 @@ public class MainMenu implements Screen {
     Main host;
     SpriteBatch batch;
     private Stage stage;
-    float width = 200;
-    float height = 100;
+    float width = 400;
+    float height = 150;
     boolean isPressed = false;
 
 
@@ -43,27 +43,11 @@ public class MainMenu implements Screen {
         Gdx.input.setInputProcessor(stage);
 
 
-        Skin mySkin = new Skin(Gdx.files.internal("skin/vhs-ui.json"));
-
-        Button settings = new TextButton(host.getLevelText("settings"), mySkin, "default");
-        settings.setSize(width, height);
-        settings.setPosition(350, 650);
-        settings.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                host.setScreen(new SettingsMenu(host));
-            }
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
-        stage.addActor(settings);
+        Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
         Button play = new TextButton(host.getLevelText("play"), mySkin, "default");
         play.setSize(width, height);
-        play.setPosition(350, 850);
+        play.setPosition(Gdx.graphics.getWidth()/2, 850);
 
         play.addListener(new InputListener() {
             @Override
@@ -81,6 +65,21 @@ public class MainMenu implements Screen {
             }
         });
         stage.addActor(play);
+        Button settings = new TextButton(host.getLevelText("settings"), mySkin, "default");
+        settings.setSize(width, height);
+        settings.setPosition(Gdx.graphics.getWidth()/2, 650);
+        settings.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                host.setScreen(new SettingsMenu(host));
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(settings);
     }
 
     @Override
