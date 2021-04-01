@@ -35,7 +35,7 @@ public class SettingsMenu implements Screen {
 
         Button back = new TextButton(host.getLevelText("back"), mySkin, "default");
         back.setSize(width, height);
-        back.setPosition(Gdx.graphics.getWidth()/2, 650);
+        back.setPosition(Gdx.graphics.getWidth() / 2, 650);
         back.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -51,7 +51,8 @@ public class SettingsMenu implements Screen {
 
         Button language = new TextButton(host.getLevelText("language"), mySkin, "default");
         language.setSize(width, height);
-        language.setPosition(Gdx.graphics.getWidth()/2, 850);
+        language.setPosition(Gdx.graphics.getWidth() / 2, 850);
+        stage.addActor(language);
         language.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -59,20 +60,21 @@ public class SettingsMenu implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (host.locale.equals(Locale.getDefault())){
+                if (host.locale.equals(Locale.getDefault())) {
                     host.locale = new Locale("fi_FI");
+                    host.setScreen(new SettingsMenu(host));
                 } else {
-                  host.locale = Locale.getDefault();
+                    host.locale = Locale.getDefault();
+                    host.setScreen(new SettingsMenu(host));
+
                 }
                 return true;
             }
         });
-        stage.addActor(language);
     }
 
     @Override
     public void show() {
-
     }
 
     @Override
