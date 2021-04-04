@@ -573,6 +573,8 @@ public class MiniGame implements Screen {
         }  else {
             if (!soundIsPlayed) {
                 incorrect.play();
+                host.theGame.score -= 2;
+                host.theGame.wasIncorrect = true;
                 soundIsPlayed = true;
             }
 

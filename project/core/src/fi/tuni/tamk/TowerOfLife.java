@@ -92,6 +92,7 @@ public class TowerOfLife implements Screen {
     boolean positiveBoxes = true;
     boolean miniGametime = false;
     boolean gongrats = false;
+    boolean wasIncorrect = false;
     static boolean mainGame = true;
     static boolean minigameStart = false;
     int destroyIndex = 0;
@@ -105,6 +106,7 @@ public class TowerOfLife implements Screen {
     Main host;
 
     Texture scoreAdd;
+    Texture scoreMinus;
 
     private Texture bodyTexture;
     private Texture anger;
@@ -156,6 +158,7 @@ public class TowerOfLife implements Screen {
         love = new Texture(Gdx.files.internal("em_love.png"));
         sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
         scoreAdd = new Texture(Gdx.files.internal("scoreadd.png"));
+        scoreMinus = new Texture(Gdx.files.internal("scoreminus.png"));
 
         positive = new ArrayList<>();
         negative = new ArrayList<>();
@@ -499,6 +502,15 @@ public class TowerOfLife implements Screen {
                 hudbatch.draw(scoreAdd, 20, WORLD_HEIGHT * 100 - 500, 300, 200);
             } else {
                 gongrats = false;
+                gongratsTimer = 0;
+            }
+        }
+        if (wasIncorrect) {
+            gongratsTimer++;
+            if (gongratsTimer < 80) {
+                hudbatch.draw(scoreMinus, 20, WORLD_HEIGHT * 100 - 500, 300, 200);
+            } else {
+                wasIncorrect = false;
                 gongratsTimer = 0;
             }
         }

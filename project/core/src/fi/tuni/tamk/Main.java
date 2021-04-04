@@ -42,14 +42,14 @@ public class Main extends Game {
     @Override
     public void render() {
 
-       /*if (changeNow) {
+       if (changeNow) {
             setScreen(theGame);
             changeNow = false;
         }
        if (createGame) {
            theGame = new TowerOfLife(this);
            createGame = false;
-       }*/
+       }
         super.render();  // Level1:sen tai Level2:sen render
     }
 

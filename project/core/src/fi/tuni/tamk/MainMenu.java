@@ -56,11 +56,11 @@ public class MainMenu implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                /*if (!isPressed) {
+                if (!isPressed) {
                     isPressed = true;
                     host.createGame = true;
-                }*/
-                host.setScreen(new TowerOfLife(host));
+                }
+                //host.setScreen(new TowerOfLife(host));
                 return true;
             }
         });
