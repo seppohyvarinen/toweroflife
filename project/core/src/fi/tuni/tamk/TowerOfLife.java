@@ -197,7 +197,7 @@ public class TowerOfLife implements Screen {
                 // canDropilla estetään se, ettei voi tiputtaa, ennen kuin uusi boxi on luotu (ettei drop() metodissa tule OutOfBoundsExceptionia)
                 if (mainGame) {
                     if (!gameOver) {
-                        if (canDrop && mainGame) {
+                        if (canDrop && mainGame && !gongrats) {
                             drop();
                             canDrop = false;
                         }
@@ -491,6 +491,7 @@ public class TowerOfLife implements Screen {
         }
         if (gongrats) {
             for (int i = 0; i < boxes.size(); i++) {
+
                 if (boxes.get(i).hasBody) {
                     boxes.get(i).body.setTransform(boxes.get(i).body.getPosition().x,boxes.get(i).body.getPosition().y, 0 );
                     boxes.get(i).body.setType(BodyDef.BodyType.StaticBody);
