@@ -476,14 +476,7 @@ public class TowerOfLife implements Screen {
 
 
         //Palikoiden freezaus
-     /*   for (int i = 0; i < boxes.size(); i++) {
-            if (boxes.get(i).hasBody) {
-                if ((boxes.get(i).body.getPosition().y < camera.position.y - WORLD_HEIGHT / 2) && (i != boxes.size() - 1 && i != boxes.size() - 2)) {
-                    boxes.get(i).body.setType(BodyDef.BodyType.StaticBody);
-                }
-                if (boxes.get(i).body.getPosition().y >= camera.position.y - WORLD_HEIGHT / 2)
-                    boxes.get(i).body.setType(BodyDef.BodyType.DynamicBody);
-            }
+     /*
         }*/
 
         batch.end();
@@ -497,6 +490,13 @@ public class TowerOfLife implements Screen {
             font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 100f - 300, WORLD_HEIGHT * 100 - 10);
         }
         if (gongrats) {
+            for (int i = 0; i < boxes.size(); i++) {
+                if (boxes.get(i).hasBody) {
+                    boxes.get(i).body.setTransform(boxes.get(i).body.getPosition().x,boxes.get(i).body.getPosition().y, 0 );
+                    boxes.get(i).body.setType(BodyDef.BodyType.StaticBody);
+
+                }
+            }
             gongratsTimer++;
             if (gongratsTimer < 80) {
                 hudbatch.draw(scoreAdd, 20, WORLD_HEIGHT * 100 - 500, 300, 200);
