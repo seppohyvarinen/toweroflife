@@ -24,7 +24,7 @@ public class Main extends Game {
     SettingsMenu settingsMenu;
     boolean changeNow = false;
     boolean createGame = false;
-    public Locale locale = Locale.getDefault();
+    public Locale locale = new Locale("en_US");
 
 
     @Override

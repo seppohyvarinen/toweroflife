@@ -60,14 +60,12 @@ public class SettingsMenu implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (host.locale.equals(Locale.getDefault())) {
-                    host.locale = new Locale("fi_FI");
-                    host.setScreen(new SettingsMenu(host));
-                } else {
+                if (host.locale.equals(new Locale("fi_FI"))) {
                     host.locale = new Locale("en_US");
-                    host.setScreen(new SettingsMenu(host));
-
+                } else {
+                    host.locale = new Locale("fi_FI");
                 }
+                host.setScreen(new SettingsMenu(host));
                 return true;
             }
         });
