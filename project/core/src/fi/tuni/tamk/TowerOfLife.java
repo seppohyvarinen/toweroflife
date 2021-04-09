@@ -72,6 +72,8 @@ public class TowerOfLife implements Screen {
 
     int lives = 3;
     int gongratsTimer = 0;
+    int negTempGetThis = 100;
+    int posTempGetThis = 100;
 
     boolean gameOver = false;
 
@@ -90,6 +92,7 @@ public class TowerOfLife implements Screen {
     boolean destroyIsOn = false;
     boolean okayToLoop = true;
     boolean positiveBoxes = true;
+    boolean lastWasNegative = true;
     boolean miniGametime = false;
     boolean gongrats = false;
     boolean wasIncorrect = false;
@@ -405,9 +408,15 @@ public class TowerOfLife implements Screen {
             host.setScreen(m);
         }
         if (spawnCounter > 60) {
-            if (boxCounter % 5 == 0) {
+            int random = MathUtils.random(1,3);
+            if (random == 1 && !lastWasNegative) {
                 positiveBoxes = false;
                 getThis = MathUtils.random(0, negative.size() - 1);
+                while (getThis == negTempGetThis) {
+                    getThis = MathUtils.random(0, negative.size() - 1);
+
+                }
+                negTempGetThis = getThis;
                 Box b = new Box(negative.get(getThis), negativeBox);
                 if (b.bodyTexture == sorrow) {
                     b.userData = sorrowBox;
@@ -417,11 +426,18 @@ public class TowerOfLife implements Screen {
                     b.userData = hateBox;
                 }
                 boxes.add(b);
+                lastWasNegative = true;
             } else {
                 positiveBoxes = true;
                 getThis = MathUtils.random(0, positive.size() - 1);
+                while (getThis == posTempGetThis) {
+                    getThis = MathUtils.random(0, positive.size() - 1);
+
+                }
+                posTempGetThis = getThis;
                 Box b = new Box(positive.get(getThis), itsABox);
                 boxes.add(b);
+                lastWasNegative = false;
 
             }
 
