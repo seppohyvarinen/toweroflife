@@ -119,7 +119,9 @@ public class TowerOfLife implements Screen {
 
     ArrayList<Texture> positive;
     ArrayList<Texture> negative;
-    private Texture backdrop;
+    private Texture backdropGrass;
+    private Texture backdrop1;
+    private Texture backdrop2;
 
     Box2DDebugRenderer debugRenderer;
 
@@ -141,7 +143,7 @@ public class TowerOfLife implements Screen {
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         fontParameter.size = 72;
-        fontParameter.borderWidth = 1.5f;
+        fontParameter.borderWidth = 2f;
         fontParameter.borderColor = Color.LIGHT_GRAY;
         fontParameter.color = Color.WHITE;
 
@@ -149,7 +151,9 @@ public class TowerOfLife implements Screen {
 
 
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
-        backdrop = new Texture(Gdx.files.internal("backdrop_small.png"));
+        backdropGrass = new Texture(Gdx.files.internal("grass.png"));
+        backdrop1 = new Texture(Gdx.files.internal("backdrop_1.png"));
+        backdrop2 = new Texture(Gdx.files.internal("backdrop_2.png"));
         anger = new Texture(Gdx.files.internal("em_anger.png"));
         awe = new Texture(Gdx.files.internal("em_awe.png"));
         fear = new Texture(Gdx.files.internal("em_fear.png"));
@@ -433,7 +437,8 @@ public class TowerOfLife implements Screen {
         Gdx.app.log("boxes", ""+boxCounter);
 
         if (mainGame) {
-            batch.draw(backdrop, 0f, 0f, backdrop.getWidth() / 80f, backdrop.getHeight() / 120f);
+            batch.draw(backdrop1, 0f, 0f, 9f, 18f);
+            batch.draw(backdrop2, 0f, 18f, 9f, 18f);
         } /*else {
             m.draw(batch);
         }*/
@@ -475,6 +480,7 @@ public class TowerOfLife implements Screen {
             for (Box box : boxes) {
                 box.draw(batch);
             }
+            batch.draw(backdropGrass, 0f, 0f, 9f, 3f);
         }
 
 
@@ -583,7 +589,8 @@ public class TowerOfLife implements Screen {
 
         // Initial position is centered up
         // This position is the CENTER of the shape!
-        myBodyDef.position.set(WORLD_WIDTH / 2, 0.25f);
+        myBodyDef.position.set(WORLD_WIDTH / 2, 0.8f);
+        //myBodyDef.position.set(WORLD_WIDTH / 2, 0.25f);
 
         return myBodyDef;
     }
