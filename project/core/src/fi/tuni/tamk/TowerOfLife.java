@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -211,6 +212,10 @@ public class TowerOfLife implements Screen {
                         }
                     }
                 }
+                Vector3 touchPoint = new Vector3();
+                TowerOfLife.camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+
+                Gdx.app.log("","" + touchPoint.x);
 
                 return true;
             }
@@ -450,7 +455,7 @@ public class TowerOfLife implements Screen {
         moveCamera(boxCounter);
 
         batch.begin();
-        Gdx.app.log("boxes", ""+boxCounter);
+        //Gdx.app.log("boxes", ""+boxCounter);
 
         if (mainGame) {
             batch.draw(backdrop1, 0f, 0f, 9f, 18f);
@@ -467,7 +472,7 @@ public class TowerOfLife implements Screen {
             if (okayToLoop) {
                 for (int i = 0; i < boxes.size(); i++) {
                     if (boxes.get(i).hasBody) {
-                        if ((boxes.get(i).body.getUserData().equals(destroy)) || boxes.get(i).body.getPosition().x < 0) {
+                        if ((boxes.get(i).body.getUserData().equals(destroy)) || boxes.get(i).body.getPosition().x < 0 || boxes.get(i).body.getPosition().x > 10) {
                             Gdx.app.log("hello", "yes here we are");
                             destroyIsOn = true;
 

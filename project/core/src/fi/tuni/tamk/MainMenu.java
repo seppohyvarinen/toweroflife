@@ -36,6 +36,7 @@ public class MainMenu implements Screen {
     boolean isPressed = false;
 
 
+
     public MainMenu(final Main host) {
         this.host = host;
         batch = new SpriteBatch();
