@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -23,6 +24,7 @@ public class SettingsMenu implements Screen {
     float width = 400;
     float height = 150;
     boolean isPressed = false;
+    private Texture menuBg;
 
 
     public SettingsMenu(final Main host) {
@@ -30,7 +32,7 @@ public class SettingsMenu implements Screen {
         //batch = new SpriteBatch();
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
-
+        menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
         Button back = new TextButton(host.getLevelText("back"), mySkin, "default");
@@ -77,11 +79,12 @@ public class SettingsMenu implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 1, 0.5f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
         stage.act();
+        stage.getBatch().begin();
+        stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth()*(9/15f), menuBg.getHeight()*(9/15f));
+        stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();
         /*if (isPressed) {
