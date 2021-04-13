@@ -613,6 +613,18 @@ public class TowerOfLife implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
+        for (Texture t: positive) {
+            t.dispose();
+        }
+        for (Texture t: negative) {
+            t.dispose();
+        }
+        fearSound.dispose();
+        angerSound.dispose();
+        sorrowSound.dispose();
+        hudbatch.dispose();
+        hit.dispose();
+        mode.dispose();
 
     }
 

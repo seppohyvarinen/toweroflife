@@ -112,7 +112,7 @@ public class Util {
         playerFixtureDef.density = 5000;
 
         // How bouncy object? Very bouncy [0,1]
-        playerFixtureDef.restitution = 0.35f;
+        playerFixtureDef.restitution = 0.32f;
 
         // How slipper object? [0,1]
         playerFixtureDef.friction = 0.1f;
