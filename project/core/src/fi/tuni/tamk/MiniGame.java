@@ -168,16 +168,45 @@ public class MiniGame implements Screen {
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
         answerBox = new Texture(Gdx.files.internal("answer_box.png"));
         answerImage = new Image(answerBox);
+        pIndex = MathUtils.random(0, 2);
+
 
         if (e.equals("sorrowBox")) {
             problemList.addAll(sorrowProblems);
+
+            if (TowerOfLife.usedSorrowQuestions.size() == sorrowProblems.size()) {
+                TowerOfLife.usedSorrowQuestions.clear();
+            }
+            while (TowerOfLife.usedSorrowQuestions.contains(pIndex) || pIndex == TowerOfLife.latestSorrow) {
+                pIndex = MathUtils.random(0, 2);
+            }
+            TowerOfLife.usedSorrowQuestions.add(pIndex);
+            TowerOfLife.latestSorrow = pIndex;
         } else if (e.equals("hateBox")) {
             problemList.addAll(hateProblems);
+            if (TowerOfLife.usedAngerQuestions.size() == hateProblems.size()) {
+                TowerOfLife.usedAngerQuestions.clear();
+            }
+            while (TowerOfLife.usedAngerQuestions.contains(pIndex) || TowerOfLife.latestAnger == pIndex) {
+                pIndex = MathUtils.random(0, 2);
+            }
+            TowerOfLife.usedAngerQuestions.add(pIndex);
+            TowerOfLife.latestAnger = pIndex;
+
         } else {
             problemList.addAll(fearProblems);
+            if (TowerOfLife.usedFearQuestions.size() == fearProblems.size()) {
+                TowerOfLife.usedFearQuestions.clear();
+            }
+            while (TowerOfLife.usedFearQuestions.contains(pIndex) || TowerOfLife.latestFear == pIndex) {
+                pIndex = MathUtils.random(0, 2);
+            }
+            TowerOfLife.usedFearQuestions.add(pIndex);
+            TowerOfLife.latestFear = pIndex;
+
         }
 
-        pIndex = MathUtils.random(0, 2);
+
         problem = problemList.get(pIndex);
 
         if (e.equals("sorrowBox")) {

@@ -103,6 +103,8 @@ public class TowerOfLife implements Screen {
     int spawnCounter = 0;
     static int miniGameCounter = 0;
     static int answerCounter = 0;
+    int posiCounter = 0;
+
     static boolean answerIsGiven = false;
     int getThis;
     float cameraY = WORLD_HEIGHT / 2f;
@@ -123,6 +125,12 @@ public class TowerOfLife implements Screen {
 
     ArrayList<Texture> positive;
     ArrayList<Texture> negative;
+    static ArrayList<Integer> usedAngerQuestions;
+    static ArrayList<Integer> usedSorrowQuestions;
+    static ArrayList<Integer> usedFearQuestions;
+    static int latestAnger = 99;
+    static int latestSorrow = 99;
+    static int latestFear = 99;
     private Texture backdropGrass;
     private Texture backdrop1;
     private Texture backdrop2;
@@ -170,6 +178,9 @@ public class TowerOfLife implements Screen {
 
         positive = new ArrayList<>();
         negative = new ArrayList<>();
+        usedAngerQuestions = new ArrayList<>();
+        usedFearQuestions = new ArrayList<>();
+        usedSorrowQuestions = new ArrayList<>();
 
         negative.add(anger);
         negative.add(fear);
@@ -395,7 +406,8 @@ public class TowerOfLife implements Screen {
 
         batch.setProjectionMatrix(camera.combined);
         hudbatch.setProjectionMatrix(hudcamera.combined);
-        //   Gdx.app.log("hello", "boxes:" + boxCounter);
+
+
 
 
         //debugRenderer.render(world, camera.combined);
@@ -414,7 +426,7 @@ public class TowerOfLife implements Screen {
         }
         if (spawnCounter > 60) {
             int random = MathUtils.random(1,3);
-            if (random == 1 && !lastWasNegative) {
+            if ((random == 1 && !lastWasNegative) || posiCounter > 9) {
                 positiveBoxes = false;
                 getThis = MathUtils.random(0, negative.size() - 1);
                 while (getThis == negTempGetThis) {
@@ -432,6 +444,7 @@ public class TowerOfLife implements Screen {
                 }
                 boxes.add(b);
                 lastWasNegative = true;
+                posiCounter = 0;
             } else {
                 positiveBoxes = true;
                 getThis = MathUtils.random(0, positive.size() - 1);
@@ -443,6 +456,7 @@ public class TowerOfLife implements Screen {
                 Box b = new Box(positive.get(getThis), itsABox);
                 boxes.add(b);
                 lastWasNegative = false;
+                posiCounter++;
 
             }
 
@@ -520,7 +534,8 @@ public class TowerOfLife implements Screen {
             font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 100f - 300, WORLD_HEIGHT * 100 - 10);
         }
         if (gongrats) {
-            for (int i = 0; i < boxes.size(); i++) {
+
+            for (int i = 0; i < boxes.size() - 2; i++) {
 
                 if (boxes.get(i).hasBody) {
                     boxes.get(i).body.setTransform(boxes.get(i).body.getPosition().x,boxes.get(i).body.getPosition().y, 0 );
