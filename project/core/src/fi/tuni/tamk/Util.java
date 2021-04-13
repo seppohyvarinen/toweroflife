@@ -15,6 +15,11 @@ public class Util {
         playerBody.createFixture(getFixtureDefinition(boxWidth, boxHeight));
         return playerBody;
     }
+    public static Body createJoyBox(float x, float y, float boxWidth, float boxHeight) {
+        Body playerBody = TowerOfLife.world.createBody(getDefinitionOfBody(x, y));
+        playerBody.createFixture(getJoyFixtureDefinition(boxWidth, boxHeight));
+        return playerBody;
+    }
 
     public static BodyDef getDefinitionOfBody(float x, float y) {
         // Body Definition
@@ -91,11 +96,32 @@ public class Util {
         // How slipper object? [0,1]
         playerFixtureDef.friction = 0.5f;
 
-        // Create circle shape.
+
         PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(boxWidth, boxHeight);
 
-        // Add the shape to the fixture
+
+        playerFixtureDef.shape = pShape;
+
+        return playerFixtureDef;
+    }
+    public static FixtureDef getJoyFixtureDefinition(float boxWidth, float boxHeight) {
+        FixtureDef playerFixtureDef = new FixtureDef();
+
+        // Mass per square meter (kg^m2)
+        playerFixtureDef.density = 5000;
+
+        // How bouncy object? Very bouncy [0,1]
+        playerFixtureDef.restitution = 0.35f;
+
+        // How slipper object? [0,1]
+        playerFixtureDef.friction = 0.1f;
+
+
+        PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(boxWidth, boxHeight);
+
+
         playerFixtureDef.shape = pShape;
 
         return playerFixtureDef;

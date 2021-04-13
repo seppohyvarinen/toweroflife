@@ -119,7 +119,7 @@ public class TowerOfLife implements Screen {
     private Texture awe;
     private Texture fear;
     private Texture hate;
-    private Texture joy;
+    static Texture joy;
     private Texture love;
     private Texture sorrow;
 

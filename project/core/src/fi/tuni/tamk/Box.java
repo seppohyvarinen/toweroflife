@@ -35,7 +35,12 @@ public class Box {
 
     public void dropIt() {
         drop = true;
-        body = Util.createBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
+        if (bodyTexture == TowerOfLife.joy) {
+            body = Util.createJoyBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
+        }  else {
+            body = Util.createBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
+
+        }
         body.setUserData(userData);
         hasBody = true;
     }
