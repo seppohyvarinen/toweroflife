@@ -92,8 +92,8 @@ public class MiniGame implements Screen {
         fontParameter.color = Color.WHITE;
         font = fontGenerator.generateFont(fontParameter);
         font.getData().setScale(0.5f, 0.5f);
-        correct = Gdx.audio.newSound(Gdx.files.internal("correct.mp3"));
-        incorrect = Gdx.audio.newSound(Gdx.files.internal("wrong.mp3"));
+        correct = Gdx.audio.newSound(Gdx.files.internal("correcto.mp3"));
+        incorrect = Gdx.audio.newSound(Gdx.files.internal("wrongo.mp3"));
 
         viewport = new FitViewport(TowerOfLife.WORLD_WIDTH, TowerOfLife.WORLD_HEIGHT, TowerOfLife.camera);
         viewport.apply();

@@ -135,6 +135,11 @@ public class TowerOfLife implements Screen {
     private Texture backdrop1;
     private Texture backdrop2;
 
+    Sound fearSound;
+    Sound angerSound;
+    Sound sorrowSound;
+    Sound dropSound;
+
     Box2DDebugRenderer debugRenderer;
 
 
@@ -151,6 +156,10 @@ public class TowerOfLife implements Screen {
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         hudcamera.setToOrtho(false, WORLD_WIDTH * 100f, WORLD_HEIGHT * 100f);
         world = new World(new Vector2(0, -9.8f), true);
+        fearSound = Gdx.audio.newSound(Gdx.files.internal("fear.mp3"));
+        angerSound = Gdx.audio.newSound(Gdx.files.internal("anger.mp3"));
+        sorrowSound = Gdx.audio.newSound(Gdx.files.internal("sorrow.mp3"));
+        dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
 
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -217,6 +226,7 @@ public class TowerOfLife implements Screen {
                 if (mainGame) {
                     if (!gameOver) {
                         if (canDrop && mainGame && !gongrats) {
+                            dropSound.play();
                             drop();
                             boxCounter++;
                             canDrop = false;
@@ -293,7 +303,7 @@ public class TowerOfLife implements Screen {
                 }
 
                 if ((userData1 == stacked && userData2 == sorrowBox) || (userData1 == sorrowBox && userData2 == stacked)) {
-                    mode.play();
+                    sorrowSound.play();
                     tempData = sorrowBox;
                     miniGametime = true;
                     if (!canDrop) {
@@ -309,7 +319,7 @@ public class TowerOfLife implements Screen {
                     //boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == hateBox) || (userData1 == hateBox && userData2 == stacked)) {
-                    mode.play();
+                    angerSound.play();
                     tempData = hateBox;
 
                     if (!canDrop) {
@@ -325,7 +335,7 @@ public class TowerOfLife implements Screen {
                    // boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == fearBox) || (userData1 == fearBox && userData2 == stacked)) {
-                    mode.play();
+                    fearSound.play();
                     tempData = fearBox;
 
                     if (!canDrop) {

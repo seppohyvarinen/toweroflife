@@ -35,6 +35,8 @@ public class MainMenu implements Screen {
     float height = 150;
     boolean isPressed = false;
     private Texture menuBg;
+    Sound tap;
+    Sound startGame;
 
 
 
@@ -43,6 +45,8 @@ public class MainMenu implements Screen {
         //batch = new SpriteBatch();
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
+        tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
+        startGame = Gdx.audio.newSound(Gdx.files.internal("startgame.mp3"));
 
         menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
@@ -58,6 +62,8 @@ public class MainMenu implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                startGame.play();
+
                 if (!isPressed) {
                     isPressed = true;
                     host.createGame = true;
@@ -73,6 +79,7 @@ public class MainMenu implements Screen {
         settings.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                tap.play();
                 host.setScreen(new SettingsMenu(host));
             }
 
