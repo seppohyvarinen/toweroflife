@@ -87,8 +87,10 @@ public class GameOver implements Screen {
         quit.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (TowerOfLife.soundOn)
+                if (TowerOfLife.soundOn) {
                     tap.play();
+
+                }
                 host.setScreen(new MainMenu(host));
             }
 

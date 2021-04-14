@@ -94,6 +94,7 @@ public class TowerOfLife implements Screen {
     boolean canSpawn = false;
     boolean canDrop = true;
     boolean destroyIsOn = false;
+    boolean canBeNeg = false;
     boolean okayToLoop = true;
     boolean positiveBoxes = true;
     boolean lastWasNegative = true;
@@ -259,8 +260,10 @@ public class TowerOfLife implements Screen {
 
                 // If we did get user data (ground does not have user data)
                 if ((userData1 == itsFirst && userData2 == ground) || (userData1 == ground && userData2 == itsFirst)) {
-                    if (soundOn)
+                    if (soundOn) {
                         hit.play();
+
+                    }
                     if (!canDrop) {
                         spawnCounter = 0;
                         canSpawn = true;
@@ -293,8 +296,10 @@ public class TowerOfLife implements Screen {
                     //boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == itsABox) || (userData1 == itsABox && userData2 == stacked)) {
-                    if (soundOn)
+                    if (soundOn) {
                         hit.play();
+
+                    }
 
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -310,8 +315,10 @@ public class TowerOfLife implements Screen {
                 }
 
                 if ((userData1 == stacked && userData2 == sorrowBox) || (userData1 == sorrowBox && userData2 == stacked)) {
-                    if (soundOn)
+                    if (soundOn) {
                         sorrowSound.play();
+
+                    }
                     tempData = sorrowBox;
                     miniGametime = true;
                     if (!canDrop) {
@@ -327,8 +334,10 @@ public class TowerOfLife implements Screen {
                     //boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == hateBox) || (userData1 == hateBox && userData2 == stacked)) {
-                    if (soundOn)
+                    if (soundOn) {
                         angerSound.play();
+
+                    }
                     tempData = hateBox;
 
                     if (!canDrop) {
@@ -344,8 +353,10 @@ public class TowerOfLife implements Screen {
                     // boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == fearBox) || (userData1 == fearBox && userData2 == stacked)) {
-                    if (soundOn)
+                    if (soundOn) {
                         fearSound.play();
+
+                    }
                     tempData = fearBox;
 
                     if (!canDrop) {
@@ -449,7 +460,7 @@ public class TowerOfLife implements Screen {
         }
         if (spawnCounter > 60) {
             int random = MathUtils.random(1, 3);
-            if ((random == 1 && !lastWasNegative) || posiCounter > 9) {
+            if (((random == 1 && !lastWasNegative) || posiCounter > 9) && canBeNeg) {
                 positiveBoxes = false;
                 getThis = MathUtils.random(0, negative.size() - 1);
                 while (getThis == negTempGetThis) {
@@ -480,6 +491,9 @@ public class TowerOfLife implements Screen {
                 boxes.add(b);
                 lastWasNegative = false;
                 posiCounter++;
+                if (posiCounter > 3) {
+                    canBeNeg = true;
+                }
 
             }
 
