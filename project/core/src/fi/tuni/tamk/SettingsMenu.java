@@ -35,22 +35,6 @@ public class SettingsMenu implements Screen {
         menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
-        Button back = new TextButton(host.getLevelText("back"), mySkin, "default");
-        back.setSize(width, height);
-        back.setPosition(Gdx.graphics.getWidth() / 2, 650);
-        back.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                host.setScreen(new MainMenu(host));
-            }
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
-        stage.addActor(back);
-
         Button language = new TextButton(host.getLevelText("language"), mySkin, "default");
         language.setSize(width, height);
         language.setPosition(Gdx.graphics.getWidth() / 2, 850);
@@ -71,6 +55,76 @@ public class SettingsMenu implements Screen {
                 return true;
             }
         });
+
+        Button sound;
+        if (TowerOfLife.soundOn)
+        sound = new TextButton(host.getLevelText("sound") + " off", mySkin, "default");
+        else
+            sound = new TextButton(host.getLevelText("sound") + " on", mySkin, "default");
+
+        sound.setSize(width, height);
+        sound.setPosition(Gdx.graphics.getWidth() / 2, 650);
+        sound.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (TowerOfLife.soundOn) {
+                    TowerOfLife.soundOn = false;
+                } else {
+                    TowerOfLife.soundOn = true;
+                }
+                host.setScreen(new SettingsMenu(host));
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(sound);
+
+        Button music;
+        if (TowerOfLife.musicOn)
+            music = new TextButton(host.getLevelText("music") + " off", mySkin, "default");
+        else
+            music = new TextButton(host.getLevelText("music") + " on", mySkin, "default");
+
+        music.setSize(width, height);
+        music.setPosition(Gdx.graphics.getWidth() / 2, 450);
+        music.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (TowerOfLife.musicOn) {
+                    TowerOfLife.musicOn = false;
+                } else {
+                    TowerOfLife.musicOn = true;
+                }
+                host.setScreen(new SettingsMenu(host));
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(music);
+
+        Button back = new TextButton(host.getLevelText("back"), mySkin, "default");
+        back.setSize(width, height);
+        back.setPosition(Gdx.graphics.getWidth() / 2, 250);
+        back.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                host.setScreen(new MainMenu(host));
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(back);
+
+
     }
 
     @Override
@@ -83,7 +137,7 @@ public class SettingsMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.getBatch().begin();
-        stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth()*(9/15f), menuBg.getHeight()*(9/15f));
+        stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth() * (9 / 15f), menuBg.getHeight() * (9 / 15f));
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();

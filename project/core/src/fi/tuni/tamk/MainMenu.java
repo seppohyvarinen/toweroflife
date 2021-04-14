@@ -39,7 +39,6 @@ public class MainMenu implements Screen {
     Sound startGame;
 
 
-
     public MainMenu(final Main host) {
         this.host = host;
         //batch = new SpriteBatch();
@@ -53,7 +52,7 @@ public class MainMenu implements Screen {
 
         Button play = new TextButton(host.getLevelText("play"), mySkin, "default");
         play.setSize(width, height);
-        play.setPosition(Gdx.graphics.getWidth()/2, 850);
+        play.setPosition(Gdx.graphics.getWidth() / 2, 850);
 
         play.addListener(new InputListener() {
             @Override
@@ -62,7 +61,8 @@ public class MainMenu implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                startGame.play();
+                if (TowerOfLife.soundOn)
+                    startGame.play();
 
                 if (!isPressed) {
                     isPressed = true;
@@ -75,11 +75,12 @@ public class MainMenu implements Screen {
         stage.addActor(play);
         Button settings = new TextButton(host.getLevelText("settings"), mySkin, "default");
         settings.setSize(width, height);
-        settings.setPosition(Gdx.graphics.getWidth()/2, 650);
+        settings.setPosition(Gdx.graphics.getWidth() / 2, 650);
         settings.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                tap.play();
+                if (TowerOfLife.soundOn)
+                    tap.play();
                 host.setScreen(new SettingsMenu(host));
             }
 
@@ -102,7 +103,7 @@ public class MainMenu implements Screen {
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.getBatch().begin();
-        stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth()*(9/15f), menuBg.getHeight()*(9/15f));
+        stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth() * (9 / 15f), menuBg.getHeight() * (9 / 15f));
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();

@@ -549,38 +549,27 @@ public class MiniGame implements Screen {
             Gdx.app.log("y", "" + touchPoint.y);
 
 
-
             //answer 1
             if ((touchPoint.x > 0 && touchPoint.x < 800) && (touchPoint.y > 900 && touchPoint.y < 1200)) {
 
                 isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
 
 
-                    answerIsGiven = true;
+                answerIsGiven = true;
 
 
-
-
-
-
-            }  else if ((touchPoint.x > 0 && touchPoint.x < 800) && (touchPoint.y > 100 && touchPoint.y < 400)) {
-                isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
-
-
-                    answerIsGiven = true;
-
-
-
-
-
-            }/*answer2*/  else if ((touchPoint.x > 0 && touchPoint.x < 800) && (touchPoint.y > 500 && touchPoint.y < 800)) {
+            } else if ((touchPoint.x > 0 && touchPoint.x < 800) && (touchPoint.y > 100 && touchPoint.y < 400)) {
                 isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
 
 
                 answerIsGiven = true;
 
 
+            }/*answer2*/ else if ((touchPoint.x > 0 && touchPoint.x < 800) && (touchPoint.y > 500 && touchPoint.y < 800)) {
+                isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
 
+
+                answerIsGiven = true;
 
 
             }
@@ -592,16 +581,18 @@ public class MiniGame implements Screen {
     public void isAnswerRight(int x, int y) {
         if ((x < correctXUpperlimit && x > correctXLowerlimit) && (y < correctYUpperlimit && y > correctYLowerlimit)) {
             if (!soundIsPlayed) {
-                correct.play();
+                if (TowerOfLife.soundOn)
+                    correct.play();
                 itsCorrect = true;
                 host.theGame.score += 2;
                 host.theGame.gongrats = true;
                 soundIsPlayed = true;
             }
 
-        }  else {
+        } else {
             if (!soundIsPlayed) {
-                incorrect.play();
+                if (TowerOfLife.soundOn)
+                    incorrect.play();
                 host.theGame.score -= 2;
                 host.theGame.wasIncorrect = true;
                 soundIsPlayed = true;
@@ -617,10 +608,9 @@ public class MiniGame implements Screen {
     }
 
 
-
     @Override
     public void resize(int width, int height) {
-        viewport.update(width,height);
+        viewport.update(width, height);
     }
 
     @Override
