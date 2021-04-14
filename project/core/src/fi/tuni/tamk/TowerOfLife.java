@@ -587,6 +587,8 @@ public class TowerOfLife implements Screen {
 
         if (gameOver) {
             font.draw(hudbatch, "GAME OVER!", 200, WORLD_HEIGHT * 100 - 100);
+
+            host.setScreen(new GameOver(host));
         }
         hudbatch.end();
 
