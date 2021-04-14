@@ -54,12 +54,12 @@ public class GameOver implements Screen {
         Label text = new Label("You lose! \nGame Over", mySkin, "black");
         text.setFontScale(4f, 4);
         //text.setSize(width, height);
-        text.setPosition(Gdx.graphics.getWidth() / 2, 1250);
+        text.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1250);
         stage.addActor(text);
 
         Button resume = new TextButton(host.getLevelText("resume"), mySkin, "default");
         resume.setSize(width, height);
-        resume.setPosition(Gdx.graphics.getWidth() / 2, 850);
+        resume.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
 
         resume.addListener(new InputListener() {
             @Override
@@ -83,7 +83,7 @@ public class GameOver implements Screen {
 
         Button quit = new TextButton(host.getLevelText("quit"), mySkin, "default");
         quit.setSize(width, height);
-        quit.setPosition(Gdx.graphics.getWidth() / 2, 650);
+        quit.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 650);
         quit.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {

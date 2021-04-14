@@ -52,7 +52,7 @@ public class MainMenu implements Screen {
 
         Button play = new TextButton(host.getLevelText("play"), mySkin, "default");
         play.setSize(width, height);
-        play.setPosition(Gdx.graphics.getWidth() / 2, 850);
+        play.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
 
         play.addListener(new InputListener() {
             @Override
@@ -75,7 +75,7 @@ public class MainMenu implements Screen {
         stage.addActor(play);
         Button settings = new TextButton(host.getLevelText("settings"), mySkin, "default");
         settings.setSize(width, height);
-        settings.setPosition(Gdx.graphics.getWidth() / 2, 650);
+        settings.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 650);
         settings.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {

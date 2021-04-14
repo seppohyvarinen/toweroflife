@@ -37,7 +37,7 @@ public class SettingsMenu implements Screen {
 
         Button language = new TextButton(host.getLevelText("language"), mySkin, "default");
         language.setSize(width, height);
-        language.setPosition(Gdx.graphics.getWidth() / 2, 1050);
+        language.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1050);
         stage.addActor(language);
         language.addListener(new InputListener() {
             @Override
@@ -63,7 +63,7 @@ public class SettingsMenu implements Screen {
             sound = new TextButton(host.getLevelText("sound") + " on", mySkin, "default");
 
         sound.setSize(width, height);
-        sound.setPosition(Gdx.graphics.getWidth() / 2, 850);
+        sound.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
         sound.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -89,7 +89,7 @@ public class SettingsMenu implements Screen {
             music = new TextButton(host.getLevelText("music") + " on", mySkin, "default");
 
         music.setSize(width, height);
-        music.setPosition(Gdx.graphics.getWidth() / 2, 650);
+        music.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 650);
         music.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -110,7 +110,7 @@ public class SettingsMenu implements Screen {
 
         Button back = new TextButton(host.getLevelText("back"), mySkin, "default");
         back.setSize(width, height);
-        back.setPosition(Gdx.graphics.getWidth() / 2, 450);
+        back.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 450);
         back.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
