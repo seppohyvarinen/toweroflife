@@ -115,13 +115,13 @@ public class MiniGame implements Screen {
         problemList = new ArrayList<>();
         answerList = new ArrayList<>();
 
-        fearProblems.add("fearproblem1");
+        fearProblems.add("Sinun täytyy pitää koulussa esitelmä. \n Sinua jännittää - suorastaan pelottaa! \n Mitä teet?");
         fearProblems.add("fearproblem2");
         fearProblems.add("fearproblem3");
 
-        fearProblemOne.add("fearproblem1 wrong");
-        fearProblemOne.add("fearproblem1 wrong2");
-        fearProblemOne.add("correct!");
+        fearProblemOne.add("Ennen minun vuoroani nauran muiden esitelmille, \n varsinkin jos he mokaavat jotakin. \n Se vähentää omaa jännitystäni.");
+        fearProblemOne.add("Parempi varmaan jättää koko homma pitämättä, \n ei kannata pakottaa itseään mihinkään");
+        fearProblemOne.add("Pidän esitelmän jännityksestä huolimatta! \n Kaikkia se oikeasti jännittää kuitenkin, \n sitäpaitsi tulen vahvemmaksi näin!");
 
         fearProblemTwo.add("fearproblem2 wrong");
         fearProblemTwo.add("fearproblem2 wrong2");
@@ -132,13 +132,13 @@ public class MiniGame implements Screen {
         fearProblemThree.add("correct!");
 
 
-        sorrowProblems.add("sorrowproblem1");
+        sorrowProblems.add(" Heräät aamulla ja pitäisi lähteä kouluun. \n Olosi on kuitenkin masentunut, eikä huvita lähteä. \n Mitä teet?");
         sorrowProblems.add("sorrowproblem2");
         sorrowProblems.add("sorrowproblem3");
 
-        sorrowProblemOne.add("sorr.problem1 wrong");
-        sorrowProblemOne.add("sorr.problem1 wrong2");
-        sorrowProblemOne.add("correct!");
+        sorrowProblemOne.add(" Jään kotiin nukkumaan. Miksi nousta ylös \n jos olo näin huono?");
+        sorrowProblemOne.add(" Annan asian olla ja menen kouluun. \n Ei auta itkeä");
+        sorrowProblemOne.add(" Puhun tuntemuksistani jollekulle \n heti kun se on mahdollista.");
 
         sorrowProblemTwo.add("sorr.problem2 wrong");
         sorrowProblemTwo.add("sorr.problem2 wrong2");

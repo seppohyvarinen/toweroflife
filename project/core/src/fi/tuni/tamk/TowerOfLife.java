@@ -482,10 +482,13 @@ public class TowerOfLife implements Screen {
             } else {
                 positiveBoxes = true;
                 getThis = MathUtils.random(0, positive.size() - 1);
-                while (getThis == posTempGetThis) {
-                    getThis = MathUtils.random(0, positive.size() - 1);
+                if (getThis ==posTempGetThis) {
+                    while (getThis == posTempGetThis) {
+                        getThis = MathUtils.random(0, positive.size() - 1);
 
+                    }
                 }
+
                 posTempGetThis = getThis;
                 Box b = new Box(positive.get(getThis), itsABox);
                 boxes.add(b);
