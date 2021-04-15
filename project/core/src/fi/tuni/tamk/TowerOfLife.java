@@ -34,6 +34,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
 
 public class TowerOfLife implements Screen {
     public static final float WORLD_WIDTH = 9f;
@@ -181,6 +182,9 @@ public class TowerOfLife implements Screen {
         backdrop2 = new Texture(Gdx.files.internal("backdrop_2.png"));
         anger = new Texture(Gdx.files.internal("em_anger.png"));
         awe = new Texture(Gdx.files.internal("em_awe.png"));
+        if (host.locale.equals(new Locale("fi_FI"))) {
+            awe = new Texture(Gdx.files.internal("em_awe_fi.png"));
+        }
         fear = new Texture(Gdx.files.internal("em_fear.png"));
         hate = new Texture(Gdx.files.internal("em_hate.png"));
         joy = new Texture(Gdx.files.internal("em_joy.png"));
@@ -207,6 +211,7 @@ public class TowerOfLife implements Screen {
         // Textureista = erilaisia boxeja
         getThis = MathUtils.random(0, positive.size() - 1);
         firstBox = new Box(positive.get(getThis), itsFirst);
+        posTempGetThis = getThis;
         boxes = new ArrayList<>();
         itr = boxes.iterator();
 
@@ -445,6 +450,7 @@ public class TowerOfLife implements Screen {
 
 
         //debugRenderer.render(world, camera.combined);
+        Gdx.app.log("what", ""+ posTempGetThis);
 
         if (canSpawn) {
             spawnCounter++;
@@ -482,15 +488,16 @@ public class TowerOfLife implements Screen {
             } else {
                 positiveBoxes = true;
                 getThis = MathUtils.random(0, positive.size() - 1);
-                if (getThis ==posTempGetThis) {
+                if (getThis == posTempGetThis) {
                     while (getThis == posTempGetThis) {
                         getThis = MathUtils.random(0, positive.size() - 1);
 
                     }
                 }
 
-                posTempGetThis = getThis;
+
                 Box b = new Box(positive.get(getThis), itsABox);
+                posTempGetThis = getThis;
                 boxes.add(b);
                 lastWasNegative = false;
                 posiCounter++;
