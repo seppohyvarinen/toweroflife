@@ -497,53 +497,7 @@ public class TowerOfLife implements Screen {
             host.setScreen(m);
         }
         if (spawnCounter > 60) {
-            int random = MathUtils.random(1, 3);
-            if (((random == 1 && !lastWasNegative) || posiCounter > 9) && canBeNeg) {
-                positiveBoxes = false;
-                getThis = MathUtils.random(0, negative.size() - 1);
-                while (getThis == negTempGetThis) {
-                    getThis = MathUtils.random(0, negative.size() - 1);
-
-                }
-                negTempGetThis = getThis;
-                Box b = new Box(negative.get(getThis), negativeBox);
-                if (b.bodyTexture == sorrow) {
-                    b.userData = sorrowBox;
-                } else if (b.bodyTexture == fear) {
-                    b.userData = fearBox;
-                } else {
-                    b.userData = hateBox;
-                }
-                boxes.add(b);
-                lastWasNegative = true;
-                posiCounter = 0;
-            } else {
-                positiveBoxes = true;
-                getThis = MathUtils.random(0, positive.size() - 1);
-                if (getThis == posTempGetThis) {
-                    while (getThis == posTempGetThis) {
-                        getThis = MathUtils.random(0, positive.size() - 1);
-
-                    }
-                }
-
-
-                Box b = new Box(positive.get(getThis), itsABox);
-
-
-                posTempGetThis = getThis;
-                boxes.add(b);
-                lastWasNegative = false;
-                posiCounter++;
-                if (posiCounter > 3) {
-                    canBeNeg = true;
-                }
-
-            }
-
-            canDrop = true;
-            canSpawn = false;
-            spawnCounter = 0;
+            spawnBox();
         }
 
 
@@ -699,6 +653,55 @@ public class TowerOfLife implements Screen {
         hit.dispose();
         mode.dispose();
 
+    }
+
+    public void spawnBox(){
+        int random = MathUtils.random(1, 3);
+        if (((random == 1 && !lastWasNegative) || posiCounter > 9) && canBeNeg) {
+            positiveBoxes = false;
+            getThis = MathUtils.random(0, negative.size() - 1);
+            while (getThis == negTempGetThis) {
+                getThis = MathUtils.random(0, negative.size() - 1);
+
+            }
+            negTempGetThis = getThis;
+            Box b = new Box(negative.get(getThis), negativeBox);
+            if (b.bodyTexture == sorrow) {
+                b.userData = sorrowBox;
+            } else if (b.bodyTexture == fear) {
+                b.userData = fearBox;
+            } else {
+                b.userData = hateBox;
+            }
+            boxes.add(b);
+            lastWasNegative = true;
+            posiCounter = 0;
+        } else {
+            positiveBoxes = true;
+            getThis = MathUtils.random(0, positive.size() - 1);
+            if (getThis == posTempGetThis) {
+                while (getThis == posTempGetThis) {
+                    getThis = MathUtils.random(0, positive.size() - 1);
+
+                }
+            }
+
+            Box b = new Box(positive.get(getThis), itsABox);
+
+
+            posTempGetThis = getThis;
+            boxes.add(b);
+            lastWasNegative = false;
+            posiCounter++;
+            if (posiCounter > 3) {
+                canBeNeg = true;
+            }
+
+        }
+
+        canDrop = true;
+        canSpawn = false;
+        spawnCounter = 0;
     }
 
     public void drop() {
