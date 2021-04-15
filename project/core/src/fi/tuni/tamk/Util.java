@@ -109,7 +109,7 @@ public class Util {
         FixtureDef playerFixtureDef = new FixtureDef();
 
         // Mass per square meter (kg^m2)
-        playerFixtureDef.density = 5000;
+        playerFixtureDef.density = 1000;
 
         // How bouncy object? Very bouncy [0,1]
         playerFixtureDef.restitution = 0.32f;

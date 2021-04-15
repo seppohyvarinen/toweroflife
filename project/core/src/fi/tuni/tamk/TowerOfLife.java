@@ -24,11 +24,13 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -277,8 +279,16 @@ public class TowerOfLife implements Screen {
 
                     if (userData1 == itsFirst) {
                         contact.getFixtureA().getBody().setUserData(firstStack);
+                        contact.getFixtureA().setRestitution(0);
+
+
+
                     } else
                         contact.getFixtureB().getBody().setUserData(firstStack);
+                        contact.getFixtureB().setRestitution(0);
+
+
+
                     Gdx.app.log("hello", "done");
                     //boxCounter++;
 
@@ -295,8 +305,17 @@ public class TowerOfLife implements Screen {
 
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
+                        contact.getFixtureA().setRestitution(0);
+
+
+
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
+                        contact.getFixtureB().setRestitution(0);
+
+
+
+
 
                     //boxCounter++;
                 }
@@ -314,8 +333,18 @@ public class TowerOfLife implements Screen {
 
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
+                        contact.getFixtureA().setRestitution(0);
+
+
+
+
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
+                        contact.getFixtureB().setRestitution(0);
+
+
+
+
                     //boxCounter++;
                 }
 
@@ -407,8 +436,11 @@ public class TowerOfLife implements Screen {
                 }
 
                 if ((userData1 == stacked && userData2 == stacked) || (userData2 == stacked && userData1 == stacked)) {
-                    if (soundOn)
+                    if (soundOn) {
                         hit.play();
+
+                    }
+
                 }
                 if ((userData1 == stacked && userData2 == firstStack) || (userData2 == stacked && userData1 == firstStack)) {
                     if (soundOn)
@@ -497,6 +529,8 @@ public class TowerOfLife implements Screen {
 
 
                 Box b = new Box(positive.get(getThis), itsABox);
+
+
                 posTempGetThis = getThis;
                 boxes.add(b);
                 lastWasNegative = false;
