@@ -110,7 +110,7 @@ public class TowerOfLife implements Screen {
     int spawnCounter = 0;
     static int miniGameCounter = 0;
     static int answerCounter = 0;
-    int posiCounter = 0;
+    static int posiCounter = 0;
 
     static boolean answerIsGiven = false;
     int getThis;
@@ -123,7 +123,7 @@ public class TowerOfLife implements Screen {
 
     private Texture bodyTexture;
     private Texture anger;
-    private Texture awe;
+    static Texture awe;
     private Texture fear;
     private Texture hate;
     static Texture joy;
