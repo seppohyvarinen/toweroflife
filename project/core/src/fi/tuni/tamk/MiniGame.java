@@ -581,19 +581,22 @@ public class MiniGame implements Screen {
     public void isAnswerRight(int x, int y) {
         if ((x < correctXUpperlimit && x > correctXLowerlimit) && (y < correctYUpperlimit && y > correctYLowerlimit)) {
             if (!soundIsPlayed) {
-                if (TowerOfLife.soundOn)
+                if (TowerOfLife.soundOn) {
                     correct.play();
+                }
                 itsCorrect = true;
-                host.theGame.score += 2;
+                host.theGame.score *= 3;
                 host.theGame.gongrats = true;
                 soundIsPlayed = true;
             }
 
         } else {
             if (!soundIsPlayed) {
-                if (TowerOfLife.soundOn)
+                if (TowerOfLife.soundOn) {
                     incorrect.play();
-                host.theGame.score -= 2;
+                }
+                host.theGame.score /= 3;
+                host.theGame.score *= 2;
                 host.theGame.wasIncorrect = true;
                 soundIsPlayed = true;
             }

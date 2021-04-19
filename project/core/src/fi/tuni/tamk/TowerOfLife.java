@@ -580,7 +580,7 @@ public class TowerOfLife implements Screen {
             }
             gongratsTimer++;
             if (gongratsTimer < 80) {
-                hudbatch.draw(scoreAdd, 20, WORLD_HEIGHT * 100 - 500, 300, 200);
+                hudbatch.draw(scoreAdd, 20, WORLD_HEIGHT * 100 - 500, 350, 200);
             } else {
                 gongrats = false;
                 gongratsTimer = 0;
@@ -589,7 +589,7 @@ public class TowerOfLife implements Screen {
         if (wasIncorrect) {
             gongratsTimer++;
             if (gongratsTimer < 80) {
-                hudbatch.draw(scoreMinus, 20, WORLD_HEIGHT * 100 - 500, 300, 200);
+                hudbatch.draw(scoreMinus, 20, WORLD_HEIGHT * 100 - 500, 350, 200);
             } else {
                 wasIncorrect = false;
                 gongratsTimer = 0;
