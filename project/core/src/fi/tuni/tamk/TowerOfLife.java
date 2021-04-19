@@ -652,6 +652,9 @@ public class TowerOfLife implements Screen {
         hudbatch.dispose();
         hit.dispose();
         mode.dispose();
+        for (Box b: boxes) {
+            b.dispose();
+        }
 
     }
 

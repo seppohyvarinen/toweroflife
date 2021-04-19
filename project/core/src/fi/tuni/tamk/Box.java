@@ -56,5 +56,9 @@ public class Box {
         return this.drop;
     }
 
+    public void dispose() {
+        bodyTexture.dispose();
+    }
+
 
 }
