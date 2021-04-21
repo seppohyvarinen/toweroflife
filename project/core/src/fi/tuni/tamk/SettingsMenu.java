@@ -39,13 +39,14 @@ public class SettingsMenu implements Screen {
         language.setSize(width, height);
         language.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1050);
         stage.addActor(language);
+
         language.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (host.locale.equals(new Locale("fi_FI"))) {
-                    host.locale = new Locale("en_US");
+                if (host.locale.equals(new Locale("fi", "FI"))) {
+                    host.locale = new Locale("en", "US");
                 } else {
-                    host.locale = new Locale("fi_FI");
+                    host.locale = new Locale("fi", "FI");
                 }
                 host.setScreen(new SettingsMenu(host));
             }
@@ -58,7 +59,7 @@ public class SettingsMenu implements Screen {
 
         Button sound;
         if (TowerOfLife.soundOn)
-        sound = new TextButton(host.getLevelText("sound") + " off", mySkin, "default");
+            sound = new TextButton(host.getLevelText("sound") + " off", mySkin, "default");
         else
             sound = new TextButton(host.getLevelText("sound") + " on", mySkin, "default");
 
