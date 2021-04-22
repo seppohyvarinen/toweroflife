@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -27,7 +28,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 
-public class MainMenu implements Screen {
+public class Highscore implements Screen {
     Main host;
     SpriteBatch batch;
     private Stage stage;
@@ -39,7 +40,7 @@ public class MainMenu implements Screen {
     Sound startGame;
 
 
-    public MainMenu(final Main host) {
+    public Highscore(final Main host) {
         this.host = host;
         //batch = new SpriteBatch();
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
@@ -50,37 +51,30 @@ public class MainMenu implements Screen {
         menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
-        Button play = new TextButton(host.getLevelText("play"), mySkin, "default");
-        play.setSize(width, height);
-        play.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
-        play.addListener(new InputListener() {
+        Label text = new Label(host.getLevelText("highscore"), mySkin, "black");
+        text.setFontScale(4f, 4);
+        //text.setSize(width, height);
+        text.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1450);
+        stage.addActor(text);
+
+        Label table = new Label(Main.file.readString(), mySkin, "black");
+        table.setFontScale(4f, 4);
+        //text.setSize(width, height);
+        table.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
+        stage.addActor(table);
+
+
+        Button quit = new TextButton(host.getLevelText("back"), mySkin, "default");
+        quit.setSize(width, height);
+        quit.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 250);
+        quit.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (TowerOfLife.soundOn)
-                    startGame.play();
+                if (TowerOfLife.soundOn) {
+                    tap.play();
 
-                if (!isPressed) {
-                    isPressed = true;
-                    host.createGame = true;
                 }
-                //host.setScreen(new TowerOfLife(host));
-                return true;
-            }
-        });
-        stage.addActor(play);
-
-        Button settings = new TextButton(host.getLevelText("settings"), mySkin, "default");
-        settings.setSize(width, height);
-        settings.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 650);
-        settings.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (TowerOfLife.soundOn)
-                    tap.play();
-                host.setScreen(new SettingsMenu(host));
+                host.setScreen(new MainMenu(host));
             }
 
             @Override
@@ -88,24 +82,7 @@ public class MainMenu implements Screen {
                 return true;
             }
         });
-        stage.addActor(settings);
-
-        Button highscore = new TextButton(host.getLevelText("highscore"), mySkin, "default");
-        highscore.setSize(width, height);
-        highscore.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 450);
-        highscore.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (TowerOfLife.soundOn)
-                    tap.play();
-                host.setScreen(new Highscore(host));
-            }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
-        stage.addActor(highscore);
+        stage.addActor(quit);
     }
 
     @Override
