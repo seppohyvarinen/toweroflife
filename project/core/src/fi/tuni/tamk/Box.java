@@ -1,6 +1,7 @@
 package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -14,12 +15,18 @@ public class Box {
     public static float boxHeight = 2/3f;
     public static String userData;
     boolean hasBody = false;
+    Sound fearSound;
+    Sound angerSound;
+    Sound sorrowSound;
 
     private boolean drop = false;
 
     public Box(Texture t, String d) {
         bodyTexture = t;
         userData = d;
+        fearSound = Gdx.audio.newSound(Gdx.files.internal("fear.mp3"));
+        angerSound = Gdx.audio.newSound(Gdx.files.internal("anger.mp3"));
+        sorrowSound = Gdx.audio.newSound(Gdx.files.internal("sorrow.mp3"));
 
 
     }
@@ -59,6 +66,10 @@ public class Box {
 
     public boolean getDropState() {
         return this.drop;
+    }
+
+    public void makeSound() {
+
     }
 
     public void dispose() {

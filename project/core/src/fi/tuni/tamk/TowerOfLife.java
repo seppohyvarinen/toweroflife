@@ -144,9 +144,7 @@ public class TowerOfLife implements Screen {
     private Texture backdrop1;
     private Texture backdrop2;
 
-    Sound fearSound;
-    Sound angerSound;
-    Sound sorrowSound;
+
     Sound dropSound;
 
     Box2DDebugRenderer debugRenderer;
@@ -165,9 +163,7 @@ public class TowerOfLife implements Screen {
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         hudcamera.setToOrtho(false, WORLD_WIDTH * 100f, WORLD_HEIGHT * 100f);
         world = new World(new Vector2(0, -9.8f), true);
-        fearSound = Gdx.audio.newSound(Gdx.files.internal("fear.mp3"));
-        angerSound = Gdx.audio.newSound(Gdx.files.internal("anger.mp3"));
-        sorrowSound = Gdx.audio.newSound(Gdx.files.internal("sorrow.mp3"));
+
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
 
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
