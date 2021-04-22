@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -792,6 +793,13 @@ public class TowerOfLife implements Screen {
     }
 
     private void save(int score, int[] highscore) {
+        //Highscore from file to array
+        String text = Main.file.readString();
+        String stringHighscore[] = text.split("\\n");
+
+        for (int i = 0; i < highscore.length; i++) {
+            highscore[i] = Integer.parseInt(stringHighscore[i]);
+        }
 
         int[] numbers = new int[11];
         for (int i = 0; i < 10; i++) {
@@ -813,6 +821,11 @@ public class TowerOfLife implements Screen {
 
         for (int i = 0; i < 10; i++) {
             highscore[i] = numbers[10 - i];
+        }
+        String myString = "";
+        for (int i = 0; i < highscore.length; i++) {
+            myString = myString + String.valueOf(highscore[i]) + "\n";
+            Main.file.writeString(myString, false);
         }
     }
 
