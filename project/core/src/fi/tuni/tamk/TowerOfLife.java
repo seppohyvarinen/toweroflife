@@ -81,6 +81,7 @@ public class TowerOfLife implements Screen {
     int posTempGetThis = 100;
 
     boolean gameOver = false;
+    static boolean scoreSoundPlayed = false;
 
     public static boolean soundOn = true;
     public static boolean musicOn = true;
@@ -146,6 +147,8 @@ public class TowerOfLife implements Screen {
 
 
     Sound dropSound;
+    Sound multiplyScore;
+    Sound minusScore;
 
     Box2DDebugRenderer debugRenderer;
 
@@ -224,6 +227,10 @@ public class TowerOfLife implements Screen {
         posTempGetThis = getThis;
         boxes = new ArrayList<>();
         itr = boxes.iterator();
+
+        multiplyScore = Gdx.audio.newSound(Gdx.files.internal("scoreplus.mp3"));
+        minusScore = Gdx.audio.newSound(Gdx.files.internal("scoreminus.mp3"));
+
 
         boxes.add(firstBox);
         removeTheseIndexes = new ArrayList<>();
@@ -578,6 +585,11 @@ public class TowerOfLife implements Screen {
         }
         if (gongrats) {
 
+            if (!scoreSoundPlayed && soundOn) {
+                multiplyScore.play();
+                scoreSoundPlayed = true;
+            }
+
             for (int i = 0; i < boxes.size() - 2; i++) {
 
                 if (boxes.get(i).hasBody) {
@@ -595,6 +607,11 @@ public class TowerOfLife implements Screen {
             }
         }
         if (wasIncorrect) {
+
+            if (!scoreSoundPlayed && soundOn) {
+                minusScore.play();
+                scoreSoundPlayed = true;
+            }
             gongratsTimer++;
             if (gongratsTimer < 80) {
                 hudbatch.draw(scoreMinus, 20, WORLD_HEIGHT * 100 - 500, 350, 200);
