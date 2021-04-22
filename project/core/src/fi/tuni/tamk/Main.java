@@ -34,7 +34,6 @@ public class Main extends Game {
     public Locale locale = new Locale("en_US");
     public static FileHandle file;
 
-
     @Override
     public void create() {
         batch = new SpriteBatch();
