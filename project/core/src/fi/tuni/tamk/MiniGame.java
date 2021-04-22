@@ -598,6 +598,7 @@ public class MiniGame implements Screen {
                 itsCorrect = true;
                 host.theGame.score *= 3;
                 host.theGame.bounceMultiplier = 0;
+                host.theGame.scoreSoundPlayed = false;
                 host.theGame.gongrats = true;
                 soundIsPlayed = true;
             }
@@ -609,6 +610,8 @@ public class MiniGame implements Screen {
                 }
                 host.theGame.score /= 3;
                 host.theGame.score *= 2;
+                host.theGame.scoreSoundPlayed = false;
+
                 host.theGame.wasIncorrect = true;
                 soundIsPlayed = true;
             }

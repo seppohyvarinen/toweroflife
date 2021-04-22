@@ -1,6 +1,7 @@
 package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -14,12 +15,26 @@ public class Box {
     public static float boxHeight = 2/3f;
     public static String userData;
     boolean hasBody = false;
+    Sound fearSound;
+    Sound angerSound;
+    Sound sorrowSound;
+    Sound hateSound;
+    Sound joySound;
+    Sound aweSound;
+    Sound loveSound;
 
     private boolean drop = false;
 
     public Box(Texture t, String d) {
         bodyTexture = t;
         userData = d;
+        fearSound = Gdx.audio.newSound(Gdx.files.internal("fear.mp3"));
+        angerSound = Gdx.audio.newSound(Gdx.files.internal("angerb.mp3"));
+        sorrowSound = Gdx.audio.newSound(Gdx.files.internal("sorrow.mp3"));
+        hateSound = Gdx.audio.newSound(Gdx.files.internal("anger.mp3"));
+        joySound = Gdx.audio.newSound(Gdx.files.internal("joy.mp3"));
+        aweSound = Gdx.audio.newSound(Gdx.files.internal("awe.mp3"));
+        loveSound = Gdx.audio.newSound(Gdx.files.internal("love.mp3"));
 
 
     }
@@ -36,7 +51,7 @@ public class Box {
     public void dropIt() {
         drop = true;
         if (bodyTexture == TowerOfLife.joy) {
-            body = Util.createJoyBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight, TowerOfLife.bounceMultiplier * 0.09f + 0.25f);
+            body = Util.createJoyBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight, TowerOfLife.bounceMultiplier * 0.07f + 0.25f);
         }  else if (bodyTexture == TowerOfLife.awe) {
             body = Util.createAweBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
 
@@ -59,6 +74,24 @@ public class Box {
 
     public boolean getDropState() {
         return this.drop;
+    }
+
+    public void makeSound() {
+        if (bodyTexture == TowerOfLife.joy) {
+            joySound.play();
+        }  else if (bodyTexture == TowerOfLife.fear) {
+            fearSound.play();
+        }  else if (bodyTexture == TowerOfLife.awe) {
+            aweSound.play();
+        }  else if (bodyTexture == TowerOfLife.hate) {
+            hateSound.play();
+        }  else if (bodyTexture ==TowerOfLife.sorrow) {
+            sorrowSound.play();
+        }  else if (bodyTexture == TowerOfLife.anger) {
+            angerSound.play();
+        }  else if (bodyTexture == TowerOfLife.love) {
+            loveSound.play();
+        }
     }
 
     public void dispose() {
