@@ -72,7 +72,7 @@ public class TowerOfLife implements Screen {
     ArrayList<Box> boxes;
     Iterator<Box> itr;
     ArrayList<Integer> removeTheseIndexes;
-    int boxCounter = 0;
+    int boxCounter;
     public static int score = 0;
 
     int lives = 3;
@@ -107,10 +107,10 @@ public class TowerOfLife implements Screen {
     boolean wasIncorrect = false;
     static boolean mainGame = true;
     static boolean minigameStart = false;
-    int destroyIndex = 0;
-    int spawnCounter = 0;
-    static int miniGameCounter = 0;
-    static int answerCounter = 0;
+    int destroyIndex;
+    int spawnCounter;
+    static int miniGameCounter;
+    static int answerCounter;
     static int posiCounter;
 
     static boolean answerIsGiven = false;
@@ -124,13 +124,13 @@ public class TowerOfLife implements Screen {
     Texture scoreMinus;
 
     private Texture bodyTexture;
-    private Texture anger;
+    static Texture anger;
     static Texture awe;
     static Texture fear;
     static Texture hate;
     static Texture joy;
-    private Texture love;
-    private Texture sorrow;
+    static Texture love;
+    static Texture sorrow;
 
     ArrayList<Texture> positive;
     ArrayList<Texture> negative;
@@ -179,6 +179,12 @@ public class TowerOfLife implements Screen {
         latestFear = 99;
         latestSorrow = 99;
         latestSorrow = 99;
+        boxCounter = 0;
+        destroyIndex = 0;
+        spawnCounter = 0;
+        miniGameCounter = 0;
+        answerCounter = 0;
+
 
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
         backdropGrass = new Texture(Gdx.files.internal("grass.png"));
@@ -270,7 +276,7 @@ public class TowerOfLife implements Screen {
                 // If we did get user data (ground does not have user data)
                 if ((userData1 == itsFirst && userData2 == ground) || (userData1 == ground && userData2 == itsFirst)) {
                     if (soundOn) {
-                        hit.play();
+                        boxes.get(boxCounter-1).makeSound();
 
                     }
                     if (!canDrop) {
@@ -296,8 +302,11 @@ public class TowerOfLife implements Screen {
 
                 }
                 if ((userData1 == firstStack && userData2 == itsABox) || (userData1 == itsABox && userData2 == firstStack)) {
-                    if (soundOn)
-                        hit.play();
+                    if (soundOn) {
+                        boxes.get(boxCounter-1).makeSound();
+
+                    }
+
                     if (!canDrop) {
                         spawnCounter = 0;
                         canSpawn = true;
@@ -319,7 +328,8 @@ public class TowerOfLife implements Screen {
                 }
                 if ((userData1 == stacked && userData2 == itsABox) || (userData1 == itsABox && userData2 == stacked)) {
                     if (soundOn) {
-                        hit.play();
+                        boxes.get(boxCounter-1).makeSound();
+
 
                     }
                     bounceMultiplier++;
@@ -345,7 +355,7 @@ public class TowerOfLife implements Screen {
 
                 if ((userData1 == stacked && userData2 == sorrowBox) || (userData1 == sorrowBox && userData2 == stacked)) {
                     if (soundOn) {
-                        sorrowSound.play();
+                        boxes.get(boxCounter-1).makeSound();
 
                     }
                     bounceMultiplier++;
@@ -365,7 +375,8 @@ public class TowerOfLife implements Screen {
                 }
                 if ((userData1 == stacked && userData2 == hateBox) || (userData1 == hateBox && userData2 == stacked)) {
                     if (soundOn) {
-                        angerSound.play();
+                        boxes.get(boxCounter-1).makeSound();
+
 
                     }
                     tempData = hateBox;
@@ -385,7 +396,7 @@ public class TowerOfLife implements Screen {
                 }
                 if ((userData1 == stacked && userData2 == fearBox) || (userData1 == fearBox && userData2 == stacked)) {
                     if (soundOn) {
-                        fearSound.play();
+                        boxes.get(boxCounter-1).makeSound();
 
                     }
                     tempData = fearBox;
@@ -646,9 +657,7 @@ public class TowerOfLife implements Screen {
         for (Texture t : negative) {
             t.dispose();
         }
-        fearSound.dispose();
-        angerSound.dispose();
-        sorrowSound.dispose();
+
         hudbatch.dispose();
         hit.dispose();
         mode.dispose();
