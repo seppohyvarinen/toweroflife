@@ -188,16 +188,23 @@ public class TowerOfLife implements Screen {
         backdropGrass = new Texture(Gdx.files.internal("grass.png"));
         backdrop1 = new Texture(Gdx.files.internal("backdrop_1.png"));
         backdrop2 = new Texture(Gdx.files.internal("backdrop_2.png"));
-        anger = new Texture(Gdx.files.internal("em_anger.png"));
-        awe = new Texture(Gdx.files.internal("em_awe.png"));
-        if (host.locale.equals(new Locale("fi_FI"))) {
+        if (host.locale.equals(new Locale("fi", "FI"))) {
             awe = new Texture(Gdx.files.internal("em_awe_fi.png"));
+            anger = new Texture(Gdx.files.internal("em_anger_fi.png"));
+            fear = new Texture(Gdx.files.internal("em_fear_fi.png"));
+            hate = new Texture(Gdx.files.internal("em_hate_fi.png"));
+            joy = new Texture(Gdx.files.internal("em_joy_fi.png"));
+            love = new Texture(Gdx.files.internal("em_love_fi.png"));
+            sorrow = new Texture(Gdx.files.internal("em_sorrow_fi.png"));
+        } else {
+            anger = new Texture(Gdx.files.internal("em_anger.png"));
+            awe = new Texture(Gdx.files.internal("em_awe.png"));
+            fear = new Texture(Gdx.files.internal("em_fear.png"));
+            hate = new Texture(Gdx.files.internal("em_hate.png"));
+            joy = new Texture(Gdx.files.internal("em_joy.png"));
+            love = new Texture(Gdx.files.internal("em_love.png"));
+            sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
         }
-        fear = new Texture(Gdx.files.internal("em_fear.png"));
-        hate = new Texture(Gdx.files.internal("em_hate.png"));
-        joy = new Texture(Gdx.files.internal("em_joy.png"));
-        love = new Texture(Gdx.files.internal("em_love.png"));
-        sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
         scoreAdd = new Texture(Gdx.files.internal("scoreadd.png"));
         scoreMinus = new Texture(Gdx.files.internal("scoreminus.png"));
 
