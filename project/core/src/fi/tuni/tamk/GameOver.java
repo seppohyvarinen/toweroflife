@@ -51,13 +51,15 @@ public class GameOver implements Screen {
         menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
-        Label text = new Label("You lose! \nGame Over", mySkin, "black");
+        Label text = new Label("You lose! \nYour score: " + TowerOfLife.score, mySkin, "black");
         text.setFontScale(4f, 4);
         //text.setSize(width, height);
         text.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1250);
         stage.addActor(text);
 
-        Button resume = new TextButton(host.getLevelText("resume"), mySkin, "default");
+        TowerOfLife.score = 0;
+
+        Button resume = new TextButton(host.getLevelText("retry"), mySkin, "default");
         resume.setSize(width, height);
         resume.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
 

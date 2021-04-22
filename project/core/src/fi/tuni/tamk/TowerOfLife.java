@@ -72,7 +72,7 @@ public class TowerOfLife implements Screen {
     Iterator<Box> itr;
     ArrayList<Integer> removeTheseIndexes;
     int boxCounter = 0;
-    int score = 0;
+    public static int score = 0;
 
     int lives = 3;
     int gongratsTimer = 0;
@@ -282,11 +282,9 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().setRestitution(0);
 
 
-
                     } else
                         contact.getFixtureB().getBody().setUserData(firstStack);
-                        contact.getFixtureB().setRestitution(0);
-
+                    contact.getFixtureB().setRestitution(0);
 
 
                     Gdx.app.log("hello", "done");
@@ -308,13 +306,9 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().setRestitution(0);
 
 
-
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
-                        contact.getFixtureB().setRestitution(0);
-
-
-
+                    contact.getFixtureB().setRestitution(0);
 
 
                     //boxCounter++;
@@ -336,13 +330,9 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().setRestitution(0);
 
 
-
-
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
-                        contact.getFixtureB().setRestitution(0);
-
-
+                    contact.getFixtureB().setRestitution(0);
 
 
                     //boxCounter++;
@@ -482,7 +472,7 @@ public class TowerOfLife implements Screen {
 
 
         //debugRenderer.render(world, camera.combined);
-        Gdx.app.log("what", ""+ posTempGetThis);
+        Gdx.app.log("what", "" + posTempGetThis);
 
         if (canSpawn) {
             spawnCounter++;
@@ -516,7 +506,6 @@ public class TowerOfLife implements Screen {
         if (!gameOver) {
 
             Util.swing(realX, realY, toRight, toUp);
-
 
             if (okayToLoop) {
                 for (int i = 0; i < boxes.size(); i++) {
@@ -598,8 +587,11 @@ public class TowerOfLife implements Screen {
 
 
         if (gameOver) {
-            font.draw(hudbatch, "GAME OVER!", 200, WORLD_HEIGHT * 100 - 100);
+            save(score, Main.highscore);
+            for (int i = 0; i < Main.highscore.length; i++) {
+                System.out.println(Main.highscore[i]);
 
+            }
             host.setScreen(new GameOver(host));
         }
         hudbatch.end();
@@ -652,13 +644,13 @@ public class TowerOfLife implements Screen {
         hudbatch.dispose();
         hit.dispose();
         mode.dispose();
-        for (Box b: boxes) {
+        for (Box b : boxes) {
             b.dispose();
         }
 
     }
 
-    public void spawnBox(){
+    public void spawnBox() {
         int random = MathUtils.random(1, 3);
         if (((random == 1 && !lastWasNegative) || posiCounter > 9) && canBeNeg) {
             positiveBoxes = false;
@@ -786,6 +778,31 @@ public class TowerOfLife implements Screen {
             camera.position.y += camSpeed;
         }
         camera.update();
+    }
+
+    private void save(int score, int[] highscore) {
+
+        int[] numbers = new int[11];
+        for (int i = 0; i < 10; i++) {
+            numbers[i] = highscore[i];
+        }
+        numbers[10] = score;
+
+        for (int i = 0; i < numbers.length; i++) {
+            int min = i;
+            for (int j = i + 1; j < numbers.length; j++) {
+                if (numbers[j] < numbers[min]) {
+                    min = j;
+                }
+            }
+            int tmp = numbers[i];
+            numbers[i] = numbers[min];
+            numbers[min] = tmp;
+        }
+
+        for (int i = 0; i < 10; i++) {
+            highscore[i] = numbers[10 - i];
+        }
     }
 
 }
