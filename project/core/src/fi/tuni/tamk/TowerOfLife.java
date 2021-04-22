@@ -110,10 +110,11 @@ public class TowerOfLife implements Screen {
     int spawnCounter = 0;
     static int miniGameCounter = 0;
     static int answerCounter = 0;
-    static int posiCounter = 0;
+    static int posiCounter;
 
     static boolean answerIsGiven = false;
     int getThis;
+    static int bounceMultiplier;
     float cameraY = WORLD_HEIGHT / 2f;
 
     Main host;
@@ -124,8 +125,8 @@ public class TowerOfLife implements Screen {
     private Texture bodyTexture;
     private Texture anger;
     static Texture awe;
-    private Texture fear;
-    private Texture hate;
+    static Texture fear;
+    static Texture hate;
     static Texture joy;
     private Texture love;
     private Texture sorrow;
@@ -135,9 +136,9 @@ public class TowerOfLife implements Screen {
     static ArrayList<Integer> usedAngerQuestions;
     static ArrayList<Integer> usedSorrowQuestions;
     static ArrayList<Integer> usedFearQuestions;
-    static int latestAnger = 99;
-    static int latestSorrow = 99;
-    static int latestFear = 99;
+    static int latestAnger;
+    static int latestSorrow;
+    static int latestFear;
     private Texture backdropGrass;
     private Texture backdrop1;
     private Texture backdrop2;
@@ -176,7 +177,11 @@ public class TowerOfLife implements Screen {
         fontParameter.color = Color.WHITE;
 
         font = fontGenerator.generateFont(fontParameter);
-
+        posiCounter = 0;
+        bounceMultiplier = 0;
+        latestFear = 99;
+        latestSorrow = 99;
+        latestSorrow = 99;
 
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
         backdropGrass = new Texture(Gdx.files.internal("grass.png"));
@@ -276,6 +281,7 @@ public class TowerOfLife implements Screen {
                         canSpawn = true;
                     }
                     score++;
+                    bounceMultiplier++;
 
                     if (userData1 == itsFirst) {
                         contact.getFixtureA().getBody().setUserData(firstStack);
@@ -300,6 +306,7 @@ public class TowerOfLife implements Screen {
                         canSpawn = true;
                     }
                     score++;
+                    bounceMultiplier++;
 
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
@@ -318,6 +325,7 @@ public class TowerOfLife implements Screen {
                         hit.play();
 
                     }
+                    bounceMultiplier++;
 
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -343,6 +351,7 @@ public class TowerOfLife implements Screen {
                         sorrowSound.play();
 
                     }
+                    bounceMultiplier++;
                     tempData = sorrowBox;
                     miniGametime = true;
                     if (!canDrop) {
@@ -363,6 +372,7 @@ public class TowerOfLife implements Screen {
 
                     }
                     tempData = hateBox;
+                    bounceMultiplier++;
 
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -382,6 +392,7 @@ public class TowerOfLife implements Screen {
 
                     }
                     tempData = fearBox;
+                    bounceMultiplier++;
 
                     if (!canDrop) {
                         spawnCounter = 0;
@@ -472,7 +483,7 @@ public class TowerOfLife implements Screen {
 
 
         //debugRenderer.render(world, camera.combined);
-        Gdx.app.log("what", "" + posTempGetThis);
+        Gdx.app.log("what", "" + bounceMultiplier);
 
         if (canSpawn) {
             spawnCounter++;
@@ -652,7 +663,7 @@ public class TowerOfLife implements Screen {
 
     public void spawnBox() {
         int random = MathUtils.random(1, 3);
-        if (((random == 1 && !lastWasNegative) || posiCounter > 9) && canBeNeg) {
+        if (((random == 1 && !lastWasNegative) || posiCounter > 7) && canBeNeg) {
             positiveBoxes = false;
             getThis = MathUtils.random(0, negative.size() - 1);
             while (getThis == negTempGetThis) {

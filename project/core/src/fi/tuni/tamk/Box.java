@@ -36,13 +36,18 @@ public class Box {
     public void dropIt() {
         drop = true;
         if (bodyTexture == TowerOfLife.joy) {
-            body = Util.createJoyBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight, TowerOfLife.posiCounter * 0.08f + 0.2f);
+            body = Util.createJoyBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight, TowerOfLife.bounceMultiplier * 0.09f + 0.25f);
         }  else if (bodyTexture == TowerOfLife.awe) {
             body = Util.createAweBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
 
-        }  else {
-            body = Util.createBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
+        }  else if (bodyTexture == TowerOfLife.hate) {
+            body = Util.createAweBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
 
+        }  else if (bodyTexture == TowerOfLife.fear) {
+            body = Util.createFearBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
+
+        }  else  {
+            body = Util.createBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
         }
         body.setUserData(userData);
         hasBody = true;

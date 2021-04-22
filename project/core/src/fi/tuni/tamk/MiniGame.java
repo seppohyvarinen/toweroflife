@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MiniGame implements Screen {
     private FreeTypeFontGenerator fontGenerator;
@@ -131,14 +132,24 @@ public class MiniGame implements Screen {
         fearProblemThree.add("fearproblem3 wrong2");
         fearProblemThree.add("correct!");
 
-
-        sorrowProblems.add(" Heräät aamulla ja pitäisi lähteä kouluun. \n Olosi on kuitenkin masentunut, eikä huvita lähteä. \n Mitä teet?");
+        if (host.locale.equals(new Locale("fi_FI"))) {
+            sorrowProblems.add(" Heräät aamulla ja pitäisi lähteä kouluun. \n Olosi on kuitenkin masentunut, eikä huvita lähteä. \n Mitä teet?");
+        }  else {
+            sorrowProblems.add(" You wake up in the morning and \n you should go to school. However, you \n feel depressed and you don't want to go. \n What will you do?");
+        }
         sorrowProblems.add("sorrowproblem2");
         sorrowProblems.add("sorrowproblem3");
 
-        sorrowProblemOne.add(" Jään kotiin nukkumaan. Miksi nousta ylös \n jos olo näin huono?");
-        sorrowProblemOne.add(" Annan asian olla ja menen kouluun. \n Ei auta itkeä");
-        sorrowProblemOne.add(" Puhun tuntemuksistani jollekulle \n heti kun se on mahdollista.");
+        if (host.locale.equals(new Locale("fi_FI"))) {
+            sorrowProblemOne.add(" Jään kotiin nukkumaan. Miksi nousta ylös \n jos olo näin huono?");
+            sorrowProblemOne.add(" Annan asian olla ja menen kouluun. \n Ei auta itkeä");
+            sorrowProblemOne.add(" Puhun tuntemuksistani jollekulle \n heti kun se on mahdollista.");
+        }  else {
+            sorrowProblemOne.add(" I'll stay in home and sleep. Why to get up \n if I feel this bad?");
+            sorrowProblemOne.add(" I let it be and just go to school. \n No point in crying.");
+            sorrowProblemOne.add(" I'll talk to someone \n about how I feel as soon as possible.");
+        }
+
 
         sorrowProblemTwo.add("sorr.problem2 wrong");
         sorrowProblemTwo.add("sorr.problem2 wrong2");
@@ -178,7 +189,7 @@ public class MiniGame implements Screen {
                 TowerOfLife.usedSorrowQuestions.clear();
             }
             while (TowerOfLife.usedSorrowQuestions.contains(pIndex) || pIndex == TowerOfLife.latestSorrow) {
-                pIndex = MathUtils.random(0, 2);
+                pIndex = MathUtils.random(0, sorrowProblems.size()-1);
             }
             TowerOfLife.usedSorrowQuestions.add(pIndex);
             TowerOfLife.latestSorrow = pIndex;
@@ -188,7 +199,7 @@ public class MiniGame implements Screen {
                 TowerOfLife.usedAngerQuestions.clear();
             }
             while (TowerOfLife.usedAngerQuestions.contains(pIndex) || TowerOfLife.latestAnger == pIndex) {
-                pIndex = MathUtils.random(0, 2);
+                pIndex = MathUtils.random(0, hateProblems.size() - 1);
             }
             TowerOfLife.usedAngerQuestions.add(pIndex);
             TowerOfLife.latestAnger = pIndex;
@@ -199,7 +210,7 @@ public class MiniGame implements Screen {
                 TowerOfLife.usedFearQuestions.clear();
             }
             while (TowerOfLife.usedFearQuestions.contains(pIndex) || TowerOfLife.latestFear == pIndex) {
-                pIndex = MathUtils.random(0, 2);
+                pIndex = MathUtils.random(0, fearProblems.size() - 1);
             }
             TowerOfLife.usedFearQuestions.add(pIndex);
             TowerOfLife.latestFear = pIndex;
@@ -586,6 +597,7 @@ public class MiniGame implements Screen {
                 }
                 itsCorrect = true;
                 host.theGame.score *= 3;
+                host.theGame.bounceMultiplier = 0;
                 host.theGame.gongrats = true;
                 soundIsPlayed = true;
             }

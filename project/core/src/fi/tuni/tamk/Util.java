@@ -25,6 +25,16 @@ public class Util {
         playerBody.createFixture(getAweFixtureDefinition(boxWidth, boxHeight));
         return playerBody;
     }
+    public static Body createFearBox(float x, float y, float boxWidth, float boxHeight) {
+        Body playerBody = TowerOfLife.world.createBody(getDefinitionOfBody(x, y));
+        playerBody.createFixture(getFearFixtureDefinition(boxWidth, boxHeight));
+        return playerBody;
+    }
+    public static Body createHateBox(float x, float y, float boxWidth, float boxHeight) {
+        Body playerBody = TowerOfLife.world.createBody(getDefinitionOfBody(x, y));
+        playerBody.createFixture(getFearFixtureDefinition(boxWidth, boxHeight));
+        return playerBody;
+    }
 
     public static BodyDef getDefinitionOfBody(float x, float y) {
         // Body Definition
@@ -142,6 +152,48 @@ public class Util {
 
         // How slipper object? [0,1]
         playerFixtureDef.friction = 0.03f;
+
+
+        PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(boxWidth, boxHeight);
+
+
+        playerFixtureDef.shape = pShape;
+
+        return playerFixtureDef;
+    }
+    public static FixtureDef getFearFixtureDefinition(float boxWidth, float boxHeight) {
+        FixtureDef playerFixtureDef = new FixtureDef();
+
+        // Mass per square meter (kg^m2)
+        playerFixtureDef.density = 4800;
+
+        // How bouncy object? Very bouncy [0,1]
+        playerFixtureDef.restitution = 0.2f;
+
+        // How slipper object? [0,1]
+        playerFixtureDef.friction = 0.01f;
+
+
+        PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(boxWidth, boxHeight);
+
+
+        playerFixtureDef.shape = pShape;
+
+        return playerFixtureDef;
+    }
+    public static FixtureDef getHateFixtureDefinition(float boxWidth, float boxHeight) {
+        FixtureDef playerFixtureDef = new FixtureDef();
+
+        // Mass per square meter (kg^m2)
+        playerFixtureDef.density = 6000;
+
+        // How bouncy object? Very bouncy [0,1]
+        playerFixtureDef.restitution = 0.2f;
+
+        // How slipper object? [0,1]
+        playerFixtureDef.friction = 1f;
 
 
         PolygonShape pShape = new PolygonShape();
