@@ -116,65 +116,57 @@ public class MiniGame implements Screen {
         problemList = new ArrayList<>();
         answerList = new ArrayList<>();
 
-        fearProblems.add("Sinun täytyy pitää koulussa esitelmä. \n Sinua jännittää - suorastaan pelottaa! \n Mitä teet?");
-        fearProblems.add("fearproblem2");
-        fearProblems.add("fearproblem3");
+        fearProblems.add(host.getLevelText("fearproblem1"));
+        fearProblems.add(host.getLevelText("fearproblem2"));
+        fearProblems.add(host.getLevelText("fearproblem3"));
 
-        fearProblemOne.add("Ennen minun vuoroani nauran muiden esitelmille, \n varsinkin jos he mokaavat jotakin. \n Se vähentää omaa jännitystäni.");
-        fearProblemOne.add("Parempi varmaan jättää koko homma pitämättä, \n ei kannata pakottaa itseään mihinkään");
-        fearProblemOne.add("Pidän esitelmän jännityksestä huolimatta! \n Kaikkia se oikeasti jännittää kuitenkin, \n sitäpaitsi tulen vahvemmaksi näin!");
+        fearProblemOne.add(host.getLevelText("fear1_wrong1"));
+        fearProblemOne.add(host.getLevelText("fear1_wrong2"));
+        fearProblemOne.add(host.getLevelText("fear1_correct"));
 
-        fearProblemTwo.add("fearproblem2 wrong");
-        fearProblemTwo.add("fearproblem2 wrong2");
-        fearProblemTwo.add("correct!");
+        fearProblemTwo.add(host.getLevelText("fear2_wrong1"));
+        fearProblemTwo.add(host.getLevelText("fear2_wrong2"));
+        fearProblemTwo.add(host.getLevelText("fear2_correct"));
 
-        fearProblemThree.add("fearproblem3 wrong");
-        fearProblemThree.add("fearproblem3 wrong2");
-        fearProblemThree.add("correct!");
-
-        if (host.locale.equals(new Locale("fi_FI"))) {
-            sorrowProblems.add(" Heräät aamulla ja pitäisi lähteä kouluun. \n Olosi on kuitenkin masentunut, eikä huvita lähteä. \n Mitä teet?");
-        }  else {
-            sorrowProblems.add(" You wake up in the morning and \n you should go to school. However, you \n feel depressed and you don't want to go. \n What will you do?");
-        }
-        sorrowProblems.add("sorrowproblem2");
-        sorrowProblems.add("sorrowproblem3");
-
-        if (host.locale.equals(new Locale("fi_FI"))) {
-            sorrowProblemOne.add(" Jään kotiin nukkumaan. Miksi nousta ylös \n jos olo näin huono?");
-            sorrowProblemOne.add(" Annan asian olla ja menen kouluun. \n Ei auta itkeä");
-            sorrowProblemOne.add(" Puhun tuntemuksistani jollekulle \n heti kun se on mahdollista.");
-        }  else {
-            sorrowProblemOne.add(" I'll stay in home and sleep. Why to get up \n if I feel this bad?");
-            sorrowProblemOne.add(" I let it be and just go to school. \n No point in crying.");
-            sorrowProblemOne.add(" I'll talk to someone \n about how I feel as soon as possible.");
-        }
+        fearProblemThree.add(host.getLevelText("fear3_wrong1"));
+        fearProblemThree.add(host.getLevelText("fear3_wrong2"));
+        fearProblemThree.add(host.getLevelText("fear3_correct"));
 
 
-        sorrowProblemTwo.add("sorr.problem2 wrong");
-        sorrowProblemTwo.add("sorr.problem2 wrong2");
-        sorrowProblemTwo.add("correct!");
-
-        sorrowProblemThree.add("sorr.problem3 wrong");
-        sorrowProblemThree.add("sorr.problem3 wrong2");
-        sorrowProblemThree.add("correct!");
+        sorrowProblems.add(host.getLevelText("sorrowproblem1"));
+        sorrowProblems.add(host.getLevelText("sorrowproblem2"));
+        sorrowProblems.add(host.getLevelText("sorrowproblem3"));
 
 
-        hateProblems.add("hateproblem1");
-        hateProblems.add("hateproblem2");
-        hateProblems.add("hateproblem3");
+        sorrowProblemOne.add(host.getLevelText("sorrow1_wrong1"));
+        sorrowProblemOne.add(host.getLevelText("sorrow1_wrong2"));
+        sorrowProblemOne.add(host.getLevelText("sorrow1_correct"));
 
-        hateProblemOne.add("hateproblem 1 wrong");
-        hateProblemOne.add("hateproblem 1 wrong2");
-        hateProblemOne.add("correct!");
 
-        hateProblemTwo.add("hateproblem 2 wrong");
-        hateProblemTwo.add("hateproblem 2 wrong2");
-        hateProblemTwo.add("correct!");
+        sorrowProblemTwo.add(host.getLevelText("sorrow2_wrong1"));
+        sorrowProblemTwo.add(host.getLevelText("sorrow2_wrong2"));
+        sorrowProblemTwo.add(host.getLevelText("sorrow2_correct"));
 
-        hateProblemThree.add("hateproblem 3 wrong");
-        hateProblemThree.add("hateproblem 3 wrong2");
-        hateProblemThree.add("correct!");
+        sorrowProblemThree.add(host.getLevelText("sorrow3_wrong1"));
+        sorrowProblemThree.add(host.getLevelText("sorrow3_wrong2"));
+        sorrowProblemThree.add(host.getLevelText("sorrow3_correct"));
+
+
+        hateProblems.add(host.getLevelText("hateproblem1"));
+        hateProblems.add(host.getLevelText("hateproblem2"));
+        hateProblems.add(host.getLevelText("hateproblem3"));
+
+        hateProblemOne.add(host.getLevelText("hate1_wrong1"));
+        hateProblemOne.add(host.getLevelText("hate1_wrong2"));
+        hateProblemOne.add(host.getLevelText("hate1_correct"));
+
+        hateProblemTwo.add(host.getLevelText("hate2_wrong1"));
+        hateProblemTwo.add(host.getLevelText("hate2_wrong2"));
+        hateProblemTwo.add(host.getLevelText("hate2_correct"));
+
+        hateProblemThree.add(host.getLevelText("hate2_wrong1"));
+        hateProblemThree.add(host.getLevelText("hate2_wrong2"));
+        hateProblemThree.add(host.getLevelText("hate2_correct"));
 
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
         answerBox = new Texture(Gdx.files.internal("answer_box.png"));
@@ -189,7 +181,7 @@ public class MiniGame implements Screen {
                 TowerOfLife.usedSorrowQuestions.clear();
             }
             while (TowerOfLife.usedSorrowQuestions.contains(pIndex) || pIndex == TowerOfLife.latestSorrow) {
-                pIndex = MathUtils.random(0, sorrowProblems.size()-1);
+                pIndex = MathUtils.random(0, sorrowProblems.size() - 1);
             }
             TowerOfLife.usedSorrowQuestions.add(pIndex);
             TowerOfLife.latestSorrow = pIndex;
