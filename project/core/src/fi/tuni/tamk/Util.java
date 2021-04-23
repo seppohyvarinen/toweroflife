@@ -151,7 +151,7 @@ public class Util {
         playerFixtureDef.restitution = 0.1f;
 
         // How slipper object? [0,1]
-        playerFixtureDef.friction = 0.03f;
+        playerFixtureDef.friction = 0.04f;
 
 
         PolygonShape pShape = new PolygonShape();
@@ -166,7 +166,7 @@ public class Util {
         FixtureDef playerFixtureDef = new FixtureDef();
 
         // Mass per square meter (kg^m2)
-        playerFixtureDef.density = 4800;
+        playerFixtureDef.density = 3000;
 
         // How bouncy object? Very bouncy [0,1]
         playerFixtureDef.restitution = 0.2f;
@@ -187,10 +187,10 @@ public class Util {
         FixtureDef playerFixtureDef = new FixtureDef();
 
         // Mass per square meter (kg^m2)
-        playerFixtureDef.density = 6000;
+        playerFixtureDef.density = 4000;
 
         // How bouncy object? Very bouncy [0,1]
-        playerFixtureDef.restitution = 0.2f;
+        playerFixtureDef.restitution = 0.25f;
 
         // How slipper object? [0,1]
         playerFixtureDef.friction = 1f;

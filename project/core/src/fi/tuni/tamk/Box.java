@@ -50,8 +50,12 @@ public class Box {
 
     public void dropIt() {
         drop = true;
+        float bouncePlus = 0.25f;
+        if (TowerOfLife.bounceMultiplier == 1 || TowerOfLife.bounceMultiplier > 7) {
+            bouncePlus = 0.18f;
+        }
         if (bodyTexture == TowerOfLife.joy) {
-            body = Util.createJoyBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight, TowerOfLife.bounceMultiplier * 0.07f + 0.25f);
+            body = Util.createJoyBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight, TowerOfLife.bounceMultiplier * 0.07f + bouncePlus);
         }  else if (bodyTexture == TowerOfLife.awe) {
             body = Util.createAweBox(TowerOfLife.realX+boxWidth/2 + 0.5f, TowerOfLife.realY + boxHeight/2+0.5f, boxWidth, boxHeight);
 
