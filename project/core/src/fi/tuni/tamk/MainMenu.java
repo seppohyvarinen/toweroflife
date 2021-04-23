@@ -47,12 +47,12 @@ public class MainMenu implements Screen {
         tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
         startGame = Gdx.audio.newSound(Gdx.files.internal("startgame.mp3"));
 
-        menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
+        menuBg = new Texture(Gdx.files.internal("mainMenuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
         Button play = new TextButton(host.getLevelText("play"), mySkin, "default");
         play.setSize(width, height);
-        play.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
+        play.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1250);
         play.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -74,7 +74,7 @@ public class MainMenu implements Screen {
 
         Button settings = new TextButton(host.getLevelText("settings"), mySkin, "default");
         settings.setSize(width, height);
-        settings.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 650);
+        settings.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1050);
         settings.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -92,7 +92,7 @@ public class MainMenu implements Screen {
 
         Button highscore = new TextButton(host.getLevelText("highscore"), mySkin, "default");
         highscore.setSize(width, height);
-        highscore.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 450);
+        highscore.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
         highscore.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
