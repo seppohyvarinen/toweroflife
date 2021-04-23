@@ -42,6 +42,16 @@ public class Main extends Game {
         file = Gdx.files.local("highscore.txt");
         //settingsMenu = new SettingsMenu(this);
 
+        try {
+            String test = file.readString();
+        } catch (Exception e) {
+            String myString = "";
+            for (int i = 0; i < 10; i++) {
+                myString = myString + String.valueOf(0) + "\n";
+                Main.file.writeString(myString, false);
+            }
+        }
+
         setScreen(mainMenu);
     }
 
