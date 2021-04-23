@@ -1020,7 +1020,7 @@ public class TowerOfLife implements Screen {
         String stringHighscore[] = text.split("\\n");
 
         for (int i = 0; i < highscore.length; i++) {
-            highscore[i] = 0;
+            highscore[i] = Integer.parseInt(stringHighscore[i]);
         }
 
         int[] numbers = new int[11];
