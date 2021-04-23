@@ -142,6 +142,7 @@ public class TowerOfLife implements Screen {
     static int latestAnger;
     static int latestSorrow;
     static int latestFear;
+    private Texture black;
     private Texture backdropGrass;
     private Texture backdrop1;
     private Texture backdrop2;
@@ -191,6 +192,7 @@ public class TowerOfLife implements Screen {
 
 
         bodyTexture = new Texture(Gdx.files.internal("box.png"));
+        black = new Texture(Gdx.files.internal("black_transparent.png"));
         backdropGrass = new Texture(Gdx.files.internal("grass.png"));
         backdrop1 = new Texture(Gdx.files.internal("backdrop_1.png"));
         backdrop2 = new Texture(Gdx.files.internal("backdrop_2.png"));
@@ -699,13 +701,6 @@ public class TowerOfLife implements Screen {
         }
 
 
-        if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
-            MiniGame m = new MiniGame(tempData, host);
-            host.setScreen(m);
-        }
-        if (spawnCounter > 60) {
-            spawnBox();
-        }
 
 
         moveCamera(boxCounter);
@@ -774,6 +769,16 @@ public class TowerOfLife implements Screen {
             font.draw(hudbatch, host.getLevelText("score") + " " + score, 10, WORLD_HEIGHT * 100 - 10);
             font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 100f - 300, WORLD_HEIGHT * 100 - 10);
         }
+
+        if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
+            hudbatch.draw(black, 0f, 0f, 900f, 1600f);
+            MiniGame m = new MiniGame(tempData, host);
+            host.setScreen(m);
+        }
+        if (spawnCounter > 60) {
+            spawnBox();
+        }
+
         if (gongrats) {
 
             if (!scoreSoundPlayed && soundOn) {
