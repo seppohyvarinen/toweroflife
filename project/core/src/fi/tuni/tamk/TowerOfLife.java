@@ -145,6 +145,9 @@ public class TowerOfLife implements Screen {
     private Texture backdropGrass;
     private Texture backdrop1;
     private Texture backdrop2;
+    int cloudPosY;
+    float cloudPosX;
+    ArrayList<Texture> clouds;
 
 
     Sound dropSound;
@@ -159,6 +162,9 @@ public class TowerOfLife implements Screen {
         batch = host.batch;
         hudbatch = new SpriteBatch();
         camera = new OrthographicCamera();
+        cloudPosY = MathUtils.random(15, 144);
+        cloudPosX = 0.0f;
+        clouds = new ArrayList<>();
         hudcamera = new OrthographicCamera();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         viewport.apply();
@@ -1044,6 +1050,11 @@ public class TowerOfLife implements Screen {
             myString = myString + String.valueOf(highscore[i]) + "\n";
             Main.file.writeString(myString, false);
         }
+    }
+
+    public void clouds(SpriteBatch b, float scale) {
+        float y = cloudPosY;
+        b.draw(clouds.get(1), cloudPosX, y, clouds.get(1).getWidth() * scale, clouds.get(1).getHeight() * scale);
     }
 
 }
