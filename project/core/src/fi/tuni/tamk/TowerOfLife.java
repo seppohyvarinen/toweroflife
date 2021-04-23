@@ -705,13 +705,6 @@ public class TowerOfLife implements Screen {
         }
 
 
-        if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
-            MiniGame m = new MiniGame(tempData, host);
-            host.setScreen(m);
-        }
-        if (spawnCounter > 60) {
-            spawnBox();
-        }
 
 
         moveCamera(boxCounter);
@@ -780,6 +773,15 @@ public class TowerOfLife implements Screen {
             font.draw(hudbatch, host.getLevelText("score") + " " + score, 10, WORLD_HEIGHT * 100 - 10);
             font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 100f - 300, WORLD_HEIGHT * 100 - 10);
         }
+
+        if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
+            MiniGame m = new MiniGame(tempData, host);
+            host.setScreen(m);
+        }
+        if (spawnCounter > 60) {
+            spawnBox();
+        }
+
         if (gongrats) {
 
             if (!scoreSoundPlayed && soundOn) {

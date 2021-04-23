@@ -508,18 +508,18 @@ public class MiniGame implements Screen {
 
         batch.begin();
         if (!hide) {
-            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClearColor(0, 0, 0, 0);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 300, problemWidth, problemHeight + 200);
+            batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 300, problemWidth, 300);
             font.draw(batch, problem, 10, TowerOfLife.WORLD_HEIGHT * 100 - 100);
 
-            batch.draw(answerBox, 0, 900, 800, 300);
+            batch.draw(answerBox, 0, 900, 900, 300);
             font.draw(batch, ans1, 10, 1100);
 
-            batch.draw(answerBox, 0, 500, 800, 300);
+            batch.draw(answerBox, 0, 500, 900, 300);
             font.draw(batch, ans2, 10, 700);
 
-            batch.draw(answerBox, 0, 100, 800, 300);
+            batch.draw(answerBox, 0, 100, 900, 300);
             font.draw(batch, ans3, 10, 300);
             if (answerIsGiven) {
                 answerCounter++;
