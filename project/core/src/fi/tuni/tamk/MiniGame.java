@@ -95,7 +95,7 @@ public class MiniGame implements Screen {
         fontParameter.borderColor = Color.LIGHT_GRAY;
         fontParameter.color = Color.WHITE;
         font = fontGenerator.generateFont(fontParameter);
-        font.getData().setScale(0.5f, 0.5f);
+        //font.getData().setScale(0.5f, 0.5f);
         correct = Gdx.audio.newSound(Gdx.files.internal("correcto.mp3"));
         incorrect = Gdx.audio.newSound(Gdx.files.internal("wrongo.mp3"));
 
@@ -222,9 +222,9 @@ public class MiniGame implements Screen {
                 ans1 = sorrowProblemOne.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 1200;
-                    correctYLowerlimit = 900;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 2400;
+                    correctYLowerlimit = 1800;
                 }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -233,9 +233,9 @@ public class MiniGame implements Screen {
                 ans2 = sorrowProblemOne.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 800;
-                    correctYLowerlimit = 500;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 1600;
+                    correctYLowerlimit = 1000;
                 }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -243,9 +243,9 @@ public class MiniGame implements Screen {
                 ans3 = sorrowProblemOne.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 400;
-                    correctYLowerlimit = 100;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 800;
+                    correctYLowerlimit = 200;
                 }
 
             } else if (pIndex == 1) {
@@ -254,9 +254,9 @@ public class MiniGame implements Screen {
                 ans1 = sorrowProblemTwo.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 1200;
-                    correctYLowerlimit = 900;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 2400;
+                    correctYLowerlimit = 1800;
                 }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -265,9 +265,9 @@ public class MiniGame implements Screen {
                 ans2 = sorrowProblemTwo.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 800;
-                    correctYLowerlimit = 500;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 1600;
+                    correctYLowerlimit = 1000;
                 }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -275,9 +275,9 @@ public class MiniGame implements Screen {
                 ans3 = sorrowProblemTwo.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 400;
-                    correctYLowerlimit = 100;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 800;
+                    correctYLowerlimit = 200;
                 }
             } else {
                 aIndex = MathUtils.random(0, 2);
@@ -285,9 +285,9 @@ public class MiniGame implements Screen {
                 ans1 = sorrowProblemThree.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 1200;
-                    correctYLowerlimit = 900;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 2400;
+                    correctYLowerlimit = 1800;
                 }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -296,9 +296,9 @@ public class MiniGame implements Screen {
                 ans2 = sorrowProblemThree.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 800;
-                    correctYLowerlimit = 500;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 1600;
+                    correctYLowerlimit = 1000;
                 }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -306,9 +306,9 @@ public class MiniGame implements Screen {
                 ans3 = sorrowProblemThree.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 400;
-                    correctYLowerlimit = 100;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 800;
+                    correctYLowerlimit = 200;
                 }
             }
         } else if (e.equals("fearBox")) {
@@ -318,9 +318,9 @@ public class MiniGame implements Screen {
                 ans1 = fearProblemOne.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 1200;
-                    correctYLowerlimit = 900;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 2400;
+                    correctYLowerlimit = 1800;
                 }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -329,9 +329,9 @@ public class MiniGame implements Screen {
                 ans2 = fearProblemOne.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 800;
-                    correctYLowerlimit = 500;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 1600;
+                    correctYLowerlimit = 1000;
                 }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -339,9 +339,9 @@ public class MiniGame implements Screen {
                 ans3 = fearProblemOne.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 400;
-                    correctYLowerlimit = 100;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 800;
+                    correctYLowerlimit = 200;
                 }
 
             } else if (pIndex == 1) {
@@ -350,9 +350,9 @@ public class MiniGame implements Screen {
                 ans1 = fearProblemTwo.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 1200;
-                    correctYLowerlimit = 900;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 2400;
+                    correctYLowerlimit = 1800;
                 }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -361,9 +361,9 @@ public class MiniGame implements Screen {
                 ans2 = fearProblemTwo.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 800;
-                    correctYLowerlimit = 500;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 1600;
+                    correctYLowerlimit = 1000;
                 }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -371,9 +371,9 @@ public class MiniGame implements Screen {
                 ans3 = fearProblemTwo.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 400;
-                    correctYLowerlimit = 100;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 800;
+                    correctYLowerlimit = 200;
                 }
             } else {
                 aIndex = MathUtils.random(0, 2);
@@ -381,9 +381,9 @@ public class MiniGame implements Screen {
                 ans1 = fearProblemThree.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 1200;
-                    correctYLowerlimit = 900;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 2400;
+                    correctYLowerlimit = 1800;
                 }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -392,9 +392,9 @@ public class MiniGame implements Screen {
                 ans2 = fearProblemThree.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 800;
-                    correctYLowerlimit = 500;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 1600;
+                    correctYLowerlimit = 1000;
                 }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -402,9 +402,9 @@ public class MiniGame implements Screen {
                 ans3 = fearProblemThree.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 400;
-                    correctYLowerlimit = 100;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 800;
+                    correctYLowerlimit = 200;
                 }
             }
         } else {
@@ -414,9 +414,9 @@ public class MiniGame implements Screen {
                 ans1 = hateProblemOne.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 1200;
-                    correctYLowerlimit = 900;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 2400;
+                    correctYLowerlimit = 1800;
                 }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -425,9 +425,9 @@ public class MiniGame implements Screen {
                 ans2 = hateProblemOne.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 800;
-                    correctYLowerlimit = 500;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 1600;
+                    correctYLowerlimit = 1000;
                 }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -435,9 +435,9 @@ public class MiniGame implements Screen {
                 ans3 = hateProblemOne.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 400;
-                    correctYLowerlimit = 100;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 800;
+                    correctYLowerlimit = 200;
                 }
 
             } else if (pIndex == 1) {
@@ -446,9 +446,9 @@ public class MiniGame implements Screen {
                 ans1 = hateProblemTwo.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 1200;
-                    correctYLowerlimit = 900;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 2400;
+                    correctYLowerlimit = 1800;
                 }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -457,9 +457,9 @@ public class MiniGame implements Screen {
                 ans2 = hateProblemTwo.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 800;
-                    correctYLowerlimit = 500;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 1600;
+                    correctYLowerlimit = 1000;
                 }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -467,9 +467,9 @@ public class MiniGame implements Screen {
                 ans3 = hateProblemTwo.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 400;
-                    correctYLowerlimit = 100;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 800;
+                    correctYLowerlimit = 200;
                 }
             } else {
                 aIndex = MathUtils.random(0, 2);
@@ -477,9 +477,9 @@ public class MiniGame implements Screen {
                 ans1 = hateProblemThree.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 1200;
-                    correctYLowerlimit = 900;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 2400;
+                    correctYLowerlimit = 1800;
                 }
                 while (helper == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -488,9 +488,9 @@ public class MiniGame implements Screen {
                 ans2 = hateProblemThree.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 800;
-                    correctYLowerlimit = 500;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 1600;
+                    correctYLowerlimit = 1000;
                 }
                 while (helper == aIndex || helper2 == aIndex) {
                     aIndex = MathUtils.random(0, 2);
@@ -498,9 +498,9 @@ public class MiniGame implements Screen {
                 ans3 = hateProblemThree.get(aIndex);
                 if (aIndex == 2) {
                     correctXLowerlimit = 0;
-                    correctXUpperlimit = 800;
-                    correctYUpperlimit = 400;
-                    correctYLowerlimit = 100;
+                    correctXUpperlimit = 1800;
+                    correctYUpperlimit = 800;
+                    correctYLowerlimit = 200;
                 }
             }
         }
@@ -513,22 +513,23 @@ public class MiniGame implements Screen {
         if (!hide) {
             Gdx.gl.glClearColor(0, 0, 0, 0);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            batch.draw(minigameBg, 0, 0, 900, 1600);
-            batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 300, problemWidth, 300);
-            ypos = TowerOfLife.WORLD_HEIGHT * 100 - 150f + getTextHeight(problem);
-            font.draw(batch, problem, 50, ypos, 800f,1,true);
+            batch.draw(minigameBg, 0, 0, 1800, 3200);
 
-            batch.draw(answerBox, 0, 900, 900, 300);
-            ypos = 1050 + getTextHeight(ans1);
-            font.draw(batch, ans1, 110, ypos, 680f, 1, true);
+            batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 200 - 600, problemWidth*2, 600);
+            ypos = TowerOfLife.WORLD_HEIGHT * 200 - 300f + getTextHeight(problem);
+            font.draw(batch, problem, 100, ypos, 1600f,1,true);
 
-            batch.draw(answerBox, 0, 500, 900, 300);
-            ypos = 650 + getTextHeight(ans2);
-            font.draw(batch, ans2, 110, ypos,680f, 1, true);
+            batch.draw(answerBox, 0, 1800, 1800, 600);
+            ypos = 2100 + getTextHeight(ans1);
+            font.draw(batch, ans1, 220, ypos, 1360f, 1, true);
 
-            batch.draw(answerBox, 0, 100, 900, 300);
-            ypos = 250 + getTextHeight(ans3);
-            font.draw(batch, ans3, 110, ypos,680f, 1, true);
+            batch.draw(answerBox, 0, 1000, 1800, 600);
+            ypos = 1300 + getTextHeight(ans2);
+            font.draw(batch, ans2, 220, ypos,1360f, 1, true);
+
+            batch.draw(answerBox, 0, 200, 1800, 600);
+            ypos = 500 + getTextHeight(ans3);
+            font.draw(batch, ans3, 220, ypos,1360f, 1, true);
             if (answerIsGiven) {
                 answerCounter++;
                 if (itsCorrect) {
@@ -561,7 +562,7 @@ public class MiniGame implements Screen {
 
 
             //answer 1
-            if ((touchPoint.x > 0 && touchPoint.x < 800) && (touchPoint.y > 900 && touchPoint.y < 1200)) {
+            if ((touchPoint.x > 0 && touchPoint.x < 1800) && (touchPoint.y > 1800 && touchPoint.y < 2400)) {
 
                 isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
 
@@ -569,14 +570,14 @@ public class MiniGame implements Screen {
                 answerIsGiven = true;
 
 
-            } else if ((touchPoint.x > 0 && touchPoint.x < 800) && (touchPoint.y > 100 && touchPoint.y < 400)) {
+            } else if ((touchPoint.x > 0 && touchPoint.x < 1800) && (touchPoint.y > 200 && touchPoint.y < 800)) {
                 isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
 
 
                 answerIsGiven = true;
 
 
-            }/*answer2*/ else if ((touchPoint.x > 0 && touchPoint.x < 800) && (touchPoint.y > 500 && touchPoint.y < 800)) {
+            }/*answer2*/ else if ((touchPoint.x > 0 && touchPoint.x < 1800) && (touchPoint.y > 1000 && touchPoint.y < 1600)) {
                 isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
 
 
@@ -596,7 +597,7 @@ public class MiniGame implements Screen {
                     correct.play();
                 }
                 itsCorrect = true;
-                host.theGame.score *= 3;
+                host.theGame.score += 10;
                 host.theGame.bounceMultiplier = 0;
                 host.theGame.scoreSoundPlayed = false;
                 host.theGame.gongrats = true;
@@ -608,8 +609,7 @@ public class MiniGame implements Screen {
                 if (TowerOfLife.soundOn) {
                     incorrect.play();
                 }
-                host.theGame.score /= 3;
-                host.theGame.score *= 2;
+                host.theGame.bounceMultiplier *= 1/2f;
                 host.theGame.scoreSoundPlayed = false;
 
                 host.theGame.wasIncorrect = true;

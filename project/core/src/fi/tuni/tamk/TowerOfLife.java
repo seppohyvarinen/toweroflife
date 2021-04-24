@@ -75,6 +75,7 @@ public class TowerOfLife implements Screen {
     ArrayList<Integer> removeTheseIndexes;
     int boxCounter;
     public static int score = 0;
+    public int scoreMultiplier = 1;
 
     int lives = 3;
     int gongratsTimer = 0;
@@ -87,12 +88,15 @@ public class TowerOfLife implements Screen {
     public static boolean soundOn = true;
     public static boolean musicOn = true;
 
-    //Score näyttölle
+    //Score näytölle
     private FreeTypeFontGenerator fontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+    private FreeTypeFontGenerator.FreeTypeFontParameter smallFontParameter;
+    private FreeTypeFontGenerator.FreeTypeFontParameter smallRedFontParameter;
 
     BitmapFont font;
-
+    BitmapFont smallFont;
+    BitmapFont smallRedFont;
 
     private Sound hit;
     private Sound mode;
@@ -168,22 +172,36 @@ public class TowerOfLife implements Screen {
         hudcamera = new OrthographicCamera();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         viewport.apply();
-        hudViewport = new FitViewport(WORLD_WIDTH * 100, WORLD_HEIGHT * 100, hudcamera);
+        hudViewport = new FitViewport(WORLD_WIDTH * 200, WORLD_HEIGHT * 200, hudcamera);
         hudViewport.apply();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-        hudcamera.setToOrtho(false, WORLD_WIDTH * 100f, WORLD_HEIGHT * 100f);
+        hudcamera.setToOrtho(false, WORLD_WIDTH * 200f, WORLD_HEIGHT * 200f);
         world = new World(new Vector2(0, -9.8f), true);
 
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
 
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        fontParameter.size = 72;
-        fontParameter.borderWidth = 2f;
-        fontParameter.borderColor = Color.LIGHT_GRAY;
-        fontParameter.color = Color.WHITE;
+        fontParameter.size = 140;
+        fontParameter.borderWidth = 4f;
+        fontParameter.borderColor = Color.GRAY;
+        fontParameter.color = Color.YELLOW;
+
+        smallFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        smallFontParameter.size = 72;
+        smallFontParameter.borderWidth = 4f;
+        smallFontParameter.borderColor = Color.GRAY;
+        smallFontParameter.color = Color.YELLOW;
+
+        smallRedFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        smallRedFontParameter.size = 72;
+        smallRedFontParameter.borderWidth = 4f;
+        smallRedFontParameter.borderColor = Color.BLACK;
+        smallRedFontParameter.color = Color.RED;
 
         font = fontGenerator.generateFont(fontParameter);
+        smallFont = fontGenerator.generateFont(smallFontParameter);
+        smallRedFont = fontGenerator.generateFont(smallRedFontParameter);
         posiCounter = 0;
         bounceMultiplier = 0;
         latestFear = 99;
@@ -308,7 +326,7 @@ public class TowerOfLife implements Screen {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
-                    score++;
+                    score = addScore(score, scoreMultiplier);
                     bounceMultiplier++;
 
                     if (userData1 == itsFirst) {
@@ -336,7 +354,7 @@ public class TowerOfLife implements Screen {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
-                    score++;
+                    score = addScore(score, scoreMultiplier);
                     bounceMultiplier++;
 
                     if (userData1 == itsABox) {
@@ -362,7 +380,7 @@ public class TowerOfLife implements Screen {
                         canSpawn = true;
                     }
                     world.setGravity(new Vector2(0, -9.8f));
-                    score++;
+                    score = addScore(score, scoreMultiplier);
                     bounceMultiplier++;
 
                     if (userData1 == aweBox) {
@@ -389,7 +407,7 @@ public class TowerOfLife implements Screen {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
-                    score++;
+                    score = addScore(score, scoreMultiplier);
 
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
@@ -416,7 +434,7 @@ public class TowerOfLife implements Screen {
                         spawnCounter = 0;
                         canSpawn = true;
                     }
-                    score++;
+                    score = addScore(score, scoreMultiplier);
 
                     if (userData1 == aweBox) {
                         contact.getFixtureA().getBody().setUserData(stacked);
@@ -770,8 +788,13 @@ public class TowerOfLife implements Screen {
 
         hudbatch.begin();
         if (mainGame) {
-            font.draw(hudbatch, host.getLevelText("score") + " " + score, 10, WORLD_HEIGHT * 100 - 10);
-            font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 100f - 300, WORLD_HEIGHT * 100 - 10);
+            font.draw(hudbatch, host.getLevelText("score") + " " + score, 20, WORLD_HEIGHT * 200 - 20);
+            font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 200f - 820f, WORLD_HEIGHT * 200 - 20, 800f, 16, false);
+            if (wasIncorrect == true) {
+                smallRedFont.draw(hudbatch, host.getLevelText("multiplier") + " x" + scoreMultiplier, 20, WORLD_HEIGHT * 200 - 150);
+            } else {
+                smallFont.draw(hudbatch, host.getLevelText("multiplier") + " x" + scoreMultiplier, 20, WORLD_HEIGHT * 200 - 150);
+            }
         }
 
         if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
@@ -799,6 +822,9 @@ public class TowerOfLife implements Screen {
             }
             gongratsTimer++;
             if (gongratsTimer < 80) {
+                if (gongratsTimer == 1 && scoreMultiplier < 10) {
+                    scoreMultiplier++;
+                }
                 hudbatch.draw(scoreAdd, 20, WORLD_HEIGHT * 100 - 500, 350, 200);
             } else {
                 gongrats = false;
@@ -813,6 +839,9 @@ public class TowerOfLife implements Screen {
             }
             gongratsTimer++;
             if (gongratsTimer < 80) {
+                if (gongratsTimer == 1) {
+                    scoreMultiplier = 1;
+                }
                 hudbatch.draw(scoreMinus, 20, WORLD_HEIGHT * 100 - 500, 350, 200);
             } else {
                 wasIncorrect = false;
@@ -936,13 +965,9 @@ public class TowerOfLife implements Screen {
     }
 
     public void drop() {
-
-
         if (!boxes.get(boxCounter).getDropState()) {
             boxes.get(boxCounter).dropIt();
-
         }
-
     }
 
     private BodyDef getGroundBodyDef() {
@@ -1057,6 +1082,11 @@ public class TowerOfLife implements Screen {
     public void clouds(SpriteBatch b, float scale) {
         float y = cloudPosY;
         b.draw(clouds.get(1), cloudPosX, y, clouds.get(1).getWidth() * scale, clouds.get(1).getHeight() * scale);
+    }
+
+    public int addScore(int score, int scoreMultiplier) {
+        int newScore = score + scoreMultiplier;
+        return newScore;
     }
 
 }
