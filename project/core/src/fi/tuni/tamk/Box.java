@@ -44,7 +44,7 @@ public class Box {
         if (!drop) {
             b.draw(bodyTexture, TowerOfLife.realX, TowerOfLife.realY, boxWidth * 2, boxHeight * 2);
         }  else {
-            b.draw(bodyTexture, body.getPosition().x - boxWidth, body.getPosition().y -boxHeight, boxWidth, boxHeight, boxWidth * 2, boxHeight * 2, 1f, 1f, body.getTransform().getRotation() * MathUtils.radiansToDegrees, 0, 0, bodyTexture.getWidth(), bodyTexture.getHeight(), false, false);
+            b.draw(bodyTexture, body.getPosition().x - boxWidth, body.getPosition().y -boxHeight, boxWidth, boxHeight, boxWidth * 2, boxHeight * 2, 1.01f, 1.01f, body.getTransform().getRotation() * MathUtils.radiansToDegrees, 0, 0, bodyTexture.getWidth(), bodyTexture.getHeight(), false, false);
         }
     }
 

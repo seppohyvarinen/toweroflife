@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
@@ -31,6 +32,7 @@ public class MiniGame implements Screen {
     Sound incorrect;
     BitmapFont font;
     Texture nice;
+    Texture minigameBg;
     boolean itsCorrect = false;
     boolean answerIsGiven = false;
     ArrayList<String> sorrowProblems;
@@ -84,6 +86,7 @@ public class MiniGame implements Screen {
     public MiniGame(String e, Main host) {
         batch = host.theGame.hudbatch;
         this.host = host;
+        minigameBg = new Texture(Gdx.files.internal("minigame_bg.png"));
         nice = new Texture(Gdx.files.internal("nice.png"));
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -505,22 +508,27 @@ public class MiniGame implements Screen {
     }
 
     public void render(float delta) {
-
+        float ypos = 0;
         batch.begin();
         if (!hide) {
             Gdx.gl.glClearColor(0, 0, 0, 0);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.draw(minigameBg, 0, 0, 900, 1600);
             batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 100 - 300, problemWidth, 300);
-            font.draw(batch, problem, 10, TowerOfLife.WORLD_HEIGHT * 100 - 100);
+            ypos = TowerOfLife.WORLD_HEIGHT * 100 - 150f + getTextHeight(problem);
+            font.draw(batch, problem, 50, ypos, 800f,1,true);
 
             batch.draw(answerBox, 0, 900, 900, 300);
-            font.draw(batch, ans1, 10, 1100);
+            ypos = 1050 + getTextHeight(ans1);
+            font.draw(batch, ans1, 110, ypos, 680f, 1, true);
 
             batch.draw(answerBox, 0, 500, 900, 300);
-            font.draw(batch, ans2, 10, 700);
+            ypos = 650 + getTextHeight(ans2);
+            font.draw(batch, ans2, 110, ypos,680f, 1, true);
 
             batch.draw(answerBox, 0, 100, 900, 300);
-            font.draw(batch, ans3, 10, 300);
+            ypos = 250 + getTextHeight(ans3);
+            font.draw(batch, ans3, 110, ypos,680f, 1, true);
             if (answerIsGiven) {
                 answerCounter++;
                 if (itsCorrect) {
@@ -610,6 +618,28 @@ public class MiniGame implements Screen {
 
 
         }
+    }
+
+    public float getTextHeight(String text) {
+        int textLength = text.length();
+        GlyphLayout layout = new GlyphLayout();
+        layout.setText(font,text);
+        float fontHeight = layout.height;
+        float halfHeight = 0;
+        if (textLength < 31) { // 1 row
+            halfHeight = fontHeight * 0.5f + 0.1f;
+        } else if (textLength < 62) { // 2 rows
+            halfHeight = (fontHeight * 2 + 0.4f) / 2;
+        } else if (textLength < 93) { // 3 rows
+            halfHeight = (fontHeight * 3 + 0.8f) / 2;
+        } else if (textLength < 124) { // 4 rows
+            halfHeight = (fontHeight * 4 + 1.2f) / 2;
+        } else if (textLength < 155) { // 5 rows
+            halfHeight = (fontHeight * 5 + 1.6f) / 2;
+        } else { // 6 rows or more. shouldn't ever happen!!
+            halfHeight = (fontHeight * 6 + 2.0f) / 2;
+        }
+        return halfHeight;
     }
 
     @Override
