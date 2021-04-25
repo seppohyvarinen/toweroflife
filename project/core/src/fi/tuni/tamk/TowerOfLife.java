@@ -152,8 +152,21 @@ public class TowerOfLife implements Screen {
     private Texture backdropGrass;
     private Texture backdrop1;
     private Texture backdrop2;
-    int cloudPosY;
+    float cloudPosY;
+    float cloudPosY2;
+    float cloudPosY3;
+    float cloudPosY4;
+    boolean cloudArea = true;
+
+
     float cloudPosX;
+    float cloudPosX2;
+    float cloudPosX3;
+    float cloudPosX4;
+    boolean needNewY = true;
+    boolean needNewY2 = true;
+    boolean needNewY3 = true;
+    boolean needNewY4 = true;
     ArrayList<Texture> clouds;
 
 
@@ -169,8 +182,14 @@ public class TowerOfLife implements Screen {
         batch = host.batch;
         hudbatch = new SpriteBatch();
         camera = new OrthographicCamera();
-        cloudPosY = MathUtils.random(15, 144);
-        cloudPosX = -1.0f;
+        cloudPosY = -1.0f;
+        cloudPosY2 = -1.0f;
+        cloudPosY3 = -1.0f;
+        cloudPosY4 = -1.0f;
+        cloudPosX = -8.0f;
+        cloudPosX2 = -8.0f;
+        cloudPosX3 = -8.0f;
+        cloudPosX4 = -8.0f;
         clouds = new ArrayList<>();
         cloud2 = new Texture(Gdx.files.internal("cloud2.png"));
         cloud1 = new Texture(Gdx.files.internal("cloud1.png"));
@@ -778,19 +797,22 @@ public class TowerOfLife implements Screen {
                 okayToLoop = true;
             }
         }
-        cloudsMove(batch, 1.0f, clouds.get(0), camera.position.y - 3f);
-        batch.draw(clouds.get(1), 2, 5, clouds.get(1).getWidth() * 100, clouds.get(1).getHeight() * 100);
 
-        if (cloudPosX < 12) {
-            cloudPosX += 0.01f;
-        }  else {
-            cloudPosX = -2.0f;
-        }
+
+
+        cloudsBehind();
+
+
         if (mainGame) {
             for (Box box : boxes) {
                 box.draw(batch);
             }
             batch.draw(backdropGrass, 0f, 0f, 9f, 3f);
+        }
+
+        if (camera.position.y > 12) {
+            cloudsFront();
+
         }
 
 
@@ -925,6 +947,9 @@ public class TowerOfLife implements Screen {
         mode.dispose();
         for (Box b : boxes) {
             b.dispose();
+        }
+        for (Texture t: clouds) {
+            t.dispose();
         }
 
     }
@@ -1096,9 +1121,80 @@ public class TowerOfLife implements Screen {
         }
     }
 
-    public void cloudsMove(SpriteBatch b, float scale, Texture t, float height) {
+    public void cloudsMove(SpriteBatch b, float scale, Texture t, float height, float x) {
 
-        b.draw(t, cloudPosX, height, clouds.get(1).getWidth() * scale, clouds.get(1).getHeight() * scale);
+        b.draw(t, x, height, clouds.get(1).getWidth() / scale, clouds.get(1).getHeight() / scale);
+    }
+    public void cloudsBehind() {
+        if (needNewY) {
+            if (camera.position.y < 10) {
+                cloudPosY = (float) MathUtils.random(camera.position.y + 5, camera.position.y + 8);
+            }  else if (camera.position.y > 140) {
+                cloudPosY = camera.position.y - 10;
+            }  else  {
+                cloudPosY = (float) MathUtils.random(camera.position.y - 9, camera.position.y + 1);
+            }
+            needNewY = false;
+        }
+
+        if (needNewY2) {
+            if (camera.position.y < 10) {
+                cloudPosY2 = (float) MathUtils.random(camera.position.y + 1, camera.position.y + 3);
+            }  else if (camera.position.y > 140) {
+                cloudPosY = camera.position.y - 10;
+            }  else {
+                cloudPosY2 = (float) MathUtils.random(camera.position.y + 2, camera.position.y + 9);
+            }
+            needNewY2 = false;
+        }
+
+        if (cloudPosX < 12) {
+            cloudPosX += 0.007f;
+        }  else {
+            cloudPosX = -6.0f;
+            needNewY = true;
+        }
+        if (cloudPosX2 < 12) {
+            cloudPosX2 += 0.009f;
+        }  else {
+            cloudPosX2 = -6.0f;
+            needNewY2 = true;
+        }
+
+        if (cloudArea) {
+            cloudsMove(batch, 220f, clouds.get(0), cloudPosY, cloudPosX);
+            cloudsMove(batch, 210f, clouds.get(1), cloudPosY2, cloudPosX2);
+        }
+    }
+    public void cloudsFront() {
+        if (needNewY3) {
+            cloudPosY3 = (float) MathUtils.random(camera.position.y - 9, camera.position.y + 1);
+            needNewY3= false;
+        }
+
+        if (needNewY4) {
+
+            cloudPosY4 = (float) MathUtils.random(camera.position.y + 2, camera.position.y + 9);
+            needNewY4 = false;
+        }
+
+        if (cloudPosX3 < 12) {
+            cloudPosX3 += 0.01f;
+        }  else {
+            cloudPosX3 = -6.0f;
+            needNewY3 = true;
+        }
+        if (cloudPosX4 < 12) {
+            cloudPosX4 += 0.014f;
+        }  else {
+            cloudPosX4 = -6.0f;
+            needNewY4 = true;
+        }
+
+        if (cloudArea) {
+            cloudsMove(batch, 170f, clouds.get(0), cloudPosY3, cloudPosX3);
+            cloudsMove(batch, 170f, clouds.get(2), cloudPosY4, cloudPosX4);
+        }
     }
 
     public int addScore(int score, int scoreMultiplier) {
