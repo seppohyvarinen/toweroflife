@@ -137,6 +137,9 @@ public class TowerOfLife implements Screen {
     static Texture joy;
     static Texture love;
     static Texture sorrow;
+    Texture cloud0;
+    Texture cloud1;
+    Texture cloud2;
 
     ArrayList<Texture> positive;
     ArrayList<Texture> negative;
@@ -167,8 +170,14 @@ public class TowerOfLife implements Screen {
         hudbatch = new SpriteBatch();
         camera = new OrthographicCamera();
         cloudPosY = MathUtils.random(15, 144);
-        cloudPosX = 0.0f;
+        cloudPosX = -1.0f;
         clouds = new ArrayList<>();
+        cloud2 = new Texture(Gdx.files.internal("cloud2.png"));
+        cloud1 = new Texture(Gdx.files.internal("cloud1.png"));
+        cloud0 = new Texture(Gdx.files.internal("cloud0.png"));
+        clouds.add(cloud0);
+        clouds.add(cloud1);
+        clouds.add(cloud2);
         hudcamera = new OrthographicCamera();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         viewport.apply();
@@ -728,7 +737,7 @@ public class TowerOfLife implements Screen {
         moveCamera(boxCounter);
 
         batch.begin();
-        //Gdx.app.log("boxes", ""+boxCounter);
+        Gdx.app.log("boxes", ""+camera.position.y);
 
         if (mainGame) {
             batch.draw(backdrop1, 0f, 0f, 9f, 18f);
@@ -768,6 +777,14 @@ public class TowerOfLife implements Screen {
                 destroyIsOn = false;
                 okayToLoop = true;
             }
+        }
+        cloudsMove(batch, 1.0f, clouds.get(0), camera.position.y - 3f);
+        batch.draw(clouds.get(1), 2, 5, clouds.get(1).getWidth() * 100, clouds.get(1).getHeight() * 100);
+
+        if (cloudPosX < 12) {
+            cloudPosX += 0.01f;
+        }  else {
+            cloudPosX = -2.0f;
         }
         if (mainGame) {
             for (Box box : boxes) {
@@ -1079,9 +1096,9 @@ public class TowerOfLife implements Screen {
         }
     }
 
-    public void clouds(SpriteBatch b, float scale) {
-        float y = cloudPosY;
-        b.draw(clouds.get(1), cloudPosX, y, clouds.get(1).getWidth() * scale, clouds.get(1).getHeight() * scale);
+    public void cloudsMove(SpriteBatch b, float scale, Texture t, float height) {
+
+        b.draw(t, cloudPosX, height, clouds.get(1).getWidth() * scale, clouds.get(1).getHeight() * scale);
     }
 
     public int addScore(int score, int scoreMultiplier) {
