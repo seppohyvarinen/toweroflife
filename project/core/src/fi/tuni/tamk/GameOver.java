@@ -38,9 +38,13 @@ public class GameOver implements Screen {
     private Texture menuBg;
     Sound tap;
     Sound startGame;
+    private FreeTypeFontGenerator fontGenerator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+    BitmapFont font;
 
 
     public GameOver(final Main host) {
+        batch = host.theGame.hudbatch;
         this.host = host;
         //batch = new SpriteBatch();
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
@@ -51,11 +55,19 @@ public class GameOver implements Screen {
         menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
-        Label text = new Label("You lose! \nYour score: " + TowerOfLife.score, mySkin, "black");
-        text.setFontScale(4f, 4);
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
+        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        fontParameter.size = 140;
+        fontParameter.borderWidth = 4f;
+        fontParameter.borderColor = Color.GRAY;
+        fontParameter.color = Color.YELLOW;
+        font = fontGenerator.generateFont(fontParameter);
+
+        //Label text = new Label("You lose! \nYour score: " + TowerOfLife.score, mySkin, "black");
+        //text.setFontScale(4f, 4);
         //text.setSize(width, height);
-        text.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1250);
-        stage.addActor(text);
+        //text.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1250);
+        //stage.addActor(text);
 
         TowerOfLife.score = 0;
 
@@ -119,6 +131,11 @@ public class GameOver implements Screen {
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();
+        batch.begin();
+        font.draw(batch, host.getLevelText("gameover"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 400, 600f,1,false);
+        font.draw(batch, host.theGame.lastScore + " " + host.getLevelText("endpoints"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 600, 600f,1,false);
+        batch.end();
+        host.theGame.gamePlayed = true;
         if (isPressed) {
             host.changeNow = true;
         }

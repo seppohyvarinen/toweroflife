@@ -76,6 +76,7 @@ public class TowerOfLife implements Screen {
     int boxCounter;
     public static int score = 0;
     public int scoreMultiplier = 1;
+    public int lastScore = 0;
 
     int lives = 3;
     int gongratsTimer = 0;
@@ -111,6 +112,7 @@ public class TowerOfLife implements Screen {
     boolean miniGametime = false;
     boolean gongrats = false;
     boolean wasIncorrect = false;
+    boolean gamePlayed = false;
     static boolean mainGame = true;
     static boolean minigameStart = false;
     int destroyIndex;
@@ -892,6 +894,7 @@ public class TowerOfLife implements Screen {
 
 
         if (gameOver) {
+            lastScore = score;
             save(score, Main.highscore);
             for (int i = 0; i < Main.highscore.length; i++) {
                 System.out.println(Main.highscore[i]);

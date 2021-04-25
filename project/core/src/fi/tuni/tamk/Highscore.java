@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,15 +35,23 @@ public class Highscore implements Screen {
     private Stage stage;
     float width = 400;
     float height = 150;
+    int camHeight = 3200;
+    int camWidth = 1800;
+    public static OrthographicCamera scoreCam;
     boolean isPressed = false;
     private Texture menuBg;
     Sound tap;
     Sound startGame;
+    private FreeTypeFontGenerator fontGenerator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+    BitmapFont font;
 
 
     public Highscore(final Main host) {
+        batch = host.theGame.batch;
         this.host = host;
-        //batch = new SpriteBatch();
+        scoreCam = new OrthographicCamera();
+        scoreCam.setToOrtho(false, camWidth, camHeight);
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
         tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
@@ -51,18 +60,29 @@ public class Highscore implements Screen {
         menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
+        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        fontParameter.size = 140;
+        fontParameter.borderWidth = 3f;
+        fontParameter.borderColor = Color.GRAY;
+        fontParameter.color = Color.YELLOW;
+        font = fontGenerator.generateFont(fontParameter);
+
+/*
         Label text = new Label(host.getLevelText("highscore"), mySkin, "black");
-        text.setFontScale(4f, 4);
+        text.setFontScale(4f, 4f);
         //text.setSize(width, height);
+        text.setAlignment(1);
         text.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1450);
         stage.addActor(text);
 
         Label table = new Label(Main.file.readString(), mySkin, "black");
-        table.setFontScale(4f, 4);
+        table.setFontScale(4f, 4f);
         //text.setSize(width, height);
+        text.setAlignment(1);
         table.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
         stage.addActor(table);
-
+*/
 
         Button quit = new TextButton(host.getLevelText("back"), mySkin, "default");
         quit.setSize(width, height);
@@ -94,12 +114,19 @@ public class Highscore implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.setProjectionMatrix(scoreCam.combined);
         stage.act();
         stage.getBatch().begin();
         stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth() * (9 / 15f), menuBg.getHeight() * (9 / 15f));
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();
+
+        batch.begin();
+        font.draw(batch, host.getLevelText("highscore"), 0, 2800, 1800,1,false);
+        font.draw(batch, Main.file.readString(), 0, 2600, 1800,1,false);
+        batch.end();
+
         if (isPressed) {
             host.changeNow = true;
         }
