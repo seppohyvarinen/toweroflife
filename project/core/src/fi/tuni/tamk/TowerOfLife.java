@@ -799,8 +799,10 @@ public class TowerOfLife implements Screen {
         }
 
 
+        if (camera.position.y < 150) {
+            cloudsBehind();
 
-        cloudsBehind();
+        }
 
 
         if (mainGame) {
@@ -810,7 +812,7 @@ public class TowerOfLife implements Screen {
             batch.draw(backdropGrass, 0f, 0f, 9f, 3f);
         }
 
-        if (camera.position.y > 12) {
+        if (camera.position.y > 12 && camera.position.y < 150) {
             cloudsFront();
 
         }
@@ -1168,13 +1170,24 @@ public class TowerOfLife implements Screen {
     }
     public void cloudsFront() {
         if (needNewY3) {
-            cloudPosY3 = (float) MathUtils.random(camera.position.y - 9, camera.position.y + 1);
+
+            if (camera.position.y > 140) {
+                cloudPosY = camera.position.y - 10;
+            }  else {
+                cloudPosY3 = (float) MathUtils.random(camera.position.y - 9, camera.position.y + 1);
+
+            }
             needNewY3= false;
         }
 
         if (needNewY4) {
 
-            cloudPosY4 = (float) MathUtils.random(camera.position.y + 2, camera.position.y + 9);
+             if (camera.position.y > 140) {
+                 cloudPosY = camera.position.y - 10;
+             }  else {
+                 cloudPosY4 = (float) MathUtils.random(camera.position.y + 2, camera.position.y + 9);
+             }
+
             needNewY4 = false;
         }
 
