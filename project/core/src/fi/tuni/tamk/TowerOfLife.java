@@ -86,11 +86,11 @@ public class TowerOfLife implements Screen {
     ArrayList<Integer> removeTheseIndexes;
     int boxCounter;
     public static int score;
-    public int scoreMultiplier = 1;
-    public int lastScore = 0;
+    public int scoreMultiplier;
+    public int lastScore;
 
     int lives;
-    int gongratsTimer = 0;
+    int gongratsTimer;
     int negTempGetThis;
     int posTempGetThis;
 
@@ -231,6 +231,9 @@ public class TowerOfLife implements Screen {
         lives = 3;
         posTempGetThis = 100;
         negTempGetThis = 100;
+        lastScore = 0;
+        scoreMultiplier = 1;
+        gongratsTimer = 0;
 
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -390,11 +393,6 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureB().getBody().setUserData(firstStack);
                     contact.getFixtureB().setRestitution(0);
 
-
-                    Gdx.app.log("hello", "done");
-                    //boxCounter++;
-
-
                 }
                 if ((userData1 == firstStack && userData2 == itsABox) || (userData1 == itsABox && userData2 == firstStack)) {
                     if (soundOn) {
@@ -418,8 +416,6 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureB().getBody().setUserData(stacked);
                     contact.getFixtureB().setRestitution(0);
 
-
-                    //boxCounter++;
                 }
                 if ((userData1 == firstStack && userData2 == aweBox) || (userData1 == aweBox && userData2 == firstStack)) {
                     if (soundOn) {
@@ -444,8 +440,6 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureB().getBody().setUserData(stacked);
                     contact.getFixtureB().setRestitution(0);
 
-
-                    //boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == itsABox) || (userData1 == itsABox && userData2 == stacked)) {
                     if (soundOn) {
@@ -469,9 +463,6 @@ public class TowerOfLife implements Screen {
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
                     contact.getFixtureB().setRestitution(0);
-
-
-                    //boxCounter++;
                 }
                 if ((userData1 == stacked && userData2 == aweBox) || (userData1 == aweBox && userData2 == stacked)) {
                     if (soundOn) {
@@ -498,7 +489,6 @@ public class TowerOfLife implements Screen {
                     contact.getFixtureB().setRestitution(0);
 
 
-                    //boxCounter++;
                 }
 
                 if ((userData1 == stacked && userData2 == sorrowBox) || (userData1 == sorrowBox && userData2 == stacked)) {
@@ -519,7 +509,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
-                    //boxCounter++;
+
                 }
                 if ((userData1 == firstStack && userData2 == sorrowBox) || (userData1 == sorrowBox && userData2 == firstStack)) {
                     if (soundOn) {
@@ -537,7 +527,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
-                    //boxCounter++;
+
                 }
                 if ((userData1 == firstStack && userData2 == hateBox) || (userData1 == hateBox && userData2 == firstStack)) {
                     if (soundOn) {
@@ -555,7 +545,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
-                    //boxCounter++;
+
                 }
                 if ((userData1 == firstStack && userData2 == fearBox) || (userData1 == fearBox && userData2 == firstStack)) {
                     if (soundOn) {
@@ -573,7 +563,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
-                    //boxCounter++;
+
                 }
                 if ((userData1 == ground && userData2 == fearBox) || (userData1 == fearBox && userData2 == ground)) {
                     if (soundOn) {
@@ -591,7 +581,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(destroy);
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
-                    //boxCounter++;
+
                 }
                 if ((userData1 == ground && userData2 == hateBox) || (userData1 == hateBox && userData2 == ground)) {
                     if (soundOn) {
@@ -609,7 +599,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(destroy);
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
-                    //boxCounter++;
+
                 }
                 if ((userData1 == ground && userData2 == sorrowBox) || (userData1 == sorrowBox && userData2 == ground)) {
                     if (soundOn) {
@@ -627,7 +617,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(destroy);
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
-                    //boxCounter++;
+
                 }
                 if ((userData1 == stacked && userData2 == hateBox) || (userData1 == hateBox && userData2 == stacked)) {
                     if (soundOn) {
@@ -648,7 +638,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
-                    // boxCounter++;
+
                 }
                 if ((userData1 == stacked && userData2 == fearBox) || (userData1 == fearBox && userData2 == stacked)) {
                     if (soundOn) {
@@ -668,7 +658,7 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(stacked);
                     } else
                         contact.getFixtureB().getBody().setUserData(stacked);
-                    //boxCounter++;
+
                 }
                 if ((userData1 == stacked && userData2 == ground) || (userData1 == ground && userData2 == stacked)) {
                     if (soundOn)
@@ -678,14 +668,13 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureA().getBody().setUserData(destroy);
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
-                    //boxCounter--;
-                    //lives--;
+
                     score--;
                 }
                 if ((userData1 == ground && userData2 == itsABox) || (userData1 == itsABox && userData2 == ground)) {
                     if (soundOn)
                         hit.play();
-                    //lives--;
+
                     if (!canDrop) {
                         spawnCounter = 0;
                         canSpawn = true;
@@ -702,7 +691,7 @@ public class TowerOfLife implements Screen {
                 if ((userData1 == ground && userData2 == aweBox) || (userData1 == aweBox && userData2 == ground)) {
                     if (soundOn)
                         hit.play();
-                    //lives--;
+
                     if (!canDrop) {
                         spawnCounter = 0;
                         canSpawn = true;
@@ -710,7 +699,6 @@ public class TowerOfLife implements Screen {
                     world.setGravity(new Vector2(0, -9.8f));
                     if (userData1 == aweBox) {
                         contact.getFixtureA().getBody().setUserData(destroy);
-                        Gdx.app.log("hello", "done");
 
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
@@ -770,9 +758,6 @@ public class TowerOfLife implements Screen {
         hudbatch.setProjectionMatrix(hudcamera.combined);
 
 
-        //debugRenderer.render(world, camera.combined);
-        Gdx.app.log("what", "" + bounceMultiplier);
-
         if (canSpawn) {
             spawnCounter++;
         }
@@ -783,14 +768,12 @@ public class TowerOfLife implements Screen {
         moveCamera(boxCounter);
 
         batch.begin();
-        Gdx.app.log("boxes", ""+camera.position.y);
 
         if (mainGame) {
             batch.draw(backdrop1, 0f, 0f, 9f, 18f);
             batch.draw(backdrop2, 0f, 18f, 9f, 18f);
-        } /*else {
-            m.draw(batch);
-        }*/
+        }
+
 
         if (!gameOver) {
 
@@ -800,7 +783,6 @@ public class TowerOfLife implements Screen {
                 for (int i = 0; i < boxes.size(); i++) {
                     if (boxes.get(i).hasBody) {
                         if ((boxes.get(i).body.getUserData().equals(destroy)) || boxes.get(i).body.getPosition().x < 0 || boxes.get(i).body.getPosition().x > 10) {
-                            Gdx.app.log("hello", "yes here we are");
                             destroyIsOn = true;
 
                             if (!canDrop) {
@@ -844,17 +826,13 @@ public class TowerOfLife implements Screen {
 
         }
 
-
-        //Palikoiden freezaus
-     /*
-        }*/
-
         batch.end();
 
         if (lives <= 0)
             gameOver = true;
 
         hudbatch.begin();
+
         if (mainGame) {
             font.draw(hudbatch, host.getLevelText("score") + " " + score, 20, WORLD_HEIGHT * 200 - 20);
             font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 200f - 820f, WORLD_HEIGHT * 200 - 20, 800f, 16, false);
@@ -1017,7 +995,7 @@ public class TowerOfLife implements Screen {
 
     public void spawnBox() {
         int random = MathUtils.random(1, 3);
-        if (((random == 1 && !lastWasNegative) || posiCounter > 7) && canBeNeg) {
+        if (((random == 1 && !lastWasNegative) || posiCounter > 5) && canBeNeg) {
             positiveBoxes = false;
             getThis = MathUtils.random(0, negative.size() - 1);
             while (getThis == negTempGetThis) {
