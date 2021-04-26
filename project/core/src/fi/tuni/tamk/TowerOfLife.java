@@ -184,6 +184,7 @@ public class TowerOfLife implements Screen {
 
 
     Sound dropSound;
+    Sound destroySound;
     Sound multiplyScore;
     Sound minusScore;
 
@@ -226,6 +227,7 @@ public class TowerOfLife implements Screen {
         world = new World(new Vector2(0, -9.8f), true);
 
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
+        destroySound = Gdx.audio.newSound(Gdx.files.internal("boxdestroy.mp3"));
 
         score = 0;
         lives = 3;
@@ -666,8 +668,12 @@ public class TowerOfLife implements Screen {
 
                     if (userData1 == stacked) {
                         contact.getFixtureA().getBody().setUserData(destroy);
+                        destroySound.play();
+
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
+                        destroySound.play();
+
 
                     score--;
                 }
@@ -681,10 +687,11 @@ public class TowerOfLife implements Screen {
                     }
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(destroy);
-                        Gdx.app.log("hello", "done");
+                        destroySound.play();
 
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
+                        destroySound.play();
 
 
                 }
@@ -699,9 +706,11 @@ public class TowerOfLife implements Screen {
                     world.setGravity(new Vector2(0, -9.8f));
                     if (userData1 == aweBox) {
                         contact.getFixtureA().getBody().setUserData(destroy);
+                        destroySound.play();
 
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
+                    destroySound.play();
 
 
                 }
@@ -984,6 +993,8 @@ public class TowerOfLife implements Screen {
         for (Texture t: clouds) {
             t.dispose();
         }
+
+        destroySound.dispose();
 
     }
 
