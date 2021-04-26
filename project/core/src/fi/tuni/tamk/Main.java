@@ -27,7 +27,6 @@ public class Main extends Game {
     SpriteBatch batch;
     TowerOfLife theGame;
     MainMenu mainMenu;
-    SettingsMenu settingsMenu;
     boolean changeNow = false;
     boolean createGame = false;
     public static int[] highscore = new int[10];
@@ -40,7 +39,6 @@ public class Main extends Game {
         theGame = new TowerOfLife(this);
         mainMenu = new MainMenu(this);
         file = Gdx.files.local("highscore.txt");
-        //settingsMenu = new SettingsMenu(this);
 
         try {
             String test = file.readString();
@@ -51,7 +49,6 @@ public class Main extends Game {
                 Main.file.writeString(myString, false);
             }
         }
-
         setScreen(mainMenu);
     }
 

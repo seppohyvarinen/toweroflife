@@ -27,12 +27,12 @@ import java.util.Locale;
 
 /**
  * Minigame class handles the minigame questions and sets different variables in the Tower Of Life class according how player answers the questions.
- *
+ * <p>
  * Minigame questions are divided into 3 different types. The type of question depends on which block has been dropped in the Tower Of Life class.
  * The game is programmed so that the same question doesn't appear again until all the questions have been answered in the said category.
  * The questions are answered by tapping the screen. The minigame has assigned touch areas in the screen that determine whether the answer is correct or not.
  *
- *@author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
  */
 
 public class MiniGame implements Screen {
@@ -63,11 +63,8 @@ public class MiniGame implements Screen {
     Texture answerBox;
     Image answerImage;
 
-
     public static float problemWidth = 900f;
     public static float problemHeight = 200f;
-
-    public static boolean youAreGoddamnRight = false;
 
     boolean hate = false;
     boolean sorrow = false;
@@ -90,15 +87,14 @@ public class MiniGame implements Screen {
     TowerOfLife theGame;
     boolean hide = false;
     int answerCounter = 0;
-
     Viewport viewport;
 
     /**
      * Constructor for the Minigame class. This constructor builds the ArrayLists for questions, determines which category of question is
      * presented to the user and builds the touch areas for the Android screen so player can answer the questions by tapping the screen.
      *
-     *@param e is a String value that determines which type of question will be presented to the player.
-     *@param host is the Main object that handles the switching of screens between the Minigame and main game.
+     * @param e    is a String value that determines which type of question will be presented to the player.
+     * @param host is the Main object that handles the switching of screens between the Minigame and main game.
      */
 
     public MiniGame(String e, Main host) {
@@ -113,7 +109,6 @@ public class MiniGame implements Screen {
         fontParameter.borderColor = Color.LIGHT_GRAY;
         fontParameter.color = Color.WHITE;
         font = fontGenerator.generateFont(fontParameter);
-        //font.getData().setScale(0.5f, 0.5f);
         correct = Gdx.audio.newSound(Gdx.files.internal("correcto.mp3"));
         incorrect = Gdx.audio.newSound(Gdx.files.internal("wrongo.mp3"));
 
@@ -153,16 +148,13 @@ public class MiniGame implements Screen {
         fearProblemThree.add(host.getLevelText("fear3_wrong2"));
         fearProblemThree.add(host.getLevelText("fear3_correct"));
 
-
         sorrowProblems.add(host.getLevelText("sorrowproblem1"));
         sorrowProblems.add(host.getLevelText("sorrowproblem2"));
         sorrowProblems.add(host.getLevelText("sorrowproblem3"));
 
-
         sorrowProblemOne.add(host.getLevelText("sorrow1_wrong1"));
         sorrowProblemOne.add(host.getLevelText("sorrow1_wrong2"));
         sorrowProblemOne.add(host.getLevelText("sorrow1_correct"));
-
 
         sorrowProblemTwo.add(host.getLevelText("sorrow2_wrong1"));
         sorrowProblemTwo.add(host.getLevelText("sorrow2_wrong2"));
@@ -171,7 +163,6 @@ public class MiniGame implements Screen {
         sorrowProblemThree.add(host.getLevelText("sorrow3_wrong1"));
         sorrowProblemThree.add(host.getLevelText("sorrow3_wrong2"));
         sorrowProblemThree.add(host.getLevelText("sorrow3_correct"));
-
 
         hateProblems.add(host.getLevelText("hateproblem1"));
         hateProblems.add(host.getLevelText("hateproblem2"));
@@ -194,10 +185,8 @@ public class MiniGame implements Screen {
         answerImage = new Image(answerBox);
         pIndex = MathUtils.random(0, 2);
 
-
         if (e.equals("sorrowBox")) {
             problemList.addAll(sorrowProblems);
-
             if (TowerOfLife.usedSorrowQuestions.size() == sorrowProblems.size()) {
                 TowerOfLife.usedSorrowQuestions.clear();
             }
@@ -216,7 +205,6 @@ public class MiniGame implements Screen {
             }
             TowerOfLife.usedAngerQuestions.add(pIndex);
             TowerOfLife.latestAnger = pIndex;
-
         } else {
             problemList.addAll(fearProblems);
             if (TowerOfLife.usedFearQuestions.size() == fearProblems.size()) {
@@ -229,7 +217,6 @@ public class MiniGame implements Screen {
             TowerOfLife.latestFear = pIndex;
 
         }
-
 
         problem = problemList.get(pIndex);
 
@@ -265,7 +252,6 @@ public class MiniGame implements Screen {
                     correctYUpperlimit = 800;
                     correctYLowerlimit = 200;
                 }
-
             } else if (pIndex == 1) {
                 aIndex = MathUtils.random(0, 2);
                 int helper = aIndex;
@@ -522,13 +508,12 @@ public class MiniGame implements Screen {
                 }
             }
         }
-
     }
 
     /**
      * Mandatory method for classes implementing the screen. Renders all the Textures used in the minigame to the players screen.
      *
-     *@param delta is the deltatime, or elapsed time.
+     * @param delta is the deltatime, or elapsed time.
      */
 
     public void render(float delta) {
@@ -539,9 +524,9 @@ public class MiniGame implements Screen {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.draw(minigameBg, 0, 0, 1800, 3200);
 
-            batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 200 - 600, problemWidth*2, 600);
+            batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 200 - 600, problemWidth * 2, 600);
             ypos = TowerOfLife.WORLD_HEIGHT * 200 - 300f + getTextHeight(problem);
-            font.draw(batch, problem, 100, ypos, 1600f,1,true);
+            font.draw(batch, problem, 100, ypos, 1600f, 1, true);
 
             batch.draw(answerBox, 0, 1800, 1800, 600);
             ypos = 2100 + getTextHeight(ans1);
@@ -549,11 +534,11 @@ public class MiniGame implements Screen {
 
             batch.draw(answerBox, 0, 1000, 1800, 600);
             ypos = 1300 + getTextHeight(ans2);
-            font.draw(batch, ans2, 220, ypos,1360f, 1, true);
+            font.draw(batch, ans2, 220, ypos, 1360f, 1, true);
 
             batch.draw(answerBox, 0, 200, 1800, 600);
             ypos = 500 + getTextHeight(ans3);
-            font.draw(batch, ans3, 220, ypos,1360f, 1, true);
+            font.draw(batch, ans3, 220, ypos, 1360f, 1, true);
             if (answerIsGiven) {
                 answerCounter++;
                 if (itsCorrect) {
@@ -569,10 +554,8 @@ public class MiniGame implements Screen {
                     host.changeNow = true;
                 }
             }
-
             choose();
         }
-
         batch.end();
     }
 
@@ -583,45 +566,30 @@ public class MiniGame implements Screen {
 
     public void choose() {
         if (Gdx.input.isTouched()) {
-
             Vector3 touchPoint = new Vector3();
             TowerOfLife.hudcamera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
             Gdx.app.log("x", "" + touchPoint.x);
             Gdx.app.log("y", "" + touchPoint.y);
 
-
             //answer 1
             if ((touchPoint.x > 0 && touchPoint.x < 1800) && (touchPoint.y > 1800 && touchPoint.y < 2400)) {
-
                 isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
-
-
                 answerIsGiven = true;
-
-
             } else if ((touchPoint.x > 0 && touchPoint.x < 1800) && (touchPoint.y > 200 && touchPoint.y < 800)) {
                 isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
-
-
                 answerIsGiven = true;
-
-
             }/*answer2*/ else if ((touchPoint.x > 0 && touchPoint.x < 1800) && (touchPoint.y > 1000 && touchPoint.y < 1600)) {
                 isAnswerRight((int) touchPoint.x, (int) touchPoint.y);
-
-
                 answerIsGiven = true;
-
-
             }
-
         }
     }
+
     /**
      * Method that determines whether the players answer is correct by using the Vector3 coordinates that are built in choose() method.
      *
-     *@param x is the x coordinate of Vector3 that's created when user touches the screen.
-     *@param y is the y coordinate of Vector3 that's created when user touches the screen.
+     * @param x is the x coordinate of Vector3 that's created when user touches the screen.
+     * @param y is the y coordinate of Vector3 that's created when user touches the screen.
      */
 
     public void isAnswerRight(int x, int y) {
@@ -643,20 +611,17 @@ public class MiniGame implements Screen {
                 if (TowerOfLife.soundOn) {
                     incorrect.play();
                 }
-                host.theGame.bounceMultiplier *= 1/2f;
+                host.theGame.bounceMultiplier *= 1 / 2f;
                 host.theGame.scoreSoundPlayed = false;
-
                 host.theGame.wasIncorrect = true;
                 soundIsPlayed = true;
             }
-
-
         }
     }
 
     /**
      * Method for centering the texts used in the questions to the middle of answerboxes.
-     *
+     * <p>
      * It takes String as a parameter and determines how many lines are needed for the said text.
      *
      * @param text is the text that is needed to be centered.
@@ -665,7 +630,7 @@ public class MiniGame implements Screen {
     public float getTextHeight(String text) {
         int textLength = text.length();
         GlyphLayout layout = new GlyphLayout();
-        layout.setText(font,text);
+        layout.setText(font, text);
         float fontHeight = layout.height;
         float halfHeight = 0;
         if (textLength < 31) { // 1 row
@@ -690,9 +655,11 @@ public class MiniGame implements Screen {
 
     @Override
     public void show() {
-
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Handles stage scaling for different devices.
+     */
 
     @Override
     public void resize(int width, int height) {
@@ -705,7 +672,6 @@ public class MiniGame implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     /**
@@ -714,7 +680,6 @@ public class MiniGame implements Screen {
 
     @Override
     public void resume() {
-
     }
 
     /**
@@ -723,8 +688,8 @@ public class MiniGame implements Screen {
 
     @Override
     public void hide() {
-
     }
+
     /**
      * Mandatory method in classes that implement Screen. Disposes of Textures and Sounds used in the class.
      */

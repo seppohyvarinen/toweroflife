@@ -27,6 +27,14 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 
+/**
+ * MainMenu class is the main menu of the game.
+ *
+ * The class contains a background and the stage, which has the following buttons: play, settings and highscores.
+ *
+ * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
+
 public class MainMenu implements Screen {
     Main host;
     SpriteBatch batch;
@@ -38,10 +46,17 @@ public class MainMenu implements Screen {
     Sound tap;
     Sound startGame;
 
+    /**
+     * Constructor for MainMenu class. This constructor creates menu background and 3 buttons:
+     * play - start of the game, go to TowerOfLife screen;
+     * settings - go to settings menu screen;
+     * highscores - go to highscores screen.
+     *
+     * @param host is the Main object that extends Game class.
+     */
 
     public MainMenu(final Main host) {
         this.host = host;
-        //batch = new SpriteBatch();
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
         tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
@@ -61,12 +76,10 @@ public class MainMenu implements Screen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn)
                     startGame.play();
-
                 if (!isPressed) {
                     isPressed = true;
                     host.createGame = true;
                 }
-                //host.setScreen(new TowerOfLife(host));
                 return true;
             }
         });
@@ -82,7 +95,6 @@ public class MainMenu implements Screen {
                     tap.play();
                 host.setScreen(new SettingsMenu(host));
             }
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -108,10 +120,19 @@ public class MainMenu implements Screen {
         stage.addActor(highscore);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void show() {
-        // Gdx.input.setInputProcessor(stage);
     }
+
+    /**
+     * Mandatory method for classes implementing the screen. Renders all the Textures and stage used in the class.
+     *
+     *@param delta is the deltatime, or elapsed time.
+     */
 
     @Override
     public void render(float delta) {
@@ -128,25 +149,42 @@ public class MainMenu implements Screen {
         }
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Handles stage scaling for different devices.
+     */
+
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void pause() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void resume() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void hide() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Dispose of the stage used in the class.
+     */
 
     @Override
     public void dispose() {
