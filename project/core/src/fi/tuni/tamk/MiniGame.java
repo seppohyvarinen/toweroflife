@@ -170,9 +170,9 @@ public class MiniGame implements Screen {
         hateProblemTwo.add(host.getLevelText("hate2_wrong2"));
         hateProblemTwo.add(host.getLevelText("hate2_correct"));
 
-        hateProblemThree.add(host.getLevelText("hate2_wrong1"));
-        hateProblemThree.add(host.getLevelText("hate2_wrong2"));
-        hateProblemThree.add(host.getLevelText("hate2_correct"));
+        hateProblemThree.add(host.getLevelText("hate3_wrong1"));
+        hateProblemThree.add(host.getLevelText("hate3_wrong2"));
+        hateProblemThree.add(host.getLevelText("hate3_correct"));
 
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
         answerBox = new Texture(Gdx.files.internal("answer_box.png"));
