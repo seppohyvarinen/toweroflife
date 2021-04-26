@@ -31,7 +31,7 @@ public class Main extends Game {
 
     /**
      * Mandatory method in classes extending the Game. Works as a constructor for the Main class.
-     *
+     * <p>
      * Initializes the menu screen and the game screen. Sets the main menu as default screen.
      * Checks if the highscores.txt exists. If not, the creates it and fills in with zeros.
      */

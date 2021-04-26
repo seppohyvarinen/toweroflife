@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
  * MainMenu class is the main menu of the game.
- *
+ * <p>
  * The class contains a background and the stage, which has the following buttons: play, settings and highscores.
  *
  * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
@@ -60,6 +60,7 @@ public class MainMenu implements Screen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
             }
+
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn)
@@ -83,6 +84,7 @@ public class MainMenu implements Screen {
                     tap.play();
                 host.setScreen(new SettingsMenu(host));
             }
+
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -100,6 +102,7 @@ public class MainMenu implements Screen {
                     tap.play();
                 host.setScreen(new Highscore(host));
             }
+
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -119,7 +122,7 @@ public class MainMenu implements Screen {
     /**
      * Mandatory method for classes implementing the screen. Renders all the Textures and stage used in the class.
      *
-     *@param delta is the deltatime, or elapsed time.
+     * @param delta is the deltatime, or elapsed time.
      */
 
     @Override
