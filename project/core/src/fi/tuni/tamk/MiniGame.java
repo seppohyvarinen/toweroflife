@@ -536,11 +536,11 @@ public class MiniGame implements Screen {
             if (answerIsGiven) {
                 answerCounter++;
                 if (itsCorrect) {
-                    batch.draw(nice, 280, 800, 400, 150);
-                    batch.draw(nice, 100, 1000, 300, 120);
-                    batch.draw(nice, 550, 1000, 300, 120);
-                    batch.draw(nice, 150, 600, 300, 120);
-                    batch.draw(nice, 500, 600, 300, 120);
+                    batch.draw(nice, 560, 1600, 800, 300);
+                    batch.draw(nice, 200, 2000, 600, 240);
+                    batch.draw(nice, 1100, 2000, 600, 240);
+                    batch.draw(nice, 300, 1200, 600, 240);
+                    batch.draw(nice, 1000, 1200, 600, 240);
                 }
                 if (answerCounter > 60) {
                     host.theGame.minigameStart = false;
