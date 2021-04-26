@@ -2,6 +2,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -89,6 +90,10 @@ public class TowerOfLife implements Screen {
 
     public static boolean soundOn = true;
     public static boolean musicOn = true;
+    public static boolean musicTimerDone = false;
+    public static boolean resumeMusic = false;
+
+    int musicTimer = 0;
 
     private FreeTypeFontGenerator fontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
@@ -174,6 +179,8 @@ public class TowerOfLife implements Screen {
     Sound multiplyScore;
     Sound minusScore;
 
+    static Music bgMusic;
+
     Box2DDebugRenderer debugRenderer;
 
     /**
@@ -223,6 +230,9 @@ public class TowerOfLife implements Screen {
         lastScore = 0;
         scoreMultiplier = 1;
         gongratsTimer = 0;
+
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("chill.mp3"));
+
 
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -445,6 +455,9 @@ public class TowerOfLife implements Screen {
                 }
 
                 if ((userData1 == stacked && userData2 == sorrowBox) || (userData1 == sorrowBox && userData2 == stacked)) {
+                    if (musicOn) {
+                        bgMusic.pause();
+                    }
                     if (soundOn) {
                         boxes.get(boxCounter - 1).makeSound();
                     }
@@ -541,6 +554,9 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureB().getBody().setUserData(destroy);
                 }
                 if ((userData1 == stacked && userData2 == hateBox) || (userData1 == hateBox && userData2 == stacked)) {
+                    if (musicOn) {
+                        bgMusic.pause();
+                    }
                     if (soundOn) {
                         boxes.get(boxCounter - 1).makeSound();
                     }
@@ -559,6 +575,10 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureB().getBody().setUserData(stacked);
                 }
                 if ((userData1 == stacked && userData2 == fearBox) || (userData1 == fearBox && userData2 == stacked)) {
+                    if (musicOn) {
+                        bgMusic.pause();
+                    }
+
                     if (soundOn) {
                         boxes.get(boxCounter - 1).makeSound();
                     }
@@ -577,8 +597,9 @@ public class TowerOfLife implements Screen {
                         contact.getFixtureB().getBody().setUserData(stacked);
                 }
                 if ((userData1 == stacked && userData2 == ground) || (userData1 == ground && userData2 == stacked)) {
-                    if (soundOn)
+                    if (soundOn) {
                         hit.play();
+                    }
                     if (userData1 == stacked) {
                         contact.getFixtureA().getBody().setUserData(destroy);
                         if (soundOn)
@@ -598,12 +619,14 @@ public class TowerOfLife implements Screen {
                     }
                     if (userData1 == itsABox) {
                         contact.getFixtureA().getBody().setUserData(destroy);
-                        if (soundOn)
+                        if (soundOn) {
                             destroySound.play();
+                        }
                     } else
                         contact.getFixtureB().getBody().setUserData(destroy);
-                    if (soundOn)
+                    if (soundOn) {
                         destroySound.play();
+                    }
                 }
                 if ((userData1 == ground && userData2 == aweBox) || (userData1 == aweBox && userData2 == ground)) {
                     if (soundOn)
@@ -666,6 +689,28 @@ public class TowerOfLife implements Screen {
 
         batch.setProjectionMatrix(camera.combined);
         hudbatch.setProjectionMatrix(hudcamera.combined);
+
+        if (!musicTimerDone) {
+            musicTimer++;
+            if (musicTimer > 45) {
+                musicTimerDone = true;
+                if (musicOn) {
+                    bgMusic.play();
+                    bgMusic.setLooping(true);
+                }
+                musicTimer = 0;
+            }
+        }
+
+        if (resumeMusic) {
+            musicTimer++;
+            if (musicTimer > 45) {
+                musicTimerDone = true;
+                bgMusic.play();
+                bgMusic.setLooping(true);
+                musicTimer = 0;
+            }
+        }
 
         if (canSpawn) {
             spawnCounter++;

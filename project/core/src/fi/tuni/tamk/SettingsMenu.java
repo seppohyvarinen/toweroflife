@@ -101,10 +101,14 @@ public class SettingsMenu implements Screen {
         stage.addActor(sound);
 
         Button music;
-        if (TowerOfLife.musicOn)
+        if (TowerOfLife.musicOn) {
             music = new TextButton(host.getLevelText("music") + ": on", mySkin, "default");
-        else
+
+        }
+        else {
             music = new TextButton(host.getLevelText("music") + ": off", mySkin, "default");
+
+        }
         music.setSize(width, height);
         music.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 650);
         music.addListener(new InputListener() {
@@ -114,8 +118,11 @@ public class SettingsMenu implements Screen {
                     tap.play();
                 if (TowerOfLife.musicOn) {
                     TowerOfLife.musicOn = false;
+                    host.mainMenu.menuBgm.stop();
                 } else {
                     TowerOfLife.musicOn = true;
+                    host.musicCheck = false;
+
                 }
                 host.setScreen(new SettingsMenu(host));
             }

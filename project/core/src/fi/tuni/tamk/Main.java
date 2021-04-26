@@ -3,6 +3,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.I18NBundle;
@@ -27,6 +28,7 @@ public class Main extends Game {
     public static int[] highscore = new int[10];
     public Locale locale = new Locale("en_US");
     public static FileHandle file;
+    static boolean musicCheck = false;
 
 
     /**
@@ -39,6 +41,7 @@ public class Main extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
+
         theGame = new TowerOfLife(this);
         mainMenu = new MainMenu(this);
         file = Gdx.files.local("highscore.txt");

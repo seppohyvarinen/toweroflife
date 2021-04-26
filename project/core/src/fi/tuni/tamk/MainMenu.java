@@ -2,6 +2,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -33,6 +34,9 @@ public class MainMenu implements Screen {
     private Texture menuBg;
     Sound tap;
     Sound startGame;
+    static Music menuBgm;
+
+
 
     /**
      * Constructor for MainMenu class. This constructor creates menu background and 3 buttons:
@@ -45,6 +49,8 @@ public class MainMenu implements Screen {
 
     public MainMenu(final Main host) {
         this.host = host;
+        menuBgm = Gdx.audio.newMusic(Gdx.files.internal("menuehka.mp3"));
+
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
         tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
@@ -63,10 +69,12 @@ public class MainMenu implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (TowerOfLife.soundOn)
+                if (TowerOfLife.soundOn) {
                     startGame.play();
+                }
                 if (!isPressed) {
                     isPressed = true;
+                    menuBgm.stop();
                     host.createGame = true;
                 }
                 return true;
@@ -138,6 +146,11 @@ public class MainMenu implements Screen {
         if (isPressed) {
             host.changeNow = true;
         }
+        if (!host.musicCheck) {
+            menuBgm.play();
+            menuBgm.setLooping(true);
+            host.musicCheck = true;
+        }
     }
 
     /**
@@ -180,5 +193,6 @@ public class MainMenu implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        menuBgm.dispose();
     }
 }

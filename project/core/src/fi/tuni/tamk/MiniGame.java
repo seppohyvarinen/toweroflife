@@ -598,6 +598,9 @@ public class MiniGame implements Screen {
                 host.theGame.scoreSoundPlayed = false;
                 host.theGame.gongrats = true;
                 soundIsPlayed = true;
+                if (host.theGame.musicOn) {
+                    host.theGame.resumeMusic = true;
+                }
             }
 
         } else {
@@ -609,6 +612,10 @@ public class MiniGame implements Screen {
                 host.theGame.scoreSoundPlayed = false;
                 host.theGame.wasIncorrect = true;
                 soundIsPlayed = true;
+                if (host.theGame.musicOn) {
+                    host.theGame.resumeMusic = true;
+                }
+
             }
         }
     }
