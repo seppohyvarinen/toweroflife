@@ -709,6 +709,7 @@ public class TowerOfLife implements Screen {
                 bgMusic.play();
                 bgMusic.setLooping(true);
                 musicTimer = 0;
+                resumeMusic = false;
             }
         }
 
