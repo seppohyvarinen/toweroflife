@@ -1,35 +1,22 @@
 package fi.tuni.tamk;
 
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 
-import java.io.File;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.util.List;
 import java.util.Locale;
+
 
 /**
  * Main class. Handles the switching of different game screens such as main menu, settings, main game and minigame.
- *
+ * <p>
  * The main class extends Game to achieve it's functionality. The class also handles the changing of Locale (the language used)
  *
- *@author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
  */
-
 
 public class Main extends Game {
     SpriteBatch batch;
@@ -41,13 +28,15 @@ public class Main extends Game {
     public Locale locale = new Locale("en_US");
     public static FileHandle file;
 
-    @Override
 
     /**
      * Mandatory method in classes extending the Game. Works as a constructor for the Main class.
      *
      * Initializes the menu screen and the game screen. Sets the main menu as default screen.
+     * Checks if the highscores.txt exists. If not, the creates it and fills in with zeros.
      */
+
+    @Override
     public void create() {
         batch = new SpriteBatch();
         theGame = new TowerOfLife(this);
@@ -68,9 +57,10 @@ public class Main extends Game {
 
     /**
      * Mandatory method in classes extending the Game.
-     *
+     * <p>
      * Renders the different classes Screens. Uses super.render() to render whichever screen that is set to render.
      */
+
     @Override
     public void render() {
         if (changeNow) {
@@ -98,7 +88,6 @@ public class Main extends Game {
      */
 
     public String getLevelText(String key) {
-
         I18NBundle myBundle =
                 I18NBundle.createBundle(Gdx.files.internal("MyBundle"), locale);
         return myBundle.get(key);
