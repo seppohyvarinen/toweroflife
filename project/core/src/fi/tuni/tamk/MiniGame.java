@@ -25,6 +25,16 @@ import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * Minigame class handles the minigame questions and sets different variables in the Tower Of Life class according how player answers the questions.
+ *
+ * Minigame questions are divided into 3 different types. The type of question depends on which block has been dropped in the Tower Of Life class.
+ * The game is programmed so that the same question doesn't appear again until all the questions have been answered in the said category.
+ * The questions are answered by tapping the screen. The minigame has assigned touch areas in the screen that determine whether the answer is correct or not.
+ *
+ *@author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
+
 public class MiniGame implements Screen {
     private FreeTypeFontGenerator fontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
@@ -82,6 +92,14 @@ public class MiniGame implements Screen {
     int answerCounter = 0;
 
     Viewport viewport;
+
+    /**
+     * Constructor for the Minigame class. This constructor builds the ArrayLists for questions, determines which category of question is
+     * presented to the user and builds the touch areas for the Android screen so player can answer the questions by tapping the screen.
+     *
+     *@param e is a String value that determines which type of question will be presented to the player.
+     *@param host is the Main object that handles the switching of screens between the Minigame and main game.
+     */
 
     public MiniGame(String e, Main host) {
         batch = host.theGame.hudbatch;
@@ -507,6 +525,12 @@ public class MiniGame implements Screen {
 
     }
 
+    /**
+     * Mandatory method for classes implementing the screen. Renders all the Textures used in the minigame to the players screen.
+     *
+     *@param delta is the deltatime, or elapsed time.
+     */
+
     public void render(float delta) {
         float ypos = 0;
         batch.begin();
@@ -552,6 +576,11 @@ public class MiniGame implements Screen {
         batch.end();
     }
 
+    /**
+     * Method that creates a Vector3 touchpoint from the point the user touches at the screen. This touchpoint is then relayed to another method for checking
+     * whether the answer is correct (is the touchpoint within the determined "correct" area).
+     */
+
     public void choose() {
         if (Gdx.input.isTouched()) {
 
@@ -588,7 +617,12 @@ public class MiniGame implements Screen {
 
         }
     }
-
+    /**
+     * Method that determines whether the players answer is correct by using the Vector3 coordinates that are built in choose() method.
+     *
+     *@param x is the x coordinate of Vector3 that's created when user touches the screen.
+     *@param y is the y coordinate of Vector3 that's created when user touches the screen.
+     */
 
     public void isAnswerRight(int x, int y) {
         if ((x < correctXUpperlimit && x > correctXLowerlimit) && (y < correctYUpperlimit && y > correctYLowerlimit)) {
@@ -620,6 +654,14 @@ public class MiniGame implements Screen {
         }
     }
 
+    /**
+     * Method for centering the texts used in the questions to the middle of answerboxes.
+     *
+     * It takes String as a parameter and determines how many lines are needed for the said text.
+     *
+     * @param text is the text that is needed to be centered.
+     */
+
     public float getTextHeight(String text) {
         int textLength = text.length();
         GlyphLayout layout = new GlyphLayout();
@@ -642,6 +684,10 @@ public class MiniGame implements Screen {
         return halfHeight;
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void show() {
 
@@ -653,25 +699,43 @@ public class MiniGame implements Screen {
         viewport.update(width, height);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void pause() {
 
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void resume() {
 
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void hide() {
 
     }
+    /**
+     * Mandatory method in classes that implement Screen. Disposes of Textures and Sounds used in the class.
+     */
 
     @Override
     public void dispose() {
         correct.dispose();
         incorrect.dispose();
+        minigameBg.dispose();
+        problemBox.dispose();
+        answerBox.dispose();
         font.dispose();
         batch.dispose();
     }

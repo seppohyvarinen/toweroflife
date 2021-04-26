@@ -943,6 +943,7 @@ public class TowerOfLife implements Screen {
         for (Texture t : positive) {
             t.dispose();
         }
+
         for (Texture t : negative) {
             t.dispose();
         }
