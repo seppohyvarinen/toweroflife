@@ -106,8 +106,10 @@ public class MainMenu implements Screen {
         highscore.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (TowerOfLife.soundOn)
+                if (TowerOfLife.soundOn) {
                     tap.play();
+                }
+                menuBgm.pause();
                 host.setScreen(new Highscore(host));
             }
 

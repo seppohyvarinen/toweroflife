@@ -2,6 +2,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -82,6 +83,7 @@ public class MiniGame implements Screen {
     boolean hide = false;
     int answerCounter = 0;
     Viewport viewport;
+    Music hateM;
 
     /**
      * Constructor for the Minigame class. This constructor builds the ArrayLists for questions, determines which category of question is
