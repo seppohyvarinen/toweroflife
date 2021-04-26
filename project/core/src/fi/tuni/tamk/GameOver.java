@@ -1,8 +1,6 @@
 package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -11,21 +9,21 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
+/**
+ * GameOver class is the gameover screen, that is set when the player loses (TowerOfLife.score == 0).
+ * <p>
+ * The class contains a background and the stage, which has the following buttons: language, sound, music and back.
+ *
+ * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
 
 
 public class GameOver implements Screen {
@@ -42,16 +40,22 @@ public class GameOver implements Screen {
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
     BitmapFont font;
 
+    /**
+     * Constructor for GameOver class.
+     * This constructor creates screen background, batch for the text and stage for the following buttons:
+     * resume - starts the game again, go to TowerOfLife screen;
+     * quit - go to MainMenu screen.
+     *
+     * @param host is the Main object that extends Game class.
+     */
 
     public GameOver(final Main host) {
         batch = host.theGame.hudbatch;
         this.host = host;
-        //batch = new SpriteBatch();
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
         tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
         startGame = Gdx.audio.newSound(Gdx.files.internal("startgame.mp3"));
-
         menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
@@ -63,23 +67,15 @@ public class GameOver implements Screen {
         fontParameter.color = Color.YELLOW;
         font = fontGenerator.generateFont(fontParameter);
 
-        //Label text = new Label("You lose! \nYour score: " + TowerOfLife.score, mySkin, "black");
-        //text.setFontScale(4f, 4);
-        //text.setSize(width, height);
-        //text.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1250);
-        //stage.addActor(text);
-
         TowerOfLife.score = 0;
 
         Button resume = new TextButton(host.getLevelText("retry"), mySkin, "default");
         resume.setSize(width, height);
         resume.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
-
         resume.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
             }
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn)
@@ -89,7 +85,6 @@ public class GameOver implements Screen {
                     isPressed = true;
                     host.createGame = true;
                 }
-                //host.setScreen(new TowerOfLife(host));
                 return true;
             }
         });
@@ -103,11 +98,9 @@ public class GameOver implements Screen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn) {
                     tap.play();
-
                 }
                 host.setScreen(new MainMenu(host));
             }
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -116,10 +109,19 @@ public class GameOver implements Screen {
         stage.addActor(quit);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void show() {
-        // Gdx.input.setInputProcessor(stage);
     }
+
+    /**
+     * Mandatory method for classes implementing the screen. Renders all the Textures, batch and stage used in the class.
+     *
+     * @param delta is the deltatime, or elapsed time.
+     */
 
     @Override
     public void render(float delta) {
@@ -132,8 +134,8 @@ public class GameOver implements Screen {
         stage.getViewport().apply();
         stage.draw();
         batch.begin();
-        font.draw(batch, host.getLevelText("gameover"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 400, 600f,1,false);
-        font.draw(batch, host.theGame.lastScore + " " + host.getLevelText("endpoints"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 600, 600f,1,false);
+        font.draw(batch, host.getLevelText("gameover"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 400, 600f, 1, false);
+        font.draw(batch, host.theGame.lastScore + " " + host.getLevelText("endpoints"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 600, 600f, 1, false);
         batch.end();
         host.theGame.gamePlayed = true;
         if (isPressed) {
@@ -141,28 +143,46 @@ public class GameOver implements Screen {
         }
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Handles stage scaling for different devices.
+     */
+
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void pause() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void resume() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void hide() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Dispose of the batch and stage used in the class.
+     */
 
     @Override
     public void dispose() {
+        batch.dispose();
         stage.dispose();
     }
 }

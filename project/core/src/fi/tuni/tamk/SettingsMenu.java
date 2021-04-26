@@ -16,7 +16,7 @@ import java.util.Locale;
 
 /**
  * SettingsMenu class is the settings menu of the game.
- *
+ * <p>
  * The class contains a background and the stage, which has the following buttons: language, sound, music and back.
  *
  * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
@@ -61,6 +61,7 @@ public class SettingsMenu implements Screen {
                 }
                 host.setScreen(new SettingsMenu(host));
             }
+
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -84,6 +85,7 @@ public class SettingsMenu implements Screen {
                 }
                 host.setScreen(new SettingsMenu(host));
             }
+
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -108,6 +110,7 @@ public class SettingsMenu implements Screen {
                 }
                 host.setScreen(new SettingsMenu(host));
             }
+
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -123,6 +126,7 @@ public class SettingsMenu implements Screen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 host.setScreen(new MainMenu(host));
             }
+
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -142,7 +146,7 @@ public class SettingsMenu implements Screen {
     /**
      * Mandatory method for classes implementing the screen. Renders all the Textures and stage used in the class.
      *
-     *@param delta is the deltatime, or elapsed time.
+     * @param delta is the deltatime, or elapsed time.
      */
 
     @Override
