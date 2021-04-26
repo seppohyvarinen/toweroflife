@@ -2,6 +2,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -82,6 +83,11 @@ public class MiniGame implements Screen {
     boolean hide = false;
     int answerCounter = 0;
     Viewport viewport;
+    Music hateM;
+    Music sorrowM;
+    Music angerM;
+    Music fearM;
+    Music thatsPlayed;
 
     /**
      * Constructor for the Minigame class. This constructor builds the ArrayLists for questions, determines which category of question is
@@ -95,6 +101,10 @@ public class MiniGame implements Screen {
         batch = host.theGame.hudbatch;
         this.host = host;
         minigameBg = new Texture(Gdx.files.internal("minigame_bg.png"));
+        angerM = Gdx.audio.newMusic(Gdx.files.internal("angermusic.mp3"));
+        hateM = Gdx.audio.newMusic(Gdx.files.internal("hatemusic.mp3"));
+        sorrowM = Gdx.audio.newMusic(Gdx.files.internal("sorrowmusic.mp3"));
+        fearM = Gdx.audio.newMusic(Gdx.files.internal("fearmusic.mp3"));
         nice = new Texture(Gdx.files.internal("nice.png"));
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -180,6 +190,9 @@ public class MiniGame implements Screen {
         pIndex = MathUtils.random(0, 2);
 
         if (e.equals("sorrowBox")) {
+            thatsPlayed = sorrowM;
+            thatsPlayed.play();
+            thatsPlayed.setLooping(true);
             problemList.addAll(sorrowProblems);
             if (TowerOfLife.usedSorrowQuestions.size() == sorrowProblems.size()) {
                 TowerOfLife.usedSorrowQuestions.clear();
@@ -190,6 +203,9 @@ public class MiniGame implements Screen {
             TowerOfLife.usedSorrowQuestions.add(pIndex);
             TowerOfLife.latestSorrow = pIndex;
         } else if (e.equals("hateBox")) {
+            thatsPlayed = hateM;
+            thatsPlayed.play();
+            thatsPlayed.setLooping(true);
             problemList.addAll(hateProblems);
             if (TowerOfLife.usedAngerQuestions.size() == hateProblems.size()) {
                 TowerOfLife.usedAngerQuestions.clear();
@@ -200,6 +216,9 @@ public class MiniGame implements Screen {
             TowerOfLife.usedAngerQuestions.add(pIndex);
             TowerOfLife.latestAnger = pIndex;
         } else {
+            thatsPlayed = fearM;
+            thatsPlayed.play();
+            thatsPlayed.setLooping(true);
             problemList.addAll(fearProblems);
             if (TowerOfLife.usedFearQuestions.size() == fearProblems.size()) {
                 TowerOfLife.usedFearQuestions.clear();
@@ -588,6 +607,7 @@ public class MiniGame implements Screen {
 
     public void isAnswerRight(int x, int y) {
         if ((x < correctXUpperlimit && x > correctXLowerlimit) && (y < correctYUpperlimit && y > correctYLowerlimit)) {
+            thatsPlayed.stop();
             if (!soundIsPlayed) {
                 if (TowerOfLife.soundOn) {
                     correct.play();
@@ -598,9 +618,13 @@ public class MiniGame implements Screen {
                 host.theGame.scoreSoundPlayed = false;
                 host.theGame.gongrats = true;
                 soundIsPlayed = true;
+                if (host.theGame.musicOn) {
+                    host.theGame.resumeMusic = true;
+                }
             }
 
         } else {
+            thatsPlayed.stop();
             if (!soundIsPlayed) {
                 if (TowerOfLife.soundOn) {
                     incorrect.play();
@@ -609,6 +633,10 @@ public class MiniGame implements Screen {
                 host.theGame.scoreSoundPlayed = false;
                 host.theGame.wasIncorrect = true;
                 soundIsPlayed = true;
+                if (host.theGame.musicOn) {
+                    host.theGame.resumeMusic = true;
+                }
+
             }
         }
     }
@@ -697,5 +725,10 @@ public class MiniGame implements Screen {
         answerBox.dispose();
         font.dispose();
         batch.dispose();
+        thatsPlayed.dispose();
+        hateM.dispose();
+        fearM.dispose();
+        sorrowM.dispose();
+        angerM.dispose();
     }
 }
