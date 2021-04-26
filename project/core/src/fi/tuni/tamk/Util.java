@@ -7,25 +7,75 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+/**
+ * Util class contains methods for building Body's for the Boxes. The class also contains the swing method for swinging the Box.
+ *
+ * There are different types of Boxes used in the game. This class creates different Body's for different Boxes.
+ *
+ *@author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
+
 public class Util {
     private static float speedX = 2f;
     private static float speedY = 1f;
+
+    /**
+     * Method for creating a standard Box Body for the game.
+     *
+     *
+     *@param x is the x coordinate the Body is created to.
+     * @param y is the y coordinate the Body is created to.
+     * @param boxWidth is the width of the Body
+     * @param boxHeight is the height of the Body.
+     */
 
     public static Body createBox(float x, float y, float boxWidth, float boxHeight) {
         Body playerBody = TowerOfLife.world.createBody(getDefinitionOfBody(x, y));
         playerBody.createFixture(getFixtureDefinition(boxWidth, boxHeight));
         return playerBody;
     }
+
+    /**
+     * Method for creating a Joy-type Box Body for the game.
+     *
+     *
+     * @param x is the x coordinate the Body is created to.
+     * @param y is the y coordinate the Body is created to.
+     * @param boxWidth is the width of the Body
+     * @param boxHeight is the height of the Body.
+     * @param bounce is the desired bounce value that is passed on to a method that defines the fixture of the body.
+     */
     public static Body createJoyBox(float x, float y, float boxWidth, float boxHeight, float bounce) {
         Body playerBody = TowerOfLife.world.createBody(getDefinitionOfBody(x, y));
         playerBody.createFixture(getJoyFixtureDefinition(boxWidth, boxHeight, bounce));
         return playerBody;
     }
+
+    /**
+     * Method for creating Awe-type Box Body for the game.
+     *
+     *
+     *@param x is the x coordinate the Body is created to.
+     * @param y is the y coordinate the Body is created to.
+     * @param boxWidth is the width of the Body
+     * @param boxHeight is the height of the Body.
+     */
     public static Body createAweBox(float x, float y, float boxWidth, float boxHeight) {
         Body playerBody = TowerOfLife.world.createBody(getDefinitionOfBody(x, y));
         playerBody.createFixture(getAweFixtureDefinition(boxWidth, boxHeight));
         return playerBody;
     }
+
+    /**
+     * Method for creating a Fear-type Box Body for the game.
+     *
+     *
+     *@param x is the x coordinate the Body is created to.
+     * @param y is the y coordinate the Body is created to.
+     * @param boxWidth is the width of the Body
+     * @param boxHeight is the height of the Body.
+     */
+
     public static Body createFearBox(float x, float y, float boxWidth, float boxHeight) {
         Body playerBody = TowerOfLife.world.createBody(getDefinitionOfBody(x, y));
         playerBody.createFixture(getFearFixtureDefinition(boxWidth, boxHeight));
@@ -36,6 +86,13 @@ public class Util {
         playerBody.createFixture(getFearFixtureDefinition(boxWidth, boxHeight));
         return playerBody;
     }
+
+    /**
+     * Method that sets the created Body as dynamic.
+     *
+     *@param x is the x coordinate the Body is created to.
+     * @param y is the y coordinate the Body is created to.
+     */
 
     public static BodyDef getDefinitionOfBody(float x, float y) {
         // Body Definition
@@ -51,6 +108,15 @@ public class Util {
         return myBodyDef;
     }
 
+    /**
+     * Method for creating a standard Box Body for the game.
+     *
+     *
+     *@param x is the x coordinate of the swinging Texture.
+     * @param y is the y coordinate of the swinging Texture.
+     * @param toRight is a boolean value that tells if the Texture is moving to right
+     * @param toUp is a boolean value that tells if the Texture is moving up.
+     */
 
     public static void swing(float x, float y, boolean toRight, boolean toUp) {
 
@@ -100,6 +166,13 @@ public class Util {
         TowerOfLife.toUp = toUp;
     }
 
+    /**
+     * Method for defining standard fixture for the Box Bodies.
+     *
+     * @param boxWidth is the width of the Body
+     * @param boxHeight is the height of the Body.
+     */
+
     public static FixtureDef getFixtureDefinition(float boxWidth, float boxHeight) {
         FixtureDef playerFixtureDef = new FixtureDef();
 
@@ -121,18 +194,22 @@ public class Util {
 
         return playerFixtureDef;
     }
+
+    /**
+     * Method for defining Joy fixture for the Box Bodies.
+     *
+     * @param boxWidth is the width of the Body
+     * @param boxHeight is the height of the Body.
+     * @param bounce determines the restitution of the Body.
+     */
     public static FixtureDef getJoyFixtureDefinition(float boxWidth, float boxHeight, float bounce) {
         FixtureDef playerFixtureDef = new FixtureDef();
 
-        // Mass per square meter (kg^m2)
         playerFixtureDef.density = 1000;
 
-        // How bouncy object? Very bouncy [0,1]
         playerFixtureDef.restitution = bounce;
 
-        // How slipper object? [0,1]
         playerFixtureDef.friction = 0.1f;
-
 
         PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(boxWidth, boxHeight);
@@ -142,18 +219,21 @@ public class Util {
 
         return playerFixtureDef;
     }
+
+    /**
+     * Method for defining Awe fixture for the Box Bodies.
+     *
+     * @param boxWidth is the width of the Body
+     * @param boxHeight is the height of the Body.
+     */
     public static FixtureDef getAweFixtureDefinition(float boxWidth, float boxHeight) {
         FixtureDef playerFixtureDef = new FixtureDef();
 
-        // Mass per square meter (kg^m2)
         playerFixtureDef.density = 1000;
 
-        // How bouncy object? Very bouncy [0,1]
         playerFixtureDef.restitution = 0.1f;
 
-        // How slipper object? [0,1]
         playerFixtureDef.friction = 0.04f;
-
 
         PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(boxWidth, boxHeight);
@@ -163,6 +243,13 @@ public class Util {
 
         return playerFixtureDef;
     }
+
+    /**
+     * Method for defining Fear fixture for the Box Bodies.
+     *
+     * @param boxWidth is the width of the Body
+     * @param boxHeight is the height of the Body.
+     */
     public static FixtureDef getFearFixtureDefinition(float boxWidth, float boxHeight) {
         FixtureDef playerFixtureDef = new FixtureDef();
 
@@ -184,6 +271,13 @@ public class Util {
 
         return playerFixtureDef;
     }
+
+    /**
+     * Method for defining Hate fixture for the Box Bodies.
+     *
+     * @param boxWidth is the width of the Body
+     * @param boxHeight is the height of the Body.
+     */
     public static FixtureDef getHateFixtureDefinition(float boxWidth, float boxHeight) {
         FixtureDef playerFixtureDef = new FixtureDef();
 
