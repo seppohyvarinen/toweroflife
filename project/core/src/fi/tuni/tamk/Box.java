@@ -7,6 +7,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 
+
+/**
+ * Box class creates the boxes used by the Tower Of Life class.
+ *
+ * There are different types of Boxes used in the game. The types of Boxes are determined in the constructor. The boxes all have a Body.
+ *
+ *@author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
+
 public class Box {
 
     Body body;
@@ -24,6 +33,12 @@ public class Box {
     Sound loveSound;
 
     private boolean drop = false;
+    /**
+     * Constructor for the Box Class. Determines the type of Box and initializes all the possible Sounds the Box can use and it's Texture.
+     *
+     *@param t is the Texture the Box uses when it's rendered.
+     *@param d is the String value that is inserted as userdata to the Body of the Box to control the collisions.
+     */
 
     public Box(Texture t, String d) {
         bodyTexture = t;
@@ -39,6 +54,12 @@ public class Box {
 
     }
 
+    /**
+     * Method that is called in the Tower Of Life classes render() method to draw the Box.
+     *
+     *@param b is Spritebatch that handles the drawing of the Boxes Texture.
+     */
+
     public void draw(SpriteBatch b) {
 
         if (!drop) {
@@ -47,6 +68,13 @@ public class Box {
             b.draw(bodyTexture, body.getPosition().x - boxWidth, body.getPosition().y -boxHeight, boxWidth, boxHeight, boxWidth * 2, boxHeight * 2, 1.01f, 1.01f, body.getTransform().getRotation() * MathUtils.radiansToDegrees, 0, 0, bodyTexture.getWidth(), bodyTexture.getHeight(), false, false);
         }
     }
+
+    /**
+     * Method that creates the Body for the box. The type of Body (or the Body's attributes) depend on the type of the Box.
+     *
+     * To the user this method acts as the boxes dropper, when in fact the Body is only created after this method is called and so the
+     * Box is affected by the Box2dPhysics.
+     */
 
     public void dropIt() {
         drop = true;
@@ -72,13 +100,20 @@ public class Box {
         hasBody = true;
     }
 
-    public Body getBody() {
-        return body;
-    }
-
+    /**
+     * Method for acquiring the information whether the box is dropped or not.
+     *
+     * @return returns the boolean value whether the Box is dropped or not.
+     */
     public boolean getDropState() {
         return this.drop;
     }
+
+    /**
+     * Method for making a sound when the box collides in the world.
+     *
+     * The sound played depends on the type of the Box.
+     */
 
     public void makeSound() {
         if (bodyTexture == TowerOfLife.joy) {
@@ -98,8 +133,20 @@ public class Box {
         }
     }
 
+    /**
+     * Method that disposes of the Textures and Sounds used by the Box.
+     *
+     */
+
     public void dispose() {
         bodyTexture.dispose();
+        fearSound.dispose();
+        sorrowSound.dispose();
+        angerSound.dispose();
+        hateSound.dispose();
+        joySound.dispose();
+        aweSound.dispose();
+        loveSound.dispose();
     }
 
 
