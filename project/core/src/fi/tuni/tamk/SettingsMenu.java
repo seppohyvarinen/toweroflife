@@ -16,20 +16,34 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.Locale;
 
+/**
+ * SettingsMenu class is the settings menu of the game.
+ *
+ * The class contains a background and the stage, which has the following buttons: language, sound, music and back.
+ *
+ * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
+
 public class SettingsMenu implements Screen {
 
     Main host;
-    SpriteBatch batch;
     private Stage stage;
     float width = 400;
     float height = 150;
-    boolean isPressed = false;
     private Texture menuBg;
 
+    /**
+     * Constructor for SettingsMenu class. This constructor creates menu background and 4 buttons:
+     * language - changes the language in the game by changing the Main.locale;
+     * sound - turns on/off sounds in the game;
+     * music - turns on/off sounds in the game;
+     * back - go to MainMenu screen.
+     *
+     * @param host is the Main object that extends Game class.
+     */
 
     public SettingsMenu(final Main host) {
         this.host = host;
-        //batch = new SpriteBatch();
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
         menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
@@ -39,7 +53,6 @@ public class SettingsMenu implements Screen {
         language.setSize(width, height);
         language.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1050);
         stage.addActor(language);
-
         language.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -50,7 +63,6 @@ public class SettingsMenu implements Screen {
                 }
                 host.setScreen(new SettingsMenu(host));
             }
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -62,7 +74,6 @@ public class SettingsMenu implements Screen {
             sound = new TextButton(host.getLevelText("sound") + " off", mySkin, "default");
         else
             sound = new TextButton(host.getLevelText("sound") + " on", mySkin, "default");
-
         sound.setSize(width, height);
         sound.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
         sound.addListener(new InputListener() {
@@ -75,7 +86,6 @@ public class SettingsMenu implements Screen {
                 }
                 host.setScreen(new SettingsMenu(host));
             }
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -88,7 +98,6 @@ public class SettingsMenu implements Screen {
             music = new TextButton(host.getLevelText("music") + " off", mySkin, "default");
         else
             music = new TextButton(host.getLevelText("music") + " on", mySkin, "default");
-
         music.setSize(width, height);
         music.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 650);
         music.addListener(new InputListener() {
@@ -101,7 +110,6 @@ public class SettingsMenu implements Screen {
                 }
                 host.setScreen(new SettingsMenu(host));
             }
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -117,20 +125,27 @@ public class SettingsMenu implements Screen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 host.setScreen(new MainMenu(host));
             }
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
         });
         stage.addActor(back);
-
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void show() {
     }
+
+    /**
+     * Mandatory method for classes implementing the screen. Renders all the Textures and stage used in the class.
+     *
+     *@param delta is the deltatime, or elapsed time.
+     */
 
     @Override
     public void render(float delta) {
@@ -142,35 +157,47 @@ public class SettingsMenu implements Screen {
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();
-        /*if (isPressed) {
-            host.changeNow = true;
-        }*/
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Handles stage scaling for different devices.
+     */
 
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void pause() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void resume() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void hide() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Dispose of the stage used in the class.
+     */
 
     @Override
     public void dispose() {
         stage.dispose();
     }
-
-
 }
