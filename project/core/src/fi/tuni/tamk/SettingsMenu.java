@@ -2,6 +2,7 @@ package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -29,6 +30,7 @@ public class SettingsMenu implements Screen {
     float width = 400;
     float height = 150;
     private Texture menuBg;
+    Sound tap;
 
     /**
      * Constructor for SettingsMenu class. This constructor creates menu background and 4 buttons:
@@ -44,6 +46,7 @@ public class SettingsMenu implements Screen {
         this.host = host;
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
+        tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
         menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
@@ -54,6 +57,8 @@ public class SettingsMenu implements Screen {
         language.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (TowerOfLife.soundOn)
+                    tap.play();
                 if (host.locale.equals(new Locale("fi", "FI"))) {
                     host.locale = new Locale("en", "US");
                 } else {
@@ -78,6 +83,8 @@ public class SettingsMenu implements Screen {
         sound.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (TowerOfLife.soundOn)
+                    tap.play();
                 if (TowerOfLife.soundOn) {
                     TowerOfLife.soundOn = false;
                 } else {
@@ -103,6 +110,8 @@ public class SettingsMenu implements Screen {
         music.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (TowerOfLife.soundOn)
+                    tap.play();
                 if (TowerOfLife.musicOn) {
                     TowerOfLife.musicOn = false;
                 } else {
@@ -124,6 +133,8 @@ public class SettingsMenu implements Screen {
         back.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (TowerOfLife.soundOn)
+                    tap.play();
                 host.setScreen(new MainMenu(host));
             }
 
