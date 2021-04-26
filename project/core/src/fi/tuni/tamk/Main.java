@@ -22,7 +22,15 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Locale;
 
-// Extends Game!
+/**
+ * Main class. Handles the switching of different game screens such as main menu, settings, main game and minigame.
+ *
+ * The main class extends Game to achieve it's functionality. The class also handles the changing of Locale (the language used)
+ *
+ *@author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
+
+
 public class Main extends Game {
     SpriteBatch batch;
     TowerOfLife theGame;
@@ -34,6 +42,12 @@ public class Main extends Game {
     public static FileHandle file;
 
     @Override
+
+    /**
+     * Mandatory method in classes extending the Game. Works as a constructor for the Main class.
+     *
+     * Initializes the menu screen and the game screen. Sets the main menu as default screen.
+     */
     public void create() {
         batch = new SpriteBatch();
         theGame = new TowerOfLife(this);
@@ -52,7 +66,11 @@ public class Main extends Game {
         setScreen(mainMenu);
     }
 
-
+    /**
+     * Mandatory method in classes extending the Game.
+     *
+     * Renders the different classes Screens. Uses super.render() to render whichever screen that is set to render.
+     */
     @Override
     public void render() {
         if (changeNow) {
@@ -63,13 +81,21 @@ public class Main extends Game {
             theGame = new TowerOfLife(this);
             createGame = false;
         }
-        super.render();  // Level1:sen tai Level2:sen render
+        super.render();
     }
+
+    /**
+     * Mandatory method in classes extending the Game. Disposes of the Spritebatch used in the class.
+     */
 
     @Override
     public void dispose() {
         batch.dispose();
     }
+
+    /**
+     * Method that checks the Locale and finds the correct properties file for the corresponding Locale.
+     */
 
     public String getLevelText(String key) {
 
