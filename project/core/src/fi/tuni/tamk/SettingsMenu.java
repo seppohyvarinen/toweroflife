@@ -70,9 +70,9 @@ public class SettingsMenu implements Screen {
 
         Button sound;
         if (TowerOfLife.soundOn)
-            sound = new TextButton(host.getLevelText("sound") + " off", mySkin, "default");
+            sound = new TextButton(host.getLevelText("sound") + ": on", mySkin, "default");
         else
-            sound = new TextButton(host.getLevelText("sound") + " on", mySkin, "default");
+            sound = new TextButton(host.getLevelText("sound") + ": off", mySkin, "default");
         sound.setSize(width, height);
         sound.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
         sound.addListener(new InputListener() {
@@ -95,9 +95,9 @@ public class SettingsMenu implements Screen {
 
         Button music;
         if (TowerOfLife.musicOn)
-            music = new TextButton(host.getLevelText("music") + " off", mySkin, "default");
+            music = new TextButton(host.getLevelText("music") + ": on", mySkin, "default");
         else
-            music = new TextButton(host.getLevelText("music") + " on", mySkin, "default");
+            music = new TextButton(host.getLevelText("music") + ": off", mySkin, "default");
         music.setSize(width, height);
         music.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 650);
         music.addListener(new InputListener() {
