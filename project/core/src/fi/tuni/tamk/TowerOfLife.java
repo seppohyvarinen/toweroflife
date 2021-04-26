@@ -39,6 +39,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
 
+/**
+ * Tower Of Life class is the actual main game class. It contains several methods for handling physics, rendering Textures and handling collisions.
+ *
+ *Tower Of Life is a tower stacking game that uses Box2dPhysics in achieving it's functionality. In the game the player stacks different types of
+ * emotion boxes on top of each other to form a tower. Different boxes have different attributes. So-called negative boxes will trigger a minigame in
+ * which the player has to answer a question in order to proceed. Depending on how the player answers, the Tower is either stabilized (by turning the Dynamic
+ * box bodies into static) or not and the score increases or not.
+ *
+ *@author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
+
 public class TowerOfLife implements Screen {
     public static final float WORLD_WIDTH = 9f;
     public static final float WORLD_HEIGHT = 16f;
@@ -74,14 +85,14 @@ public class TowerOfLife implements Screen {
     Iterator<Box> itr;
     ArrayList<Integer> removeTheseIndexes;
     int boxCounter;
-    public static int score = 0;
+    public static int score;
     public int scoreMultiplier = 1;
     public int lastScore = 0;
 
-    int lives = 3;
+    int lives;
     int gongratsTimer = 0;
-    int negTempGetThis = 100;
-    int posTempGetThis = 100;
+    int negTempGetThis;
+    int posTempGetThis;
 
     boolean gameOver = false;
     static boolean scoreSoundPlayed = false;
@@ -177,7 +188,13 @@ public class TowerOfLife implements Screen {
     Sound minusScore;
 
     Box2DDebugRenderer debugRenderer;
-
+    /**
+     * Constructor for the Tower Of Life class. Sets the game, creates first Box to be dropped and initializes all the necessary variables needed at the start of the game.
+     *
+     * The constructor also creates the inputprocessors necessary for handling all the collisions that happen in the game.
+     *
+     *@param host is the Main object that handles the switching of screens between the Minigame and main game.
+     */
 
     public TowerOfLife(Main host) {
         this.host = host;
@@ -209,6 +226,11 @@ public class TowerOfLife implements Screen {
         world = new World(new Vector2(0, -9.8f), true);
 
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
+
+        score = 0;
+        lives = 3;
+        posTempGetThis = 100;
+        negTempGetThis = 100;
 
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -732,7 +754,13 @@ public class TowerOfLife implements Screen {
 
     }
 
-
+    /**
+     * Mandatory method for classes implementing the screen. Renders all the Textures used in the Tower Of Life to the players screen.
+     *
+     * Here render() is also used in timing events such as transition to the minigame or how long certain Textures are displayed on the screen.
+     *
+     *@param delta is the deltatime, or elapsed time.
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -751,9 +779,6 @@ public class TowerOfLife implements Screen {
         if (minigameStart) {
             miniGameCounter++;
         }
-
-
-
 
         moveCamera(boxCounter);
 
@@ -910,32 +935,56 @@ public class TowerOfLife implements Screen {
         }
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void show() {
 
     }
 
-
+    /**
+     * Mandatory method in classes that implement Screen. Handles the scaling for different devices.
+     * @param width the width to be scaled
+     * @param height the height to be scaled
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
         hudViewport.update(width, height);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void pause() {
 
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void resume() {
 
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void hide() {
 
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Disposes of Textures and Sounds used in the class.
+     */
 
     @Override
     public void dispose() {
@@ -959,6 +1008,12 @@ public class TowerOfLife implements Screen {
         }
 
     }
+
+    /**
+     * Method for spawning Box objects to the top of the screen. It's programmed so, that same type of boxes cannot be spawned in a row.
+     *
+     * Method also handles the randomization / frequency of negative type boxes in the game.
+     */
 
     public void spawnBox() {
         int random = MathUtils.random(1, 3);
@@ -1012,11 +1067,21 @@ public class TowerOfLife implements Screen {
         spawnCounter = 0;
     }
 
+    /**
+     * Method that is called when the player taps the screen.
+     *
+     * The method then calls the latest Boxes dropIt() method which creates a Body for the Box so that physics start to effect the Box.
+     */
+
     public void drop() {
         if (!boxes.get(boxCounter).getDropState()) {
             boxes.get(boxCounter).dropIt();
         }
     }
+
+    /**
+     * Method for creating Bodydefinition for the ground used in the game. Creates a static body out of the ground.
+     */
 
     private BodyDef getGroundBodyDef() {
         // Body Definition
@@ -1033,6 +1098,10 @@ public class TowerOfLife implements Screen {
         return myBodyDef;
     }
 
+    /**
+     * Method that shapes the ground as a box.
+     */
+
     private PolygonShape getGroundShape() {
         // Create shape
         PolygonShape groundBox = new PolygonShape();
@@ -1042,6 +1111,10 @@ public class TowerOfLife implements Screen {
 
         return groundBox;
     }
+
+    /**
+     * Method that sums the different methods for creating the ground body (definition, shape and setting userdata)
+     */
 
     public void createGround() {
         Body groundBody = world.createBody(getGroundBodyDef());
@@ -1055,6 +1128,12 @@ public class TowerOfLife implements Screen {
 
     private double accumulator = 0;
     private float TIME_STEP = 1 / 60f;
+
+    /**
+     * Method that handles the physics engines "steps" and times it with the rendering time so that drawing and physics engine are in sync.
+     *
+     * @param deltaTime is the elapsed time.
+     */
 
     private void doPhysicsStep(float deltaTime) {
 
@@ -1075,7 +1154,11 @@ public class TowerOfLife implements Screen {
         }
     }
 
-    //siirtää kameraa ylös laatikon korkeuden verran, kun laatikoiden määrä on yli 4.
+    /**
+     * Method that smoothly moves the camera up according to the amount of stacked boxes.
+     *
+     * @param boxCounter is the amount of stacked boxes.
+     */
     private void moveCamera(int boxCounter) {
         float camSpeed = 0.05f;
         if (boxCounter > 4) {
@@ -1088,6 +1171,13 @@ public class TowerOfLife implements Screen {
         }
         camera.update();
     }
+
+    /**
+     * Method that saves the players score and writes it to txt.file if the score is high enough.
+     *
+     * @param score is the int value of score to be saved
+     * @param highscore is int[]array where the int values of the txt. file are temporarily stored so that we can compare whether the new score can be set to highscore.
+     */
 
     private void save(int score, int[] highscore) {
         //Highscore from file to array
@@ -1127,10 +1217,26 @@ public class TowerOfLife implements Screen {
         }
     }
 
+    /**
+     * Method that draws the moving clouds in the game.
+     *
+     * This method is called in the render() at 4 different occasions (before and after drawing the tower) creating a "layer effect".
+     *
+     * @param b is the Spritebatch that handles the drawing.
+     * @param scale is the scale the cloud is drawn in depending whether the cloud is in front of or behind the tower.
+     * @param t is the Texture that the method draws.
+     * @param height is the y coordinate in which the cloud is spawned/drawn
+     * @param x is the x coordinate of the cloud that is changed in the render to make it moving.
+     */
+
     public void cloudsMove(SpriteBatch b, float scale, Texture t, float height, float x) {
 
         b.draw(t, x, height, clouds.get(1).getWidth() / scale, clouds.get(1).getHeight() / scale);
     }
+
+    /**
+     * Method that handles spawning the clouds located behind the tower.
+     */
     public void cloudsBehind() {
         if (needNewY) {
             if (camera.position.y < 10) {
@@ -1172,6 +1278,10 @@ public class TowerOfLife implements Screen {
             cloudsMove(batch, 210f, clouds.get(1), cloudPosY2, cloudPosX2);
         }
     }
+
+    /**
+     * Method that handles spawning the clouds located in front of the tower.
+     */
     public void cloudsFront() {
         if (needNewY3) {
 
@@ -1213,6 +1323,17 @@ public class TowerOfLife implements Screen {
             cloudsMove(batch, 170f, clouds.get(2), cloudPosY4, cloudPosX4);
         }
     }
+
+    /**
+     * Method that adds the score to player. The multiplier is then added to the score.
+     *
+     * The multiplier depends on how the player has answered in the Minigame
+     *
+     * @param score is the old score to be added to.
+     * @param scoreMultiplier is the multiplier added to the score.
+     *
+     * @return returns the new score that is added to the player score.
+     */
 
     public int addScore(int score, int scoreMultiplier) {
         int newScore = score + scoreMultiplier;
