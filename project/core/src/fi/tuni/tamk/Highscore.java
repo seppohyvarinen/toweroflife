@@ -1,8 +1,6 @@
 package fi.tuni.tamk;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -12,22 +10,21 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+/**
+ * Highscore class is the screen with the game highscores.
+ * <p>
+ * The class contains a background, batch with the text and the stage, which has the back button.
+ *
+ * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
 
 public class Highscore implements Screen {
     Main host;
@@ -46,6 +43,12 @@ public class Highscore implements Screen {
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
     BitmapFont font;
 
+    /**
+     * Constructor for Highscores class.
+     * This constructor creates screen background, batch for the text and stage for quit button.
+     *
+     * @param host is the Main object that extends Game class.
+     */
 
     public Highscore(final Main host) {
         batch = host.theGame.batch;
@@ -68,22 +71,6 @@ public class Highscore implements Screen {
         fontParameter.color = Color.YELLOW;
         font = fontGenerator.generateFont(fontParameter);
 
-/*
-        Label text = new Label(host.getLevelText("highscore"), mySkin, "black");
-        text.setFontScale(4f, 4f);
-        //text.setSize(width, height);
-        text.setAlignment(1);
-        text.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 1450);
-        stage.addActor(text);
-
-        Label table = new Label(Main.file.readString(), mySkin, "black");
-        table.setFontScale(4f, 4f);
-        //text.setSize(width, height);
-        text.setAlignment(1);
-        table.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 850);
-        stage.addActor(table);
-*/
-
         Button quit = new TextButton(host.getLevelText("back"), mySkin, "default");
         quit.setSize(width, height);
         quit.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 250);
@@ -92,11 +79,9 @@ public class Highscore implements Screen {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn) {
                     tap.play();
-
                 }
                 host.setScreen(new MainMenu(host));
             }
-
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
@@ -105,10 +90,19 @@ public class Highscore implements Screen {
         stage.addActor(quit);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void show() {
-        // Gdx.input.setInputProcessor(stage);
     }
+
+    /**
+     * Mandatory method for classes implementing the screen. Renders all the Textures, batch and stage used in the class.
+     *
+     * @param delta is the deltatime, or elapsed time.
+     */
 
     @Override
     public void render(float delta) {
@@ -123,8 +117,8 @@ public class Highscore implements Screen {
         stage.draw();
 
         batch.begin();
-        font.draw(batch, host.getLevelText("highscore"), 0, 2800, 1800,1,false);
-        font.draw(batch, Main.file.readString(), 0, 2600, 1800,1,false);
+        font.draw(batch, host.getLevelText("highscore"), 0, 2800, 1800, 1, false);
+        font.draw(batch, Main.file.readString(), 0, 2600, 1800, 1, false);
         batch.end();
 
         if (isPressed) {
@@ -132,28 +126,46 @@ public class Highscore implements Screen {
         }
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Handles stage scaling for different devices.
+     */
+
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void pause() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void resume() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
 
     @Override
     public void hide() {
-
     }
+
+    /**
+     * Mandatory method in classes that implement Screen. Dispose of the batch and stage used in the class.
+     */
 
     @Override
     public void dispose() {
+        batch.dispose();
         stage.dispose();
     }
 }
