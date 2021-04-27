@@ -191,8 +191,12 @@ public class MiniGame implements Screen {
 
         if (e.equals("sorrowBox")) {
             thatsPlayed = sorrowM;
-            thatsPlayed.play();
-            thatsPlayed.setLooping(true);
+
+            if (host.theGame.musicOn) {
+                thatsPlayed.play();
+                thatsPlayed.setLooping(true);
+            }
+
             problemList.addAll(sorrowProblems);
             if (TowerOfLife.usedSorrowQuestions.size() == sorrowProblems.size()) {
                 TowerOfLife.usedSorrowQuestions.clear();
@@ -204,8 +208,10 @@ public class MiniGame implements Screen {
             TowerOfLife.latestSorrow = pIndex;
         } else if (e.equals("hateBox")) {
             thatsPlayed = hateM;
-            thatsPlayed.play();
-            thatsPlayed.setLooping(true);
+            if (host.theGame.musicOn) {
+                thatsPlayed.play();
+                thatsPlayed.setLooping(true);
+            }
             problemList.addAll(hateProblems);
             if (TowerOfLife.usedAngerQuestions.size() == hateProblems.size()) {
                 TowerOfLife.usedAngerQuestions.clear();
@@ -217,8 +223,10 @@ public class MiniGame implements Screen {
             TowerOfLife.latestAnger = pIndex;
         } else {
             thatsPlayed = fearM;
-            thatsPlayed.play();
-            thatsPlayed.setLooping(true);
+            if (host.theGame.musicOn) {
+                thatsPlayed.play();
+                thatsPlayed.setLooping(true);
+            }
             problemList.addAll(fearProblems);
             if (TowerOfLife.usedFearQuestions.size() == fearProblems.size()) {
                 TowerOfLife.usedFearQuestions.clear();
@@ -607,7 +615,9 @@ public class MiniGame implements Screen {
 
     public void isAnswerRight(int x, int y) {
         if ((x < correctXUpperlimit && x > correctXLowerlimit) && (y < correctYUpperlimit && y > correctYLowerlimit)) {
-            thatsPlayed.stop();
+            if (host.theGame.musicOn) {
+                thatsPlayed.stop();
+            }
             if (!soundIsPlayed) {
                 if (TowerOfLife.soundOn) {
                     correct.play();
@@ -624,7 +634,9 @@ public class MiniGame implements Screen {
             }
 
         } else {
-            thatsPlayed.stop();
+            if (host.theGame.musicOn) {
+                thatsPlayed.stop();
+            }
             if (!soundIsPlayed) {
                 if (TowerOfLife.soundOn) {
                     incorrect.play();
