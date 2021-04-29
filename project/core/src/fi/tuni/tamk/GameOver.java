@@ -86,6 +86,9 @@ public class GameOver implements Screen {
                 if (!isPressed) {
                     isPressed = true;
                     host.createGame = true;
+                    if (TowerOfLife.musicOn) {
+                        host.theGame.musicTimerDone = false;
+                    }
                 }
                 return true;
             }
