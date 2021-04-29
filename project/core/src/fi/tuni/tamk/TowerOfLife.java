@@ -157,27 +157,7 @@ public class TowerOfLife implements Screen {
     static int latestAnger;
     static int latestSorrow;
     static int latestFear;
-    private Texture backdropGrass;
-    private Texture backdrop1;
-    private Texture backdrop2;
-    private Texture backdrop3;
-    private Texture backdrop4;
-    private Texture backdrop5;
-    private Texture backdrop6;
-    private Texture backdrop7;
-    private Texture backdrop8;
-    private Texture backdrop9;
-    private Texture backdrop10;
-    private Texture backdrop11;
-    private Texture backdrop12;
-    private Texture backdrop13;
-    private Texture backdrop14;
-    private Texture backdrop15;
-    private Texture backdrop16;
-    private Texture backdrop17;
-    private Texture backdrop18;
-    private Texture backdrop19;
-    private Texture backdrop20;
+
     float cloudPosY;
     float cloudPosY2;
     float cloudPosY3;
@@ -290,27 +270,7 @@ public class TowerOfLife implements Screen {
         answerCounter = 0;
 
 
-        backdropGrass = new Texture(Gdx.files.internal("grass.png"));
-        backdrop1 = new Texture(Gdx.files.internal("backdrop1.png"));
-        backdrop2 = new Texture(Gdx.files.internal("backdrop2.png"));
-        backdrop3 = new Texture(Gdx.files.internal("backdrop3.png"));
-        backdrop4 = new Texture(Gdx.files.internal("backdrop4.png"));
-        backdrop5 = new Texture(Gdx.files.internal("backdrop5.png"));
-        backdrop6 = new Texture(Gdx.files.internal("backdrop6.png"));
-        backdrop7 = new Texture(Gdx.files.internal("backdrop7.png"));
-        backdrop8 = new Texture(Gdx.files.internal("backdrop8.png"));
-        backdrop9 = new Texture(Gdx.files.internal("backdrop9.png"));
-        backdrop10 = new Texture(Gdx.files.internal("backdrop10.png"));
-        backdrop11 = new Texture(Gdx.files.internal("backdrop11.png"));
-        backdrop12 = new Texture(Gdx.files.internal("backdrop12.png"));
-        backdrop13 = new Texture(Gdx.files.internal("backdrop13.png"));
-        backdrop14 = new Texture(Gdx.files.internal("backdrop14.png"));
-        backdrop15 = new Texture(Gdx.files.internal("backdrop15.png"));
-        backdrop16 = new Texture(Gdx.files.internal("backdrop16.png"));
-        backdrop17 = new Texture(Gdx.files.internal("backdrop17.png"));
-        backdrop18 = new Texture(Gdx.files.internal("backdrop18.png"));
-        backdrop19 = new Texture(Gdx.files.internal("backdrop19.png"));
-        backdrop20 = new Texture(Gdx.files.internal("backdrop20.png"));
+
         if (host.locale.equals(new Locale("fi", "FI"))) {
             awe = new Texture(Gdx.files.internal("em_awe_fi.png"));
             anger = new Texture(Gdx.files.internal("em_anger_fi.png"));
@@ -767,26 +727,26 @@ public class TowerOfLife implements Screen {
         batch.begin();
 
         if (mainGame) {
-            batch.draw(backdrop1, 0f, 0f, 9f, 18f);
-            batch.draw(backdrop2, 0f, 18f, 9f, 18f);
-            batch.draw(backdrop3, 0f, 36f, 9f, 18f);
-            batch.draw(backdrop4, 0f, 54f, 9f, 18f);
-            batch.draw(backdrop5, 0f, 72f, 9f, 18f);
-            batch.draw(backdrop6, 0f, 90f, 9f, 18f);
-            batch.draw(backdrop7, 0f, 108f, 9f, 18f);
-            batch.draw(backdrop8, 0f, 126f, 9f, 18f);
-            batch.draw(backdrop9, 0f, 144f, 9f, 18f);
-            batch.draw(backdrop10, 0f, 162f, 9f, 18f);
-            batch.draw(backdrop11, 0f, 180f, 9f, 18f);
-            batch.draw(backdrop12, 0f, 198f, 9f, 18f);
-            batch.draw(backdrop13, 0f, 216f, 9f, 18f);
-            batch.draw(backdrop14, 0f, 234f, 9f, 18f);
-            batch.draw(backdrop15, 0f, 252f, 9f, 18f);
-            batch.draw(backdrop16, 0f, 270f, 9f, 18f);
-            batch.draw(backdrop17, 0f, 288f, 9f, 18f);
-            batch.draw(backdrop18, 0f, 306f, 9f, 18f);
-            batch.draw(backdrop19, 0f, 324f, 9f, 18f);
-            batch.draw(backdrop20, 0f, 342f, 9f, 18f);
+            batch.draw(host.resources.backdrop1, 0f, 0f, 9f, 18f);
+            batch.draw(host.resources.backdrop2, 0f, 18f, 9f, 18f);
+            batch.draw(host.resources.backdrop3, 0f, 36f, 9f, 18f);
+            batch.draw(host.resources.backdrop4, 0f, 54f, 9f, 18f);
+            batch.draw(host.resources.backdrop5, 0f, 72f, 9f, 18f);
+            batch.draw(host.resources.backdrop6, 0f, 90f, 9f, 18f);
+            batch.draw(host.resources.backdrop7, 0f, 108f, 9f, 18f);
+            batch.draw(host.resources.backdrop8, 0f, 126f, 9f, 18f);
+            batch.draw(host.resources.backdrop9, 0f, 144f, 9f, 18f);
+            batch.draw(host.resources.backdrop10, 0f, 162f, 9f, 18f);
+            batch.draw(host.resources.backdrop11, 0f, 180f, 9f, 18f);
+            batch.draw(host.resources.backdrop12, 0f, 198f, 9f, 18f);
+            batch.draw(host.resources.backdrop13, 0f, 216f, 9f, 18f);
+            batch.draw(host.resources.backdrop14, 0f, 234f, 9f, 18f);
+            batch.draw(host.resources.backdrop15, 0f, 252f, 9f, 18f);
+            batch.draw(host.resources.backdrop16, 0f, 270f, 9f, 18f);
+            batch.draw(host.resources.backdrop17, 0f, 288f, 9f, 18f);
+            batch.draw(host.resources.backdrop18, 0f, 306f, 9f, 18f);
+            batch.draw(host.resources.backdrop19, 0f, 324f, 9f, 18f);
+            batch.draw(host.resources.backdrop20, 0f, 342f, 9f, 18f);
         }
         if (!gameOver) {
             Util.swing(realX, realY, toRight, toUp);
@@ -821,7 +781,7 @@ public class TowerOfLife implements Screen {
             for (Box box : boxes) {
                 box.draw(batch);
             }
-            batch.draw(backdropGrass, 0f, 0f, 9f, 3f);
+            batch.draw(host.resources.backdropGrass, 0f, 0f, 9f, 3f);
         }
         if (camera.position.y > 12 && camera.position.y < 150) {
             cloudsFront();
@@ -986,27 +946,27 @@ public class TowerOfLife implements Screen {
             t.dispose();
         }
         destroySound.dispose();
-        backdropGrass.dispose();
-        backdrop1.dispose();
-        backdrop2.dispose();
-        backdrop3.dispose();
-        backdrop4.dispose();
-        backdrop5.dispose();
-        backdrop6.dispose();
-        backdrop7.dispose();
-        backdrop8.dispose();
-        backdrop9.dispose();
-        backdrop10.dispose();
-        backdrop11.dispose();
-        backdrop12.dispose();
-        backdrop13.dispose();
-        backdrop14.dispose();
-        backdrop15.dispose();
-        backdrop16.dispose();
-        backdrop17.dispose();
-        backdrop18.dispose();
-        backdrop19.dispose();
-        backdrop20.dispose();
+        host.resources.backdropGrass.dispose();
+        host.resources.backdrop1.dispose();
+        host.resources.backdrop2.dispose();
+        host.resources.backdrop3.dispose();
+        host.resources.backdrop4.dispose();
+        host.resources.backdrop5.dispose();
+        host.resources.backdrop6.dispose();
+        host.resources.backdrop7.dispose();
+        host.resources.backdrop8.dispose();
+        host.resources.backdrop9.dispose();
+        host.resources.backdrop10.dispose();
+        host.resources.backdrop11.dispose();
+        host.resources.backdrop12.dispose();
+        host.resources.backdrop13.dispose();
+        host.resources.backdrop14.dispose();
+        host.resources.backdrop15.dispose();
+        host.resources.backdrop16.dispose();
+        host.resources.backdrop17.dispose();
+        host.resources.backdrop18.dispose();
+        host.resources.backdrop19.dispose();
+        host.resources.backdrop20.dispose();
     }
 
     /**
