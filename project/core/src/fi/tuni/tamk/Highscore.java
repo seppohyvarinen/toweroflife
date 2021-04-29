@@ -80,7 +80,6 @@ public class Highscore implements Screen {
                 if (TowerOfLife.soundOn) {
                     tap.play();
                 }
-                host.musicCheck = false;
                 host.setScreen(new MainMenu(host));
             }
             @Override

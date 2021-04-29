@@ -29,6 +29,7 @@ public class Main extends Game {
     public Locale locale = new Locale("fi", "FI");
     public static FileHandle file;
     static boolean musicCheck = false;
+    static Music menuBgm;
 
 
     /**
@@ -41,6 +42,8 @@ public class Main extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
+        menuBgm = Gdx.audio.newMusic(Gdx.files.internal("menuehka.mp3"));
+
 
         theGame = new TowerOfLife(this);
         mainMenu = new MainMenu(this);
@@ -66,6 +69,13 @@ public class Main extends Game {
 
     @Override
     public void render() {
+
+        if(!musicCheck) {
+            menuBgm.play();
+            menuBgm.setLooping(true);
+            musicCheck = true;
+        }
+
         if (changeNow) {
             setScreen(theGame);
             changeNow = false;
@@ -83,6 +93,7 @@ public class Main extends Game {
 
     @Override
     public void dispose() {
+        menuBgm.dispose();
         batch.dispose();
     }
 

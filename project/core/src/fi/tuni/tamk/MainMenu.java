@@ -34,7 +34,7 @@ public class MainMenu implements Screen {
     private Texture menuBg;
     Sound tap;
     Sound startGame;
-    static Music menuBgm;
+
 
 
 
@@ -49,7 +49,6 @@ public class MainMenu implements Screen {
 
     public MainMenu(final Main host) {
         this.host = host;
-        menuBgm = Gdx.audio.newMusic(Gdx.files.internal("menuehka.mp3"));
 
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
@@ -74,7 +73,7 @@ public class MainMenu implements Screen {
                 }
                 if (!isPressed) {
                     isPressed = true;
-                    menuBgm.stop();
+                    host.menuBgm.stop();
                     host.createGame = true;
                 }
                 return true;
@@ -109,7 +108,6 @@ public class MainMenu implements Screen {
                 if (TowerOfLife.soundOn) {
                     tap.play();
                 }
-                menuBgm.pause();
                 host.setScreen(new Highscore(host));
             }
 
@@ -148,11 +146,7 @@ public class MainMenu implements Screen {
         if (isPressed) {
             host.changeNow = true;
         }
-        if (!host.musicCheck) {
-            menuBgm.play();
-            menuBgm.setLooping(true);
-            host.musicCheck = true;
-        }
+
     }
 
     /**
@@ -195,6 +189,6 @@ public class MainMenu implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        menuBgm.dispose();
+
     }
 }

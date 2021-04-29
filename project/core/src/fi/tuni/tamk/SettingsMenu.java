@@ -118,7 +118,7 @@ public class SettingsMenu implements Screen {
                     tap.play();
                 if (TowerOfLife.musicOn) {
                     TowerOfLife.musicOn = false;
-                    host.mainMenu.menuBgm.stop();
+                    host.menuBgm.stop();
                 } else {
                     TowerOfLife.musicOn = true;
                     host.musicCheck = false;
