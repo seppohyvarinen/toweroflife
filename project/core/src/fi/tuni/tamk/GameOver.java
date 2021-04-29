@@ -79,8 +79,9 @@ public class GameOver implements Screen {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (TowerOfLife.soundOn)
+                if (TowerOfLife.soundOn) {
                     startGame.play();
+                }
 
                 if (!isPressed) {
                     isPressed = true;
@@ -186,5 +187,10 @@ public class GameOver implements Screen {
     public void dispose() {
         batch.dispose();
         stage.dispose();
+        font.dispose();
+        menuBg.dispose();
+        startGame.dispose();
+        tap.dispose();
+        fontGenerator.dispose();
     }
 }

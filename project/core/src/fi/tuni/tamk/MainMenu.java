@@ -31,9 +31,7 @@ public class MainMenu implements Screen {
     float width = 400;
     float height = 150;
     boolean isPressed = false;
-    private Texture menuBg;
-    Sound tap;
-    Sound startGame;
+
 
 
 
@@ -52,10 +50,8 @@ public class MainMenu implements Screen {
 
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
-        tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
-        startGame = Gdx.audio.newSound(Gdx.files.internal("startgame.mp3"));
 
-        menuBg = new Texture(Gdx.files.internal("mainMenuBackground.png"));
+
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
         Button play = new TextButton(host.getLevelText("play"), mySkin, "default");
@@ -69,11 +65,11 @@ public class MainMenu implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn) {
-                    startGame.play();
+                    host.resources.startGame.play();
                 }
                 if (!isPressed) {
                     isPressed = true;
-                    host.menuBgm.stop();
+                    host.resources.menuBgm.stop();
                     host.createGame = true;
                 }
                 return true;
@@ -87,8 +83,9 @@ public class MainMenu implements Screen {
         settings.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (TowerOfLife.soundOn)
-                    tap.play();
+                if (TowerOfLife.soundOn) {
+                    host.resources.tap.play();
+                }
                 host.setScreen(new SettingsMenu(host));
             }
 
@@ -106,7 +103,7 @@ public class MainMenu implements Screen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn) {
-                    tap.play();
+                    host.resources.tap.play();
                 }
                 host.setScreen(new Highscore(host));
             }
@@ -139,7 +136,7 @@ public class MainMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.getBatch().begin();
-        stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth() * (9 / 15f), menuBg.getHeight() * (9 / 15f));
+        stage.getBatch().draw(host.resources.menuBg, 0, -6f, host.resources.menuBg.getWidth() * (9 / 15f), host.resources.menuBg.getHeight() * (9 / 15f));
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();
@@ -189,6 +186,10 @@ public class MainMenu implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        host.resources.tap.dispose();
+        host.resources.startGame.dispose();
+        host.resources.menuBg.dispose();
+        host.dispose();
 
     }
 }

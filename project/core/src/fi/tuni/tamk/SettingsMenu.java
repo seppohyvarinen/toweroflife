@@ -29,8 +29,7 @@ public class SettingsMenu implements Screen {
     private Stage stage;
     float width = 400;
     float height = 150;
-    private Texture menuBg;
-    Sound tap;
+
 
     /**
      * Constructor for SettingsMenu class. This constructor creates menu background and 4 buttons:
@@ -46,8 +45,7 @@ public class SettingsMenu implements Screen {
         this.host = host;
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
-        tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
-        menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
+
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
         Button language = new TextButton(host.getLevelText("language"), mySkin, "default");
@@ -58,7 +56,7 @@ public class SettingsMenu implements Screen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn)
-                    tap.play();
+                    host.resources.tap.play();
                 if (host.locale.equals(new Locale("fi", "FI"))) {
                     host.locale = new Locale("en", "US");
                 } else {
@@ -84,7 +82,7 @@ public class SettingsMenu implements Screen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn)
-                    tap.play();
+                    host.resources.tap.play();
                 if (TowerOfLife.soundOn) {
                     TowerOfLife.soundOn = false;
                 } else {
@@ -115,10 +113,10 @@ public class SettingsMenu implements Screen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn)
-                    tap.play();
+                    host.resources.tap.play();
                 if (TowerOfLife.musicOn) {
                     TowerOfLife.musicOn = false;
-                    host.menuBgm.stop();
+                    host.resources.menuBgm.stop();
                 } else {
                     TowerOfLife.musicOn = true;
                     host.musicCheck = false;
@@ -140,8 +138,10 @@ public class SettingsMenu implements Screen {
         back.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (TowerOfLife.soundOn)
-                    tap.play();
+                if (TowerOfLife.soundOn) {
+                    host.resources.tap.play();
+
+                }
                 host.setScreen(new MainMenu(host));
             }
 
@@ -173,7 +173,7 @@ public class SettingsMenu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.getBatch().begin();
-        stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth() * (9 / 15f), menuBg.getHeight() * (9 / 15f));
+        stage.getBatch().draw(host.resources.menuBg, 0, -6f, host.resources.menuBg.getWidth() * (9 / 15f), host.resources.menuBg.getHeight() * (9 / 15f));
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();
@@ -219,5 +219,7 @@ public class SettingsMenu implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+
+        host.resources.menuBg.dispose();
     }
 }

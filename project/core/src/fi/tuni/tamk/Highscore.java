@@ -36,9 +36,6 @@ public class Highscore implements Screen {
     int camWidth = 1800;
     public static OrthographicCamera scoreCam;
     boolean isPressed = false;
-    private Texture menuBg;
-    Sound tap;
-    Sound startGame;
     private FreeTypeFontGenerator fontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
     BitmapFont font;
@@ -57,10 +54,6 @@ public class Highscore implements Screen {
         scoreCam.setToOrtho(false, camWidth, camHeight);
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
-        tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
-        startGame = Gdx.audio.newSound(Gdx.files.internal("startgame.mp3"));
-
-        menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
@@ -78,7 +71,7 @@ public class Highscore implements Screen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn) {
-                    tap.play();
+                    host.resources.tap.play();
                 }
                 host.setScreen(new MainMenu(host));
             }
@@ -111,7 +104,7 @@ public class Highscore implements Screen {
         batch.setProjectionMatrix(scoreCam.combined);
         stage.act();
         stage.getBatch().begin();
-        stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth() * (9 / 15f), menuBg.getHeight() * (9 / 15f));
+        stage.getBatch().draw(host.resources.menuBg, 0, -6f, host.resources.menuBg.getWidth() * (9 / 15f), host.resources.menuBg.getHeight() * (9 / 15f));
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();
@@ -167,5 +160,9 @@ public class Highscore implements Screen {
     public void dispose() {
         batch.dispose();
         stage.dispose();
+        host.resources.tap.dispose();
+        host.resources.startGame.dispose();
+        font.dispose();
+        fontGenerator.dispose();
     }
 }

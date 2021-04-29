@@ -137,7 +137,6 @@ public class TowerOfLife implements Screen {
     Texture scoreAdd_fi;
     Texture scoreMinus_fi;
 
-    private Texture bodyTexture;
     static Texture anger;
     static Texture awe;
     static Texture fear;
@@ -290,7 +289,7 @@ public class TowerOfLife implements Screen {
         miniGameCounter = 0;
         answerCounter = 0;
 
-        bodyTexture = new Texture(Gdx.files.internal("box.png"));
+
         backdropGrass = new Texture(Gdx.files.internal("grass.png"));
         backdrop1 = new Texture(Gdx.files.internal("backdrop1.png"));
         backdrop2 = new Texture(Gdx.files.internal("backdrop2.png"));
@@ -960,6 +959,17 @@ public class TowerOfLife implements Screen {
     @Override
     public void dispose() {
         batch.dispose();
+        scoreAdd.dispose();
+        scoreMinus.dispose();
+        scoreMinus_fi.dispose();
+        scoreAdd_fi.dispose();
+
+
+        dropSound.dispose();
+        font.dispose();
+        fontGenerator.dispose();
+        smallFont.dispose();
+        smallRedFont.dispose();
         for (Texture t : positive) {
             t.dispose();
         }
@@ -976,7 +986,7 @@ public class TowerOfLife implements Screen {
             t.dispose();
         }
         destroySound.dispose();
-
+        backdropGrass.dispose();
         backdrop1.dispose();
         backdrop2.dispose();
         backdrop3.dispose();

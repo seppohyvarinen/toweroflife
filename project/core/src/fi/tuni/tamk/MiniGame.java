@@ -56,7 +56,7 @@ public class MiniGame implements Screen {
     ArrayList<String> fearProblemThree;
     Texture problemBox;
     Texture answerBox;
-    Image answerImage;
+    Texture answerImage;
 
     public static float problemWidth = 900f;
     public static float problemHeight = 200f;
@@ -79,7 +79,7 @@ public class MiniGame implements Screen {
     boolean soundIsPlayed = false;
     SpriteBatch batch;
     Main host;
-    TowerOfLife theGame;
+
     boolean hide = false;
     int answerCounter = 0;
     Viewport viewport;
@@ -186,7 +186,6 @@ public class MiniGame implements Screen {
 
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
         answerBox = new Texture(Gdx.files.internal("answer_box.png"));
-        answerImage = new Image(answerBox);
         pIndex = MathUtils.random(0, 2);
 
         if (e.equals("sorrowBox")) {
@@ -742,5 +741,8 @@ public class MiniGame implements Screen {
         fearM.dispose();
         sorrowM.dispose();
         angerM.dispose();
+        nice.dispose();
+        font.dispose();
+        fontGenerator.dispose();
     }
 }

@@ -23,13 +23,13 @@ public class Main extends Game {
     SpriteBatch batch;
     TowerOfLife theGame;
     MainMenu mainMenu;
+    Resources resources;
     boolean changeNow = false;
     boolean createGame = false;
     public static int[] highscore = new int[10];
     public Locale locale = new Locale("fi", "FI");
     public static FileHandle file;
     static boolean musicCheck = false;
-    static Music menuBgm;
 
 
     /**
@@ -42,9 +42,8 @@ public class Main extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        menuBgm = Gdx.audio.newMusic(Gdx.files.internal("menuehka.mp3"));
 
-
+        resources = new Resources();
         theGame = new TowerOfLife(this);
         mainMenu = new MainMenu(this);
         file = Gdx.files.local("highscore.txt");
@@ -71,8 +70,8 @@ public class Main extends Game {
     public void render() {
 
         if(!musicCheck) {
-            menuBgm.play();
-            menuBgm.setLooping(true);
+            resources.menuBgm.play();
+            resources.menuBgm.setLooping(true);
             musicCheck = true;
         }
 
@@ -93,7 +92,7 @@ public class Main extends Game {
 
     @Override
     public void dispose() {
-        menuBgm.dispose();
+        resources.menuBgm.dispose();
         batch.dispose();
     }
 
