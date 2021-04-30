@@ -41,9 +41,7 @@ import static fi.tuni.tamk.Resources.sorrowM;
  */
 
 public class MiniGame implements Screen {
-    private FreeTypeFontGenerator fontGenerator;
-    private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
-    BitmapFont font;
+
     boolean itsCorrect = false;
     boolean answerIsGiven = false;
     ArrayList<String> sorrowProblems;
@@ -100,13 +98,7 @@ public class MiniGame implements Screen {
     public MiniGame(String e, Main host) {
         batch = host.theGame.hudbatch;
         this.host = host;
-        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
-        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        fontParameter.size = 72;
-        fontParameter.borderWidth = 1.5f;
-        fontParameter.borderColor = Color.LIGHT_GRAY;
-        fontParameter.color = Color.WHITE;
-        font = fontGenerator.generateFont(fontParameter);
+
 
 
         viewport = new FitViewport(TowerOfLife.WORLD_WIDTH, TowerOfLife.WORLD_HEIGHT, TowerOfLife.camera);
@@ -537,19 +529,19 @@ public class MiniGame implements Screen {
 
             batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 200 - 600, problemWidth * 2, 600);
             ypos = TowerOfLife.WORLD_HEIGHT * 200 - 300f + getTextHeight(problem);
-            font.draw(batch, problem, 100, ypos, 1600f, 1, true);
+            host.resources.minigameFont.draw(batch, problem, 100, ypos, 1600f, 1, true);
 
             batch.draw(answerBox, 0, 1800, 1800, 600);
             ypos = 2100 + getTextHeight(ans1);
-            font.draw(batch, ans1, 220, ypos, 1360f, 1, true);
+            host.resources.minigameFont.draw(batch, ans1, 220, ypos, 1360f, 1, true);
 
             batch.draw(answerBox, 0, 1000, 1800, 600);
             ypos = 1300 + getTextHeight(ans2);
-            font.draw(batch, ans2, 220, ypos, 1360f, 1, true);
+            host.resources.minigameFont.draw(batch, ans2, 220, ypos, 1360f, 1, true);
 
             batch.draw(answerBox, 0, 200, 1800, 600);
             ypos = 500 + getTextHeight(ans3);
-            font.draw(batch, ans3, 220, ypos, 1360f, 1, true);
+            host.resources.minigameFont.draw(batch, ans3, 220, ypos, 1360f, 1, true);
             if (answerIsGiven) {
                 answerCounter++;
                 if (itsCorrect) {
@@ -654,7 +646,7 @@ public class MiniGame implements Screen {
     public float getTextHeight(String text) {
         int textLength = text.length();
         GlyphLayout layout = new GlyphLayout();
-        layout.setText(font, text);
+        layout.setText(host.resources.minigameFont, text);
         float fontHeight = layout.height;
         float halfHeight = 0;
         if (textLength < 31) { // 1 row
@@ -725,7 +717,7 @@ public class MiniGame implements Screen {
         minigameBg.dispose();
         problemBox.dispose();
         answerBox.dispose();
-        font.dispose();
+        host.resources.minigameFont.dispose();
         batch.dispose();
         thatsPlayed.dispose();
         hateM.dispose();
@@ -733,7 +725,7 @@ public class MiniGame implements Screen {
         sorrowM.dispose();
         angerM.dispose();
         nice.dispose();
-        font.dispose();
-        fontGenerator.dispose();
+        host.resources.minigameFont.dispose();
+        host.resources.minigameFontGenerator.dispose();
     }
 }

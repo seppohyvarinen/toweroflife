@@ -84,6 +84,9 @@ public class Resources {
     static FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
     static FreeTypeFontGenerator.FreeTypeFontParameter smallFontParameter;
     static FreeTypeFontGenerator.FreeTypeFontParameter smallRedFontParameter;
+    static FreeTypeFontGenerator minigameFontGenerator;
+    static FreeTypeFontGenerator.FreeTypeFontParameter minigameFontParameter;
+    static BitmapFont minigameFont;
 
 
     public Resources() {
@@ -149,6 +152,14 @@ public class Resources {
         font = fontGenerator.generateFont(fontParameter);
         smallFont = fontGenerator.generateFont(smallFontParameter);
         smallRedFont = fontGenerator.generateFont(smallRedFontParameter);
+
+        minigameFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
+        minigameFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        minigameFontParameter.size = 72;
+        minigameFontParameter.borderWidth = 1.5f;
+        minigameFontParameter.borderColor = Color.LIGHT_GRAY;
+        minigameFontParameter.color = Color.WHITE;
+        minigameFont = minigameFontGenerator.generateFont(minigameFontParameter);
 
 
 
