@@ -18,6 +18,7 @@ public class Resources {
     static Sound startGame;
 
     // Backdropes
+    static Texture mainMenuBg;
     static Texture menuBg;
     static Texture backdropGrass;
     static Texture backdrop1;
@@ -93,7 +94,8 @@ public class Resources {
         menuBgm = Gdx.audio.newMusic(Gdx.files.internal("menuehka.mp3"));
         tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
         startGame = Gdx.audio.newSound(Gdx.files.internal("startgame.mp3"));
-        menuBg = new Texture(Gdx.files.internal("mainMenuBackground.png"));
+        menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
+        mainMenuBg = new Texture(Gdx.files.internal("mainMenuBackground.png"));
 
         //Backdropes
         backdropGrass = new Texture(Gdx.files.internal("grass.png"));

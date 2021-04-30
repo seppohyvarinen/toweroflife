@@ -136,7 +136,7 @@ public class MainMenu implements Screen {
         }
         stage.act();
         stage.getBatch().begin();
-        stage.getBatch().draw(host.resources.menuBg, 0, -6f, host.resources.menuBg.getWidth() * (9 / 15f), host.resources.menuBg.getHeight() * (9 / 15f));
+        stage.getBatch().draw(host.resources.mainMenuBg, 0, -6f, host.resources.menuBg.getWidth() * (9 / 15f), host.resources.menuBg.getHeight() * (9 / 15f));
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();
