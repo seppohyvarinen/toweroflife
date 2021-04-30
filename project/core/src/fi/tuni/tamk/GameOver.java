@@ -105,6 +105,7 @@ public class GameOver implements Screen {
                 if (TowerOfLife.soundOn) {
                     tap.play();
                 }
+                TowerOfLife.bgMusic.stop();
                 host.setScreen(new MainMenu(host));
             }
 
