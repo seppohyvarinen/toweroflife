@@ -5,10 +5,15 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.Locale;
+
 public class Resources {
+
     static Music menuBgm;
     static Sound tap;
     static Sound startGame;
+
+    // Backdropes
     static Texture menuBg;
     static Texture backdropGrass;
     static Texture backdrop1;
@@ -32,6 +37,15 @@ public class Resources {
     static Texture backdrop19;
     static Texture backdrop20;
 
+    // Boxes
+    static Texture anger;
+    static Texture awe;
+    static Texture fear;
+    static Texture hate;
+    static Texture joy;
+    static Texture love;
+    static Texture sorrow;
+
 
 
     public Resources() {
@@ -39,6 +53,8 @@ public class Resources {
         tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
         startGame = Gdx.audio.newSound(Gdx.files.internal("startgame.mp3"));
         menuBg = new Texture(Gdx.files.internal("mainMenuBackground.png"));
+
+        //Backdropes
         backdropGrass = new Texture(Gdx.files.internal("grass.png"));
         backdrop1 = new Texture(Gdx.files.internal("backdrop1.png"));
         backdrop2 = new Texture(Gdx.files.internal("backdrop2.png"));
@@ -61,6 +77,24 @@ public class Resources {
         backdrop19 = new Texture(Gdx.files.internal("backdrop19.png"));
         backdrop20 = new Texture(Gdx.files.internal("backdrop20.png"));
 
-    }
+        //Boxes
 
+        if (Main.locale.equals(new Locale("fi", "FI"))) {
+            awe = new Texture(Gdx.files.internal("em_awe_fi.png"));
+            anger = new Texture(Gdx.files.internal("em_anger_fi.png"));
+            fear = new Texture(Gdx.files.internal("em_fear_fi.png"));
+            hate = new Texture(Gdx.files.internal("em_hate_fi.png"));
+            joy = new Texture(Gdx.files.internal("em_joy_fi.png"));
+            love = new Texture(Gdx.files.internal("em_love_fi.png"));
+            sorrow = new Texture(Gdx.files.internal("em_sorrow_fi.png"));
+        } else {
+            anger = new Texture(Gdx.files.internal("em_anger.png"));
+            awe = new Texture(Gdx.files.internal("em_awe.png"));
+            fear = new Texture(Gdx.files.internal("em_fear.png"));
+            hate = new Texture(Gdx.files.internal("em_hate.png"));
+            joy = new Texture(Gdx.files.internal("em_joy.png"));
+            love = new Texture(Gdx.files.internal("em_love.png"));
+            sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
+        }
+    }
 }

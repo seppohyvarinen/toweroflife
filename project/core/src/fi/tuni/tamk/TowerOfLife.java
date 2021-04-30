@@ -31,6 +31,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
 
+import static fi.tuni.tamk.Resources.awe;
+import static fi.tuni.tamk.Resources.sorrow;
+
 /**
  * Tower Of Life class is the actual main game class. It contains several methods for handling physics, rendering Textures and handling collisions.
  * <p>
@@ -126,7 +129,6 @@ public class TowerOfLife implements Screen {
     static int answerCounter;
     static int posiCounter;
 
-    static boolean answerIsGiven = false;
     int getThis;
     static int bounceMultiplier;
     float cameraY = WORLD_HEIGHT / 2f;
@@ -137,13 +139,7 @@ public class TowerOfLife implements Screen {
     Texture scoreAdd_fi;
     Texture scoreMinus_fi;
 
-    static Texture anger;
-    static Texture awe;
-    static Texture fear;
-    static Texture hate;
-    static Texture joy;
-    static Texture love;
-    static Texture sorrow;
+
     Texture cloud0;
     Texture cloud1;
     Texture cloud2;
@@ -271,23 +267,7 @@ public class TowerOfLife implements Screen {
 
 
 
-        if (host.locale.equals(new Locale("fi", "FI"))) {
-            awe = new Texture(Gdx.files.internal("em_awe_fi.png"));
-            anger = new Texture(Gdx.files.internal("em_anger_fi.png"));
-            fear = new Texture(Gdx.files.internal("em_fear_fi.png"));
-            hate = new Texture(Gdx.files.internal("em_hate_fi.png"));
-            joy = new Texture(Gdx.files.internal("em_joy_fi.png"));
-            love = new Texture(Gdx.files.internal("em_love_fi.png"));
-            sorrow = new Texture(Gdx.files.internal("em_sorrow_fi.png"));
-        } else {
-            anger = new Texture(Gdx.files.internal("em_anger.png"));
-            awe = new Texture(Gdx.files.internal("em_awe.png"));
-            fear = new Texture(Gdx.files.internal("em_fear.png"));
-            hate = new Texture(Gdx.files.internal("em_hate.png"));
-            joy = new Texture(Gdx.files.internal("em_joy.png"));
-            love = new Texture(Gdx.files.internal("em_love.png"));
-            sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
-        }
+
         scoreAdd = new Texture(Gdx.files.internal("scoreadd.png"));
         scoreMinus = new Texture(Gdx.files.internal("scoreminus.png"));
         scoreAdd_fi = new Texture(Gdx.files.internal("scoreadd_fi.png"));
@@ -299,13 +279,13 @@ public class TowerOfLife implements Screen {
         usedFearQuestions = new ArrayList<>();
         usedSorrowQuestions = new ArrayList<>();
 
-        negative.add(anger);
-        negative.add(fear);
-        negative.add(hate);
+        negative.add(Resources.anger);
+        negative.add(Resources.fear);
+        negative.add(Resources.hate);
         negative.add(sorrow);
         positive.add(awe);
-        positive.add(joy);
-        positive.add(love);
+        positive.add(Resources.joy);
+        positive.add(Resources.love);
 
         // boxit saa parametrina Texturen, josta luodaan uusi boxi, voidaan myöhemmin tehdä Array erilaisista
         // Textureista = erilaisia boxeja
@@ -987,7 +967,7 @@ public class TowerOfLife implements Screen {
             Box b = new Box(negative.get(getThis), negativeBox);
             if (b.bodyTexture == sorrow) {
                 b.userData = sorrowBox;
-            } else if (b.bodyTexture == fear) {
+            } else if (b.bodyTexture == Resources.fear) {
                 b.userData = fearBox;
             } else {
                 b.userData = hateBox;

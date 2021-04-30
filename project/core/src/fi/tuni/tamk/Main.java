@@ -27,7 +27,7 @@ public class Main extends Game {
     boolean changeNow = false;
     boolean createGame = false;
     public static int[] highscore = new int[10];
-    public Locale locale = new Locale("fi", "FI");
+    public static Locale locale = new Locale("fi", "FI");
     public static FileHandle file;
     static boolean musicCheck = false;
 
