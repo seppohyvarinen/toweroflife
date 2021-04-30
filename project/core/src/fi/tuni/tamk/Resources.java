@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Resources {
@@ -36,6 +37,13 @@ public class Resources {
     static Texture backdrop18;
     static Texture backdrop19;
     static Texture backdrop20;
+
+    static Texture cloud0;
+    static Texture cloud1;
+    static Texture cloud2;
+    static Texture cloud3;
+    static ArrayList<Texture> clouds;
+
 
     // Boxes
     static Texture anger;
@@ -89,6 +97,17 @@ public class Resources {
         backdrop18 = new Texture(Gdx.files.internal("backdrop18.png"));
         backdrop19 = new Texture(Gdx.files.internal("backdrop19.png"));
         backdrop20 = new Texture(Gdx.files.internal("backdrop20.png"));
+
+        clouds = new ArrayList<>();
+        cloud3 = new Texture(Gdx.files.internal("cloud3.png"));
+        cloud2 = new Texture(Gdx.files.internal("cloud2.png"));
+        cloud1 = new Texture(Gdx.files.internal("cloud1.png"));
+        cloud0 = new Texture(Gdx.files.internal("cloud0.png"));
+        clouds.add(cloud0);
+        clouds.add(cloud1);
+        clouds.add(cloud2);
+        clouds.add(cloud3);
+
 
         //Boxes
         if (Main.locale.equals(new Locale("fi", "FI"))) {

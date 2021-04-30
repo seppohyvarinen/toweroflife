@@ -140,10 +140,7 @@ public class TowerOfLife implements Screen {
     Texture scoreMinus_fi;
 
 
-    Texture cloud0;
-    Texture cloud1;
-    Texture cloud2;
-    Texture cloud3;
+
 
     ArrayList<Texture> positive;
     ArrayList<Texture> negative;
@@ -168,7 +165,6 @@ public class TowerOfLife implements Screen {
     boolean needNewY2 = true;
     boolean needNewY3 = true;
     boolean needNewY4 = true;
-    ArrayList<Texture> clouds;
 
     Sound dropSound;
     Sound destroySound;
@@ -200,15 +196,7 @@ public class TowerOfLife implements Screen {
         cloudPosX2 = -8.0f;
         cloudPosX3 = -8.0f;
         cloudPosX4 = -8.0f;
-        clouds = new ArrayList<>();
-        cloud3 = new Texture(Gdx.files.internal("cloud3.png"));
-        cloud2 = new Texture(Gdx.files.internal("cloud2.png"));
-        cloud1 = new Texture(Gdx.files.internal("cloud1.png"));
-        cloud0 = new Texture(Gdx.files.internal("cloud0.png"));
-        clouds.add(cloud0);
-        clouds.add(cloud1);
-        clouds.add(cloud2);
-        clouds.add(cloud3);
+
         hudcamera = new OrthographicCamera();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
         viewport.apply();
@@ -922,7 +910,7 @@ public class TowerOfLife implements Screen {
         for (Box b : boxes) {
             b.dispose();
         }
-        for (Texture t : clouds) {
+        for (Texture t : Resources.clouds) {
             t.dispose();
         }
         destroySound.dispose();
@@ -1157,7 +1145,7 @@ public class TowerOfLife implements Screen {
      */
 
     public void cloudsMove(SpriteBatch b, float scale, Texture t, float height, float x) {
-        b.draw(t, x, height, clouds.get(1).getWidth() / scale, clouds.get(1).getHeight() / scale);
+        b.draw(t, x, height, Resources.clouds.get(1).getWidth() / scale, Resources.clouds.get(1).getHeight() / scale);
     }
 
     /**
@@ -1198,8 +1186,8 @@ public class TowerOfLife implements Screen {
             needNewY2 = true;
         }
         if (cloudArea) {
-            cloudsMove(batch, 220f, clouds.get(3), cloudPosY, cloudPosX);
-            cloudsMove(batch, 210f, clouds.get(1), cloudPosY2, cloudPosX2);
+            cloudsMove(batch, 220f, Resources.clouds.get(3), cloudPosY, cloudPosX);
+            cloudsMove(batch, 210f, Resources.clouds.get(1), cloudPosY2, cloudPosX2);
         }
     }
 
@@ -1237,8 +1225,8 @@ public class TowerOfLife implements Screen {
             needNewY4 = true;
         }
         if (cloudArea) {
-            cloudsMove(batch, 170f, clouds.get(0), cloudPosY3, cloudPosX3);
-            cloudsMove(batch, 170f, clouds.get(2), cloudPosY4, cloudPosX4);
+            cloudsMove(batch, 170f, Resources.clouds.get(0), cloudPosY3, cloudPosX3);
+            cloudsMove(batch, 170f, Resources.clouds.get(2), cloudPosY4, cloudPosX4);
         }
     }
 
