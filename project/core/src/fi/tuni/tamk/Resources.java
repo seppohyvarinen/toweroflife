@@ -3,7 +3,10 @@ package fi.tuni.tamk;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -53,12 +56,17 @@ public class Resources {
     static Texture joy;
     static Texture love;
     static Texture sorrow;
+    static ArrayList<Texture> positive;
+    static ArrayList<Texture> negative;
 
     // MiniGame
     static Texture nice;
     static Texture minigameBg;
     static Texture problemBox;
     static Texture answerBox;
+
+    //Sounds & Music
+
 
     static Sound correct;
     static Sound incorrect;
@@ -67,6 +75,15 @@ public class Resources {
     static Music sorrowM;
     static Music angerM;
     static Music fearM;
+
+    // Fonts
+    static BitmapFont font;
+    static BitmapFont smallFont;
+    static BitmapFont smallRedFont;
+    static FreeTypeFontGenerator fontGenerator;
+    static FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+    static FreeTypeFontGenerator.FreeTypeFontParameter smallFontParameter;
+    static FreeTypeFontGenerator.FreeTypeFontParameter smallRedFontParameter;
 
 
     public Resources() {
@@ -108,6 +125,32 @@ public class Resources {
         clouds.add(cloud2);
         clouds.add(cloud3);
 
+        positive = new ArrayList<>();
+        negative = new ArrayList<>();
+        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
+        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        fontParameter.size = 140;
+        fontParameter.borderWidth = 4f;
+        fontParameter.borderColor = Color.GRAY;
+        fontParameter.color = Color.YELLOW;
+
+        smallFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        smallFontParameter.size = 72;
+        smallFontParameter.borderWidth = 4f;
+        smallFontParameter.borderColor = Color.GRAY;
+        smallFontParameter.color = Color.YELLOW;
+
+        smallRedFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        smallRedFontParameter.size = 72;
+        smallRedFontParameter.borderWidth = 4f;
+        smallRedFontParameter.borderColor = Color.BLACK;
+        smallRedFontParameter.color = Color.RED;
+
+        font = fontGenerator.generateFont(fontParameter);
+        smallFont = fontGenerator.generateFont(smallFontParameter);
+        smallRedFont = fontGenerator.generateFont(smallRedFontParameter);
+
+
 
         //Boxes
         if (Main.locale.equals(new Locale("fi", "FI"))) {
@@ -118,6 +161,13 @@ public class Resources {
             joy = new Texture(Gdx.files.internal("em_joy_fi.png"));
             love = new Texture(Gdx.files.internal("em_love_fi.png"));
             sorrow = new Texture(Gdx.files.internal("em_sorrow_fi.png"));
+            positive.add(awe);
+            positive.add(joy);
+            positive.add(love);
+            negative.add(anger);
+            negative.add(fear);
+            negative.add(hate);
+            negative.add(sorrow);
         } else {
             anger = new Texture(Gdx.files.internal("em_anger.png"));
             awe = new Texture(Gdx.files.internal("em_awe.png"));
@@ -126,6 +176,13 @@ public class Resources {
             joy = new Texture(Gdx.files.internal("em_joy.png"));
             love = new Texture(Gdx.files.internal("em_love.png"));
             sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
+            positive.add(awe);
+            positive.add(joy);
+            positive.add(love);
+            negative.add(anger);
+            negative.add(fear);
+            negative.add(hate);
+            negative.add(sorrow);
         }
 
         // MiniGame
@@ -143,10 +200,13 @@ public class Resources {
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
         answerBox = new Texture(Gdx.files.internal("answer_box.png"));
 
+
     }
 
     public static void changeLanguage() {
         if (Main.locale.equals(new Locale("fi", "FI"))) {
+            positive.clear();
+            negative.clear();
             awe = new Texture(Gdx.files.internal("em_awe_fi.png"));
             anger = new Texture(Gdx.files.internal("em_anger_fi.png"));
             fear = new Texture(Gdx.files.internal("em_fear_fi.png"));
@@ -154,7 +214,16 @@ public class Resources {
             joy = new Texture(Gdx.files.internal("em_joy_fi.png"));
             love = new Texture(Gdx.files.internal("em_love_fi.png"));
             sorrow = new Texture(Gdx.files.internal("em_sorrow_fi.png"));
+            positive.add(awe);
+            positive.add(joy);
+            positive.add(love);
+            negative.add(anger);
+            negative.add(fear);
+            negative.add(hate);
+            negative.add(sorrow);
         } else {
+            positive.clear();
+            negative.clear();
             anger = new Texture(Gdx.files.internal("em_anger.png"));
             awe = new Texture(Gdx.files.internal("em_awe.png"));
             fear = new Texture(Gdx.files.internal("em_fear.png"));
@@ -162,6 +231,13 @@ public class Resources {
             joy = new Texture(Gdx.files.internal("em_joy.png"));
             love = new Texture(Gdx.files.internal("em_love.png"));
             sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
+            positive.add(awe);
+            positive.add(joy);
+            positive.add(love);
+            negative.add(anger);
+            negative.add(fear);
+            negative.add(hate);
+            negative.add(sorrow);
         }
     }
 }

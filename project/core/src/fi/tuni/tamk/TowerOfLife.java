@@ -98,14 +98,9 @@ public class TowerOfLife implements Screen {
 
     int musicTimer = 0;
 
-    private FreeTypeFontGenerator fontGenerator;
-    private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
-    private FreeTypeFontGenerator.FreeTypeFontParameter smallFontParameter;
-    private FreeTypeFontGenerator.FreeTypeFontParameter smallRedFontParameter;
 
-    BitmapFont font;
-    BitmapFont smallFont;
-    BitmapFont smallRedFont;
+
+
 
     private Sound hit;
     private Sound mode;
@@ -142,8 +137,7 @@ public class TowerOfLife implements Screen {
 
 
 
-    ArrayList<Texture> positive;
-    ArrayList<Texture> negative;
+
     static ArrayList<Integer> usedAngerQuestions;
     static ArrayList<Integer> usedSorrowQuestions;
     static ArrayList<Integer> usedFearQuestions;
@@ -220,28 +214,9 @@ public class TowerOfLife implements Screen {
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("chill.mp3"));
 
 
-        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
-        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        fontParameter.size = 140;
-        fontParameter.borderWidth = 4f;
-        fontParameter.borderColor = Color.GRAY;
-        fontParameter.color = Color.YELLOW;
 
-        smallFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        smallFontParameter.size = 72;
-        smallFontParameter.borderWidth = 4f;
-        smallFontParameter.borderColor = Color.GRAY;
-        smallFontParameter.color = Color.YELLOW;
 
-        smallRedFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        smallRedFontParameter.size = 72;
-        smallRedFontParameter.borderWidth = 4f;
-        smallRedFontParameter.borderColor = Color.BLACK;
-        smallRedFontParameter.color = Color.RED;
 
-        font = fontGenerator.generateFont(fontParameter);
-        smallFont = fontGenerator.generateFont(smallFontParameter);
-        smallRedFont = fontGenerator.generateFont(smallRedFontParameter);
         posiCounter = 0;
         bounceMultiplier = 0;
         latestFear = 99;
@@ -261,28 +236,21 @@ public class TowerOfLife implements Screen {
         scoreAdd_fi = new Texture(Gdx.files.internal("scoreadd_fi.png"));
         scoreMinus_fi = new Texture(Gdx.files.internal("scoreminus_fi.png"));
 
-        positive = new ArrayList<>();
-        negative = new ArrayList<>();
+
         usedAngerQuestions = new ArrayList<>();
         usedFearQuestions = new ArrayList<>();
         usedSorrowQuestions = new ArrayList<>();
 
-        negative.add(Resources.anger);
-        negative.add(Resources.fear);
-        negative.add(Resources.hate);
-        negative.add(sorrow);
-        positive.add(awe);
-        positive.add(Resources.joy);
-        positive.add(Resources.love);
+
 
         // boxit saa parametrina Texturen, josta luodaan uusi boxi, voidaan myöhemmin tehdä Array erilaisista
         // Textureista = erilaisia boxeja
-        getThis = MathUtils.random(0, positive.size() - 1);
+        getThis = MathUtils.random(0, Resources.positive.size() - 1);
         while (getThis == 0) {
-            getThis = MathUtils.random(0, positive.size() - 1);
+            getThis = MathUtils.random(0, Resources.positive.size() - 1);
 
         }
-        firstBox = new Box(positive.get(getThis), itsFirst);
+        firstBox = new Box(Resources.positive.get(getThis), itsFirst);
         posTempGetThis = getThis;
         boxes = new ArrayList<>();
         itr = boxes.iterator();
@@ -762,12 +730,12 @@ public class TowerOfLife implements Screen {
         hudbatch.begin();
 
         if (mainGame) {
-            font.draw(hudbatch, host.getLevelText("score") + " " + score, 20, WORLD_HEIGHT * 200 - 20);
-            font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 200f - 820f, WORLD_HEIGHT * 200 - 20, 800f, 16, false);
+            host.resources.font.draw(hudbatch, host.getLevelText("score") + " " + score, 20, WORLD_HEIGHT * 200 - 20);
+            host.resources.font.draw(hudbatch, host.getLevelText("lives") + " " + lives, WORLD_WIDTH * 200f - 820f, WORLD_HEIGHT * 200 - 20, 800f, 16, false);
             if (wasIncorrect == true) {
-                smallRedFont.draw(hudbatch, host.getLevelText("multiplier") + " x" + scoreMultiplier, 20, WORLD_HEIGHT * 200 - 150);
+                host.resources.smallRedFont.draw(hudbatch, host.getLevelText("multiplier") + " x" + scoreMultiplier, 20, WORLD_HEIGHT * 200 - 150);
             } else {
-                smallFont.draw(hudbatch, host.getLevelText("multiplier") + " x" + scoreMultiplier, 20, WORLD_HEIGHT * 200 - 150);
+                host.resources.smallFont.draw(hudbatch, host.getLevelText("multiplier") + " x" + scoreMultiplier, 20, WORLD_HEIGHT * 200 - 150);
             }
         }
         if (miniGameCounter > 50 && boxes.get(boxCounter - 1).body.getUserData().equals(stacked)) {
@@ -894,14 +862,14 @@ public class TowerOfLife implements Screen {
 
 
         dropSound.dispose();
-        font.dispose();
-        fontGenerator.dispose();
-        smallFont.dispose();
-        smallRedFont.dispose();
-        for (Texture t : positive) {
+        host.resources.font.dispose();
+        host.resources.fontGenerator.dispose();
+        host.resources.smallFont.dispose();
+        host.resources.smallRedFont.dispose();
+        for (Texture t : host.resources.positive) {
             t.dispose();
         }
-        for (Texture t : negative) {
+        for (Texture t : host.resources.negative) {
             t.dispose();
         }
         hudbatch.dispose();
@@ -910,7 +878,7 @@ public class TowerOfLife implements Screen {
         for (Box b : boxes) {
             b.dispose();
         }
-        for (Texture t : Resources.clouds) {
+        for (Texture t : host.resources.clouds) {
             t.dispose();
         }
         destroySound.dispose();
@@ -947,15 +915,15 @@ public class TowerOfLife implements Screen {
         int random = MathUtils.random(1, 3);
         if (((random == 1 && !lastWasNegative) || posiCounter > 5) && canBeNeg) {
             positiveBoxes = false;
-            getThis = MathUtils.random(0, negative.size() - 1);
+            getThis = MathUtils.random(0, host.resources.negative.size() - 1);
             while (getThis == negTempGetThis) {
-                getThis = MathUtils.random(0, negative.size() - 1);
+                getThis = MathUtils.random(0, host.resources.negative.size() - 1);
             }
             negTempGetThis = getThis;
-            Box b = new Box(negative.get(getThis), negativeBox);
+            Box b = new Box(host.resources.negative.get(getThis), negativeBox);
             if (b.bodyTexture == sorrow) {
                 b.userData = sorrowBox;
-            } else if (b.bodyTexture == Resources.fear) {
+            } else if (b.bodyTexture == host.resources.fear) {
                 b.userData = fearBox;
             } else {
                 b.userData = hateBox;
@@ -965,13 +933,13 @@ public class TowerOfLife implements Screen {
             posiCounter = 0;
         } else {
             positiveBoxes = true;
-            getThis = MathUtils.random(0, positive.size() - 1);
+            getThis = MathUtils.random(0, host.resources.positive.size() - 1);
             if (getThis == posTempGetThis) {
                 while (getThis == posTempGetThis) {
-                    getThis = MathUtils.random(0, positive.size() - 1);
+                    getThis = MathUtils.random(0, Resources.positive.size() - 1);
                 }
             }
-            Box b = new Box(positive.get(getThis), itsABox);
+            Box b = new Box(host.resources.positive.get(getThis), itsABox);
             if (b.bodyTexture == awe) {
                 b.userData = aweBox;
                 world.setGravity(new Vector2(0, -6.0f));
@@ -1145,7 +1113,7 @@ public class TowerOfLife implements Screen {
      */
 
     public void cloudsMove(SpriteBatch b, float scale, Texture t, float height, float x) {
-        b.draw(t, x, height, Resources.clouds.get(1).getWidth() / scale, Resources.clouds.get(1).getHeight() / scale);
+        b.draw(t, x, height, host.resources.clouds.get(1).getWidth() / scale, host.resources.clouds.get(1).getHeight() / scale);
     }
 
     /**
@@ -1186,8 +1154,8 @@ public class TowerOfLife implements Screen {
             needNewY2 = true;
         }
         if (cloudArea) {
-            cloudsMove(batch, 220f, Resources.clouds.get(3), cloudPosY, cloudPosX);
-            cloudsMove(batch, 210f, Resources.clouds.get(1), cloudPosY2, cloudPosX2);
+            cloudsMove(batch, 220f, host.resources.clouds.get(3), cloudPosY, cloudPosX);
+            cloudsMove(batch, 210f, host.resources.clouds.get(1), cloudPosY2, cloudPosX2);
         }
     }
 
@@ -1225,8 +1193,8 @@ public class TowerOfLife implements Screen {
             needNewY4 = true;
         }
         if (cloudArea) {
-            cloudsMove(batch, 170f, Resources.clouds.get(0), cloudPosY3, cloudPosX3);
-            cloudsMove(batch, 170f, Resources.clouds.get(2), cloudPosY4, cloudPosX4);
+            cloudsMove(batch, 170f, host.resources.clouds.get(0), cloudPosY3, cloudPosX3);
+            cloudsMove(batch, 170f, host.resources.clouds.get(2), cloudPosY4, cloudPosX4);
         }
     }
 

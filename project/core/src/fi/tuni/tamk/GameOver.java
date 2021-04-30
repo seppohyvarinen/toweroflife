@@ -33,12 +33,8 @@ public class GameOver implements Screen {
     float width = 400;
     float height = 150;
     boolean isPressed = false;
-    private Texture menuBg;
-    Sound tap;
-    Sound startGame;
-    private FreeTypeFontGenerator fontGenerator;
-    private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
-    BitmapFont font;
+
+
 
     /**
      * Constructor for GameOver class.
@@ -54,18 +50,10 @@ public class GameOver implements Screen {
         this.host = host;
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
-        tap = Gdx.audio.newSound(Gdx.files.internal("menutap.mp3"));
-        startGame = Gdx.audio.newSound(Gdx.files.internal("startgame.mp3"));
-        menuBg = new Texture(Gdx.files.internal("menuBackground.png"));
+
+
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
-        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
-        fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        fontParameter.size = 140;
-        fontParameter.borderWidth = 4f;
-        fontParameter.borderColor = Color.GRAY;
-        fontParameter.color = Color.YELLOW;
-        font = fontGenerator.generateFont(fontParameter);
 
         TowerOfLife.score = 0;
 
@@ -80,7 +68,7 @@ public class GameOver implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn) {
-                    startGame.play();
+                    host.resources.startGame.play();
                 }
 
                 TowerOfLife.bgMusic.stop();
@@ -103,7 +91,7 @@ public class GameOver implements Screen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn) {
-                    tap.play();
+                    host.resources.tap.play();
                 }
                 TowerOfLife.bgMusic.stop();
                 host.setScreen(new MainMenu(host));
@@ -137,13 +125,13 @@ public class GameOver implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.getBatch().begin();
-        stage.getBatch().draw(menuBg, 0, -6f, menuBg.getWidth() * (9 / 15f), menuBg.getHeight() * (9 / 15f));
+        stage.getBatch().draw(host.resources.menuBg, 0, -6f, host.resources.menuBg.getWidth() * (9 / 15f), host.resources.menuBg.getHeight() * (9 / 15f));
         stage.getBatch().end();
         stage.getViewport().apply();
         stage.draw();
         batch.begin();
-        font.draw(batch, host.getLevelText("gameover"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 400, 600f, 1, false);
-        font.draw(batch, host.theGame.lastScore + " " + host.getLevelText("endpoints"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 600, 600f, 1, false);
+        host.resources.font.draw(batch, host.getLevelText("gameover"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 400, 600f, 1, false);
+        host.resources.font.draw(batch, host.theGame.lastScore + " " + host.getLevelText("endpoints"), 600, TowerOfLife.WORLD_HEIGHT * 200 - 600, 600f, 1, false);
         batch.end();
         host.theGame.gamePlayed = true;
         if (isPressed) {
@@ -192,10 +180,10 @@ public class GameOver implements Screen {
     public void dispose() {
         batch.dispose();
         stage.dispose();
-        font.dispose();
-        menuBg.dispose();
-        startGame.dispose();
-        tap.dispose();
-        fontGenerator.dispose();
+        host.resources.font.dispose();
+        host.resources.menuBg.dispose();
+        host.resources.startGame.dispose();
+        host.resources.tap.dispose();
+        host.resources.fontGenerator.dispose();
     }
 }
