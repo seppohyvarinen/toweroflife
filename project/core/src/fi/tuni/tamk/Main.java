@@ -68,13 +68,6 @@ public class Main extends Game {
 
     @Override
     public void render() {
-
-        if(!musicCheck) {
-            resources.menuBgm.play();
-            resources.menuBgm.setLooping(true);
-            musicCheck = true;
-        }
-
         if (changeNow) {
             setScreen(theGame);
             changeNow = false;

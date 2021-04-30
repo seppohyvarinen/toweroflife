@@ -13,11 +13,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
+
+import static fi.tuni.tamk.Resources.angerM;
+import static fi.tuni.tamk.Resources.answerBox;
+import static fi.tuni.tamk.Resources.correct;
+import static fi.tuni.tamk.Resources.fearM;
+import static fi.tuni.tamk.Resources.hateM;
+import static fi.tuni.tamk.Resources.incorrect;
+import static fi.tuni.tamk.Resources.minigameBg;
+import static fi.tuni.tamk.Resources.nice;
+import static fi.tuni.tamk.Resources.problemBox;
+import static fi.tuni.tamk.Resources.sorrowM;
 
 
 /**
@@ -33,11 +43,7 @@ import java.util.ArrayList;
 public class MiniGame implements Screen {
     private FreeTypeFontGenerator fontGenerator;
     private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
-    Sound correct;
-    Sound incorrect;
     BitmapFont font;
-    Texture nice;
-    Texture minigameBg;
     boolean itsCorrect = false;
     boolean answerIsGiven = false;
     ArrayList<String> sorrowProblems;
@@ -54,9 +60,7 @@ public class MiniGame implements Screen {
     ArrayList<String> fearProblemOne;
     ArrayList<String> fearProblemTwo;
     ArrayList<String> fearProblemThree;
-    Texture problemBox;
-    Texture answerBox;
-    Texture answerImage;
+
 
     public static float problemWidth = 900f;
     public static float problemHeight = 200f;
@@ -83,10 +87,6 @@ public class MiniGame implements Screen {
     boolean hide = false;
     int answerCounter = 0;
     Viewport viewport;
-    Music hateM;
-    Music sorrowM;
-    Music angerM;
-    Music fearM;
     Music thatsPlayed;
 
     /**
@@ -100,12 +100,6 @@ public class MiniGame implements Screen {
     public MiniGame(String e, Main host) {
         batch = host.theGame.hudbatch;
         this.host = host;
-        minigameBg = new Texture(Gdx.files.internal("minigame_bg.png"));
-        angerM = Gdx.audio.newMusic(Gdx.files.internal("angermusic.mp3"));
-        hateM = Gdx.audio.newMusic(Gdx.files.internal("hatemusic.mp3"));
-        sorrowM = Gdx.audio.newMusic(Gdx.files.internal("sorrowmusic.mp3"));
-        fearM = Gdx.audio.newMusic(Gdx.files.internal("fearmusic.mp3"));
-        nice = new Texture(Gdx.files.internal("nice.png"));
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         fontParameter.size = 72;
@@ -113,8 +107,7 @@ public class MiniGame implements Screen {
         fontParameter.borderColor = Color.LIGHT_GRAY;
         fontParameter.color = Color.WHITE;
         font = fontGenerator.generateFont(fontParameter);
-        correct = Gdx.audio.newSound(Gdx.files.internal("correcto.mp3"));
-        incorrect = Gdx.audio.newSound(Gdx.files.internal("wrongo.mp3"));
+
 
         viewport = new FitViewport(TowerOfLife.WORLD_WIDTH, TowerOfLife.WORLD_HEIGHT, TowerOfLife.camera);
         viewport.apply();
@@ -184,8 +177,6 @@ public class MiniGame implements Screen {
         hateProblemThree.add(host.getLevelText("hate3_wrong2"));
         hateProblemThree.add(host.getLevelText("hate3_correct"));
 
-        problemBox = new Texture(Gdx.files.internal("problem_box.png"));
-        answerBox = new Texture(Gdx.files.internal("answer_box.png"));
         pIndex = MathUtils.random(0, 2);
 
         if (e.equals("sorrowBox")) {

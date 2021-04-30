@@ -46,6 +46,19 @@ public class Resources {
     static Texture love;
     static Texture sorrow;
 
+    // MiniGame
+    static Texture nice;
+    static Texture minigameBg;
+    static Texture problemBox;
+    static Texture answerBox;
+
+    static Sound correct;
+    static Sound incorrect;
+
+    static Music hateM;
+    static Music sorrowM;
+    static Music angerM;
+    static Music fearM;
 
 
     public Resources() {
@@ -78,7 +91,42 @@ public class Resources {
         backdrop20 = new Texture(Gdx.files.internal("backdrop20.png"));
 
         //Boxes
+        if (Main.locale.equals(new Locale("fi", "FI"))) {
+            awe = new Texture(Gdx.files.internal("em_awe_fi.png"));
+            anger = new Texture(Gdx.files.internal("em_anger_fi.png"));
+            fear = new Texture(Gdx.files.internal("em_fear_fi.png"));
+            hate = new Texture(Gdx.files.internal("em_hate_fi.png"));
+            joy = new Texture(Gdx.files.internal("em_joy_fi.png"));
+            love = new Texture(Gdx.files.internal("em_love_fi.png"));
+            sorrow = new Texture(Gdx.files.internal("em_sorrow_fi.png"));
+        } else {
+            anger = new Texture(Gdx.files.internal("em_anger.png"));
+            awe = new Texture(Gdx.files.internal("em_awe.png"));
+            fear = new Texture(Gdx.files.internal("em_fear.png"));
+            hate = new Texture(Gdx.files.internal("em_hate.png"));
+            joy = new Texture(Gdx.files.internal("em_joy.png"));
+            love = new Texture(Gdx.files.internal("em_love.png"));
+            sorrow = new Texture(Gdx.files.internal("em_sorrow.png"));
+        }
 
+        // MiniGame
+        minigameBg = new Texture(Gdx.files.internal("minigame_bg.png"));
+        nice = new Texture(Gdx.files.internal("nice.png"));
+
+        angerM = Gdx.audio.newMusic(Gdx.files.internal("angermusic.mp3"));
+        hateM = Gdx.audio.newMusic(Gdx.files.internal("hatemusic.mp3"));
+        sorrowM = Gdx.audio.newMusic(Gdx.files.internal("sorrowmusic.mp3"));
+        fearM = Gdx.audio.newMusic(Gdx.files.internal("fearmusic.mp3"));
+
+        correct = Gdx.audio.newSound(Gdx.files.internal("correcto.mp3"));
+        incorrect = Gdx.audio.newSound(Gdx.files.internal("wrongo.mp3"));
+
+        problemBox = new Texture(Gdx.files.internal("problem_box.png"));
+        answerBox = new Texture(Gdx.files.internal("answer_box.png"));
+
+    }
+
+    public static void changeLanguage() {
         if (Main.locale.equals(new Locale("fi", "FI"))) {
             awe = new Texture(Gdx.files.internal("em_awe_fi.png"));
             anger = new Texture(Gdx.files.internal("em_anger_fi.png"));

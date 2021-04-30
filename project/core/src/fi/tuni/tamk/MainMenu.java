@@ -33,9 +33,6 @@ public class MainMenu implements Screen {
     boolean isPressed = false;
 
 
-
-
-
     /**
      * Constructor for MainMenu class. This constructor creates menu background and 3 buttons:
      * play - start of the game, go to TowerOfLife screen;
@@ -51,7 +48,6 @@ public class MainMenu implements Screen {
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
 
-
         Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
 
         Button play = new TextButton(host.getLevelText("play"), mySkin, "default");
@@ -65,11 +61,11 @@ public class MainMenu implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (TowerOfLife.soundOn) {
-                    host.resources.startGame.play();
+                    Resources.startGame.play();
                 }
                 if (!isPressed) {
-                    isPressed = true;
                     host.resources.menuBgm.stop();
+                    isPressed = true;
                     host.createGame = true;
                 }
                 return true;
@@ -134,6 +130,10 @@ public class MainMenu implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if (TowerOfLife.musicOn) {
+            Resources.menuBgm.play();
+            Resources.menuBgm.setLooping(true);
+        }
         stage.act();
         stage.getBatch().begin();
         stage.getBatch().draw(host.resources.menuBg, 0, -6f, host.resources.menuBg.getWidth() * (9 / 15f), host.resources.menuBg.getHeight() * (9 / 15f));
@@ -141,9 +141,9 @@ public class MainMenu implements Screen {
         stage.getViewport().apply();
         stage.draw();
         if (isPressed) {
+            Resources.menuBgm.stop();
             host.changeNow = true;
         }
-
     }
 
     /**
