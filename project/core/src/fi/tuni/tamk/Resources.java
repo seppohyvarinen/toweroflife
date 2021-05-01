@@ -65,6 +65,8 @@ public class Resources {
     static Texture minigameBg;
     static Texture problemBox;
     static Texture answerBox;
+    static Texture answerBoxRight;
+    static Texture answerBoxWrong;
 
     //Sounds & Music
 
@@ -212,6 +214,11 @@ public class Resources {
 
         problemBox = new Texture(Gdx.files.internal("problem_box.png"));
         answerBox = new Texture(Gdx.files.internal("answer_box.png"));
+        answerBoxRight = new Texture(Gdx.files.internal("answer_box_right.png"));
+        answerBoxWrong = new Texture(Gdx.files.internal("answer_box_wrong.png"));
+
+
+
 
 
     }

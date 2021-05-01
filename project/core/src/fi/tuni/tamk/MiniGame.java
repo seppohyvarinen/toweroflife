@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import static fi.tuni.tamk.Resources.angerM;
 import static fi.tuni.tamk.Resources.answerBox;
+import static fi.tuni.tamk.Resources.answerBoxRight;
 import static fi.tuni.tamk.Resources.correct;
 import static fi.tuni.tamk.Resources.fearM;
 import static fi.tuni.tamk.Resources.hateM;
@@ -81,6 +82,8 @@ public class MiniGame implements Screen {
     boolean soundIsPlayed = false;
     SpriteBatch batch;
     Main host;
+    int touchX = 0;
+    int touchY = 0;
 
     boolean hide = false;
     int answerCounter = 0;
@@ -527,30 +530,46 @@ public class MiniGame implements Screen {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.draw(minigameBg, 0, 0, 1800, 3200);
 
+
             batch.draw(problemBox, 0, TowerOfLife.WORLD_HEIGHT * 200 - 600, problemWidth * 2, 600);
             ypos = TowerOfLife.WORLD_HEIGHT * 200 - 300f + getTextHeight(problem);
             host.resources.minigameFont.draw(batch, problem, 100, ypos, 1600f, 1, true);
 
-            batch.draw(answerBox, 0, 1800, 1800, 600);
+            if (itsCorrect && touchY > 1800 && touchY < 2400) {
+                batch.draw(host.resources.answerBoxRight, 0, 1800, 1800, 600);
+            }  else if(touchY > 1800 && touchY < 2400) {
+                batch.draw(host.resources.answerBoxWrong, 0, 1800, 1800, 600);
+            }  else {
+                batch.draw(answerBox, 0, 1800, 1800, 600);
+            }
+
             ypos = 2100 + getTextHeight(ans1);
             host.resources.minigameFont.draw(batch, ans1, 220, ypos, 1360f, 1, true);
 
-            batch.draw(answerBox, 0, 1000, 1800, 600);
+            if (itsCorrect && touchY > 1000 && touchY < 1600) {
+                batch.draw(host.resources.answerBoxRight, 0, 1000, 1800, 600);
+            }  else if(touchY > 1000 && touchY < 1600) {
+                batch.draw(host.resources.answerBoxWrong, 0, 1000, 1800, 600);
+            }  else {
+                batch.draw(answerBox, 0, 1000, 1800, 600);
+            }
+
             ypos = 1300 + getTextHeight(ans2);
             host.resources.minigameFont.draw(batch, ans2, 220, ypos, 1360f, 1, true);
 
-            batch.draw(answerBox, 0, 200, 1800, 600);
+
+            if (itsCorrect && touchY > 200 && touchY < 800) {
+                batch.draw(host.resources.answerBoxRight, 0, 200, 1800, 600);
+            }  else if (touchY > 200 && touchY < 800)  {
+                batch.draw(host.resources.answerBoxWrong, 0, 200, 1800, 600);
+            }  else {
+                batch.draw(answerBox, 0, 200, 1800, 600);
+            }
             ypos = 500 + getTextHeight(ans3);
             host.resources.minigameFont.draw(batch, ans3, 220, ypos, 1360f, 1, true);
             if (answerIsGiven) {
                 answerCounter++;
-                if (itsCorrect) {
-                    batch.draw(nice, 560, 1600, 800, 300);
-                    batch.draw(nice, 200, 2000, 600, 240);
-                    batch.draw(nice, 1100, 2000, 600, 240);
-                    batch.draw(nice, 300, 1200, 600, 240);
-                    batch.draw(nice, 1000, 1200, 600, 240);
-                }
+
                 if (answerCounter > 60) {
                     host.theGame.minigameStart = false;
                     host.theGame.miniGameCounter = 0;
@@ -571,8 +590,8 @@ public class MiniGame implements Screen {
         if (Gdx.input.isTouched()) {
             Vector3 touchPoint = new Vector3();
             TowerOfLife.hudcamera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-            Gdx.app.log("x", "" + touchPoint.x);
-            Gdx.app.log("y", "" + touchPoint.y);
+
+            touchY = (int) touchPoint.y;
 
             //answer 1
             if ((touchPoint.x > 0 && touchPoint.x < 1800) && (touchPoint.y > 1800 && touchPoint.y < 2400)) {
