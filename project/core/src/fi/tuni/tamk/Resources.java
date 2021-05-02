@@ -75,9 +75,17 @@ public class Resources {
     static Sound incorrect;
 
     static Music hateM;
+    static Music hateM2;
+    static Music hateM3;
     static Music sorrowM;
+    static Music sorrowM2;
+    static Music sorrowM3;
     static Music angerM;
+    static Music angerM2;
+    static Music angerM3;
     static Music fearM;
+    static Music fearM2;
+    static Music fearM3;
 
     // Fonts
     static BitmapFont font;
@@ -205,9 +213,17 @@ public class Resources {
         nice = new Texture(Gdx.files.internal("nice.png"));
 
         angerM = Gdx.audio.newMusic(Gdx.files.internal("angermusic.mp3"));
+        angerM2 = Gdx.audio.newMusic(Gdx.files.internal("angermusic2.mp3"));
+        angerM3 = Gdx.audio.newMusic(Gdx.files.internal("angermusic3.mp3"));
         hateM = Gdx.audio.newMusic(Gdx.files.internal("hatemusic.mp3"));
+        hateM2 = Gdx.audio.newMusic(Gdx.files.internal("hatemusic2.mp3"));
+        hateM3 = Gdx.audio.newMusic(Gdx.files.internal("hatemusic3.mp3"));
         sorrowM = Gdx.audio.newMusic(Gdx.files.internal("sorrowmusic.mp3"));
+        sorrowM2 = Gdx.audio.newMusic(Gdx.files.internal("sorrowmusic2.mp3"));
+        sorrowM3 = Gdx.audio.newMusic(Gdx.files.internal("sorrowmusic3.mp3"));
         fearM = Gdx.audio.newMusic(Gdx.files.internal("fearmusic.mp3"));
+        fearM2 = Gdx.audio.newMusic(Gdx.files.internal("fearmusic.mp3"));
+        fearM3 = Gdx.audio.newMusic(Gdx.files.internal("fearmusic.mp3"));
 
         correct = Gdx.audio.newSound(Gdx.files.internal("correcto.mp3"));
         incorrect = Gdx.audio.newSound(Gdx.files.internal("wrongo.mp3"));

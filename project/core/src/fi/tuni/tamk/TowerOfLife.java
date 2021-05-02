@@ -116,6 +116,7 @@ public class TowerOfLife implements Screen {
     boolean gongrats = false;
     boolean wasIncorrect = false;
     boolean gamePlayed = false;
+    static boolean anger = false;
     static boolean mainGame = true;
     static boolean minigameStart = false;
     int destroyIndex;
@@ -927,6 +928,10 @@ public class TowerOfLife implements Screen {
                 b.userData = fearBox;
             } else {
                 b.userData = hateBox;
+            }
+
+            if (b.bodyTexture == host.resources.anger) {
+                anger = true;
             }
             boxes.add(b);
             lastWasNegative = true;

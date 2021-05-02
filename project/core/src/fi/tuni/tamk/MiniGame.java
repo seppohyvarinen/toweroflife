@@ -84,6 +84,7 @@ public class MiniGame implements Screen {
     Main host;
     int touchX = 0;
     int touchY = 0;
+    int mIndex;
 
     boolean hide = false;
     int answerCounter = 0;
@@ -173,9 +174,17 @@ public class MiniGame implements Screen {
         hateProblemThree.add(host.getLevelText("hate3_correct"));
 
         pIndex = MathUtils.random(0, 2);
+        mIndex = MathUtils.random(0, 2);
 
         if (e.equals("sorrowBox")) {
-            thatsPlayed = sorrowM;
+
+            if (mIndex == 0) {
+                thatsPlayed = sorrowM;
+            }  else if (mIndex == 1) {
+                thatsPlayed = host.resources.sorrowM2;
+            }  else {
+                thatsPlayed = host.resources.sorrowM3;
+            }
 
             if (host.theGame.musicOn) {
                 thatsPlayed.play();
@@ -192,7 +201,27 @@ public class MiniGame implements Screen {
             TowerOfLife.usedSorrowQuestions.add(pIndex);
             TowerOfLife.latestSorrow = pIndex;
         } else if (e.equals("hateBox")) {
-            thatsPlayed = hateM;
+
+            if (host.theGame.anger) {
+                if (mIndex == 0) {
+                    thatsPlayed = angerM;
+                }  else if (mIndex == 1) {
+                    thatsPlayed = host.resources.angerM2;
+                }  else {
+                    thatsPlayed = host.resources.angerM3;
+                }
+                host.theGame.anger = false;
+            }  else {
+                if (mIndex == 0) {
+                    thatsPlayed = hateM;
+                }  else if (mIndex == 1) {
+                    thatsPlayed = host.resources.hateM2;
+                }  else {
+                    thatsPlayed = host.resources.hateM3;
+                }
+            }
+
+
             if (host.theGame.musicOn) {
                 thatsPlayed.play();
                 thatsPlayed.setLooping(true);
@@ -207,7 +236,13 @@ public class MiniGame implements Screen {
             TowerOfLife.usedAngerQuestions.add(pIndex);
             TowerOfLife.latestAnger = pIndex;
         } else {
-            thatsPlayed = fearM;
+            if (mIndex == 0) {
+                thatsPlayed = fearM;
+            }  else if (mIndex == 1) {
+                thatsPlayed = host.resources.fearM2;
+            }  else {
+                thatsPlayed = host.resources.fearM3;
+            }
             if (host.theGame.musicOn) {
                 thatsPlayed.play();
                 thatsPlayed.setLooping(true);
