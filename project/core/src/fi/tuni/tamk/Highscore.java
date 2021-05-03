@@ -64,9 +64,32 @@ public class Highscore implements Screen {
         fontParameter.color = Color.YELLOW;
         font = fontGenerator.generateFont(fontParameter);
 
+        Button reset = new TextButton(host.getLevelText("reset"), mySkin, "default");
+        reset.setSize(width, height);
+        reset.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 350);
+        reset.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (TowerOfLife.soundOn) {
+                    host.resources.tap.play();
+                }
+                String myString = "";
+                for (int i = 0; i < 10; i++) {
+                    myString = myString + String.valueOf(0) + "\n";
+                    Main.file.writeString(myString, false);
+                }
+                host.setScreen(new Highscore(host));
+            }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(reset);
+
         Button quit = new TextButton(host.getLevelText("back"), mySkin, "default");
         quit.setSize(width, height);
-        quit.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 250);
+        quit.setPosition(TowerOfLife.WORLD_WIDTH * 100 / 2 - width / 2, 150);
         quit.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -110,8 +133,8 @@ public class Highscore implements Screen {
         stage.draw();
 
         batch.begin();
-        font.draw(batch, host.getLevelText("highscore"), 0, 2800, 1800, 1, false);
-        font.draw(batch, Main.file.readString(), 0, 2600, 1800, 1, false);
+        font.draw(batch, host.getLevelText("highscore"), 0, 3000, 1800, 1, false);
+        font.draw(batch, Main.file.readString(), 0, 2800, 1800, 1, false);
         batch.end();
 
         if (isPressed) {
