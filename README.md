@@ -1,6 +1,6 @@
 # toweroflife
 
-About the Project:
+##About the Project:##
 
 Tower of Life is a fun tower stacking game for Android devices coded by TAMK students Artem Tolpa, Seppo Hyvärinen and Lari Kettunen.
 The game is a part of "Empathizing way to build social inclusion" project with the purpose of teaching emotional skills 
@@ -11,11 +11,11 @@ https://play.google.com/store/apps/details?id=fi.tuni.toweroflife
 
 For all of us coding this game was a fun and an educational experience, we hope you enjoy it as well!
 
-Language & Framework:
+##Language & Framework:##
 
 The game is coded in Java. It utilizes the libGDX framework and Box2d physics engine. The IDE used was Android Studio.
 
-How to play the game:
+##How to play the game:##
 
 Playing the game is simple, the player taps the screen when box hanging in the top is wanted to be dropped. There are different boxes in the
 game that represent different positive and negative emotions. The basic idea is simply to stack the boxes on top of each other, but there are challenges since
