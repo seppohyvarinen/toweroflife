@@ -11,6 +11,15 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * Resources class is used to initialize all the Textures, Musics, Fonts and Sounds only once to avoid memory build-ups.
+ *
+ * The class has also a method for changing the Box Textures according to the language.
+ *
+ * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
+ */
+
+
 public class Resources {
 
     static Music menuBgm;
@@ -99,6 +108,9 @@ public class Resources {
     static FreeTypeFontGenerator.FreeTypeFontParameter minigameFontParameter;
     static BitmapFont minigameFont;
 
+    /**
+     * Constructor for the Resources class. Initializes Textures, Musics, Fonts and Sounds used in the game.
+     */
 
     public Resources() {
         menuBgm = Gdx.audio.newMusic(Gdx.files.internal("menuehka.mp3"));
@@ -238,6 +250,10 @@ public class Resources {
 
 
     }
+
+    /**
+     * Method for changing the Box Textures according to the Locale used.
+     */
 
     public static void changeLanguage() {
         if (Main.locale.equals(new Locale("fi", "FI"))) {
