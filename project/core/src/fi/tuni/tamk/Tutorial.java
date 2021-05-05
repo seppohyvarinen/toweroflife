@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Highscore class is the screen with the game highscores.
@@ -38,6 +39,7 @@ public class Tutorial implements Screen {
     float height = 150;
     int camHeight = 1800;
     int camWidth = 1050;
+    Viewport viewport;
     public static OrthographicCamera tutCam;
 
     public Tutorial (Main host) {
@@ -45,6 +47,8 @@ public class Tutorial implements Screen {
         batch = new SpriteBatch();
         tutCam = new OrthographicCamera();
         tutCam.setToOrtho(false, camWidth, camHeight);
+        viewport = new FitViewport(TowerOfLife.WORLD_WIDTH * 1.1f, TowerOfLife.WORLD_HEIGHT * 1.1f, TowerOfLife.camera);
+        viewport.apply();
 
         page = 0;
         this.host = host;
@@ -74,6 +78,8 @@ public class Tutorial implements Screen {
         }
         batch.setProjectionMatrix(tutCam.combined);
         batch.begin();
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         switch (page) {
             case 0:
@@ -117,7 +123,7 @@ public class Tutorial implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
     }
 
     @Override
