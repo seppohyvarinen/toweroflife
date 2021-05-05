@@ -57,6 +57,16 @@ public class Resources {
     static Texture cloud3;
     static ArrayList<Texture> clouds;
 
+    static Texture tutorial1;
+    static Texture tutorial2;
+    static Texture tutorial3;
+    static Texture tutorial4;
+    static Texture tutorial5;
+    static Texture tutorial6;
+    static Texture tutorial7;
+    static Texture screenShot1;
+    static Texture screenShot2;
+
 
     // Boxes
     static Texture anger;
@@ -141,6 +151,16 @@ public class Resources {
         backdrop18 = new Texture(Gdx.files.internal("backdrop18.png"));
         backdrop19 = new Texture(Gdx.files.internal("backdrop19.png"));
         backdrop20 = new Texture(Gdx.files.internal("backdrop20.png"));
+
+        tutorial1 = new Texture(Gdx.files.internal("tutorial1_fi.png"));
+        tutorial2 = new Texture(Gdx.files.internal("tutorial2_fi.png"));
+        tutorial3 = new Texture(Gdx.files.internal("tutorial3_fi.png"));
+        tutorial4 = new Texture(Gdx.files.internal("tutorial4_fi.png"));
+        tutorial5 = new Texture(Gdx.files.internal("tutorial5_fi.png"));
+        tutorial6 = new Texture(Gdx.files.internal("tutorial6_fi.png"));
+        tutorial7 = new Texture(Gdx.files.internal("tutorial7_fi.png"));
+        screenShot1 = new Texture(Gdx.files.internal("peli1.png"));
+        screenShot2 = new Texture(Gdx.files.internal("peli2.png"));
 
         clouds = new ArrayList<>();
         cloud3 = new Texture(Gdx.files.internal("cloud3.png"));
@@ -290,6 +310,29 @@ public class Resources {
             negative.add(fear);
             negative.add(hate);
             negative.add(sorrow);
+        }
+    }
+    public static void changeTutLanguage() {
+        if (Main.locale.equals(new Locale("fi", "FI"))) {
+            tutorial1 = new Texture(Gdx.files.internal("tutorial1_fi.png"));
+            tutorial2 = new Texture(Gdx.files.internal("tutorial2_fi.png"));
+            tutorial3 = new Texture(Gdx.files.internal("tutorial3_fi.png"));
+            tutorial4 = new Texture(Gdx.files.internal("tutorial4_fi.png"));
+            tutorial5 = new Texture(Gdx.files.internal("tutorial5_fi.png"));
+            tutorial6 = new Texture(Gdx.files.internal("tutorial6_fi.png"));
+            tutorial7 = new Texture(Gdx.files.internal("tutorial7_fi.png"));
+            screenShot1 = new Texture(Gdx.files.internal("peli1.png"));
+            screenShot2 = new Texture(Gdx.files.internal("peli2.png"));
+        } else {
+            tutorial1 = new Texture(Gdx.files.internal("tutorial1_en.png"));
+            tutorial2 = new Texture(Gdx.files.internal("tutorial2_en.png"));
+            tutorial3 = new Texture(Gdx.files.internal("tutorial3_en.png"));
+            tutorial4 = new Texture(Gdx.files.internal("tutorial4_en.png"));
+            tutorial5 = new Texture(Gdx.files.internal("tutorial5_en.png"));
+            tutorial6 = new Texture(Gdx.files.internal("tutorial6_en.png"));
+            tutorial7 = new Texture(Gdx.files.internal("tutorial7_en.png"));
+            screenShot1 = new Texture(Gdx.files.internal("game1.png"));
+            screenShot2 = new Texture(Gdx.files.internal("game2.png"));
         }
     }
 }

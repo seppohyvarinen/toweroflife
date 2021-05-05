@@ -63,6 +63,7 @@ public class SettingsMenu implements Screen {
                     host.locale = new Locale("fi", "FI");
                 }
                 Resources.changeLanguage();
+                Resources.changeTutLanguage();
                 host.setScreen(new SettingsMenu(host));
             }
 
