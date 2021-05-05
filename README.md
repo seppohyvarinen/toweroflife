@@ -6,7 +6,7 @@ Tower of Life is a fun tower stacking game for Android devices coded by TAMK stu
 The game is a part of "Empathizing way to build social inclusion" project with the purpose of teaching emotional skills 
 to young people in the risk of inclusion. This educational aspect of the game is implemented in the in-game minigame that 
 has various questions the player need to solve in order to proceed. The game supports 2 languages - English and Finnish.
-The game is available in Google Play store:
+The game is available FOR FREE in Google Play store:
 https://play.google.com/store/apps/details?id=fi.tuni.toweroflife
 
 For all of us coding this game was a fun and an educational experience, we hope you enjoy it as well!
