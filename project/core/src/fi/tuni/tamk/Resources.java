@@ -312,6 +312,10 @@ public class Resources {
             negative.add(sorrow);
         }
     }
+
+    /**
+     * Method for changing the Textures in the Tutorial Screen according to the Locale used.
+     */
     public static void changeTutLanguage() {
         if (Main.locale.equals(new Locale("fi", "FI"))) {
             tutorial1 = new Texture(Gdx.files.internal("tutorial1_fi.png"));

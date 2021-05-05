@@ -22,9 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- * Highscore class is the screen with the game highscores.
- * <p>
- * The class contains a background, batch with the text and the stage, which has the back button.
+ * Tutorial class serves as a tutorial for Tower Of Life.
  *
  * @author Artem Tolpa, Seppo Hyvarinen, Lari Kettunen
  */
@@ -41,6 +39,12 @@ public class Tutorial implements Screen {
     int camWidth = 1050;
     Viewport viewport;
     public static OrthographicCamera tutCam;
+
+    /**
+     * Constructor for the Tutorial. Initializes the page that's being viewed and viewport and Spritebatch that's used.
+     *
+     * @param host is the Main Object used as a host for this screen.
+     */
 
     public Tutorial (Main host) {
 
@@ -64,10 +68,20 @@ public class Tutorial implements Screen {
         }));
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
+
     @Override
     public void show() {
 
     }
+
+    /**
+     * Mandatory method for classes implementing the screen. Renders all the Textures used in the class.
+     *
+     * @param delta is the deltatime, or elapsed time.
+     */
 
     @Override
     public void render(float delta) {
@@ -121,28 +135,50 @@ public class Tutorial implements Screen {
 
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Updates the Viewport according to the Screen size.
+     */
+
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
     }
 
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
     @Override
     public void pause() {
 
     }
-
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
     @Override
     public void resume() {
 
     }
-
+    /**
+     * Mandatory method in classes that implement Screen. Doesn't do anything here.
+     */
     @Override
     public void hide() {
 
     }
-
+    /**
+     * Mandatory method in classes that implement Screen. Disposes of the Textures, Sounds and Music used.
+     */
     @Override
     public void dispose() {
+        host.resources.screenShot1.dispose();
+        host.resources.screenShot2.dispose();
+        host.resources.tutorial1.dispose();
+        host.resources.tutorial2.dispose();
+        host.resources.tutorial3.dispose();
+        host.resources.tutorial4.dispose();
+        host.resources.tutorial5.dispose();
+        host.resources.tutorial6.dispose();
+        host.resources.tutorial7.dispose();
 
     }
 }
