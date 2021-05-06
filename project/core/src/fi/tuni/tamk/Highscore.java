@@ -54,7 +54,7 @@ public class Highscore implements Screen {
         scoreCam.setToOrtho(false, camWidth, camHeight);
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
-        Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
+        Skin mySkin = new Skin(Gdx.files.internal("ToLskin/ToLskin.json"));
 
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();

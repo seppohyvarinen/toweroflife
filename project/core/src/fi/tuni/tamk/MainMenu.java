@@ -48,7 +48,7 @@ public class MainMenu implements Screen {
         stage = new Stage(new FitViewport(TowerOfLife.WORLD_WIDTH * 100, TowerOfLife.WORLD_HEIGHT * 100));
         Gdx.input.setInputProcessor(stage);
 
-        Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
+        Skin mySkin = new Skin(Gdx.files.internal("ToLskin/ToLskin.json"));
 
         Button play = new TextButton(host.getLevelText("play"), mySkin, "default");
         play.setSize(width, height);

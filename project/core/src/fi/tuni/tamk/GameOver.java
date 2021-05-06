@@ -52,7 +52,7 @@ public class GameOver implements Screen {
         Gdx.input.setInputProcessor(stage);
 
 
-        Skin mySkin = new Skin(Gdx.files.internal("skin1/glassy-ui.json"));
+        Skin mySkin = new Skin(Gdx.files.internal("ToLskin/ToLskin.json"));
 
 
         TowerOfLife.score = 0;
